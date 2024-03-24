@@ -800,13 +800,22 @@ router.get('/admin/admin-form-payout', middleware.ensureAdminLoggedIn, async (re
     let userQuery = Qualified.find({ deletedAt: { $eq: null } });
 
     if (query) {
-      userQuery = userQuery.or([
-        { first_name: { $regex: new RegExp(query, 'i') } },
-        { middle_name: { $regex: new RegExp(query, 'i') } },
-        { last_name: { $regex: new RegExp(query, 'i') } },
-        { code: parseInt(query) } // Search for exact match of numbers in the code field
-      ]);
+      if (!isNaN(query)) { // Check if query is a valid number
+        userQuery = userQuery.or([
+          { first_name: { $regex: new RegExp(query, 'i') } },
+          { middle_name: { $regex: new RegExp(query, 'i') } },
+          { last_name: { $regex: new RegExp(query, 'i') } },
+          { code: parseInt(query) } // Parse query as integer
+        ]);
+      } else {
+        userQuery = userQuery.or([
+          { first_name: { $regex: new RegExp(query, 'i') } },
+          { middle_name: { $regex: new RegExp(query, 'i') } },
+          { last_name: { $regex: new RegExp(query, 'i') } }
+        ]);
+      }
     }
+    
 
     // Fetch all qualified data
     const allQualifiedData = await userQuery.sort({ updatedAt: -1 }).exec();

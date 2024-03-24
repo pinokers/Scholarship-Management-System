@@ -1,45 +1,32 @@
+
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/public/css/applicant-forget-password.css">
   <title>Email Verification</title>
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <style>
-    /* Custom CSS for centering content */
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-  </style>
+  <!-- Include Bootstrap CSS from a CDN (Content Delivery Network) -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
-
 <body>
-  <div class="container text-center">
-    <div>
-      <h1>Email Verification</h1>
-      <% if (verified) { %>
-        <p>Your email has been successfully verified!</p>
-        <p>Thank you for registering with us.</p>
-        <p>
-          <a href="/auth/applicantlogin" class="btn btn-primary">Proceed to Login</a>
-        </p>
-        <!-- You can add additional content or redirect to a login page here -->
-      <% } else { %>
-        <p>Invalid verification token or email is already verified.</p>
-        <p>
-          <a href="/auth/applicantlogin" class="btn btn-primary">Proceed to Login</a>
-        </p>
-      <% } %>
-    </div>
+  <div class="container applicant-forget-password-container">
+    <% if (verified) { %>
+      <p>Your email has been successfully verified!</p>
+      <p>Thank you for registering with us.</p>
+      <p>
+        <a href="/auth/applicantlogin" class="btn btn-primary">Proceed to Login</a>
+      </p>
+      <!-- You can add additional content or redirect to a login page here -->
+    <% } else { %>
+      <p>Invalid verification token or email is already verified.</p>
+      <p>
+        <a href="/auth/applicantlogin" class="btn btn-primary">Proceed to Login</a>
+      </p>
+    <% } %>
   </div>
 
-  <!-- Bootstrap JS (Optional, if needed) -->
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <!-- Include Bootstrap JavaScript from a CDN (Optional, for certain features) -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
-
 </html>
