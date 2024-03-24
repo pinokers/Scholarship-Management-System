@@ -156,8 +156,8 @@ router.post('/auth/register', [
       secure: true, // true for 465, false for other ports
     });
 
-    // Send verification email
-    const verificationLink = `${req.protocol}://${req.hostname}${req.originalUrl}/auth/verify-email?token=${verificationToken}`;
+   // Send verification email
+   const verificationLink = `${process.env.BASE_URL}/auth/verify-email?token=${verificationToken}`;
     const mailOptions = {
       from: 'ssoscholarsip@gmail.com',
       to: req.body.email,
