@@ -157,7 +157,7 @@ router.post('/auth/register', [
     });
 
     // Send verification email
-    const verificationLink = `${process.env.BASE_URL}/auth/verify-email?token=${verificationToken}`;
+    const verificationLink = `${req.protocol}://${req.hostname}${req.originalUrl}/auth/verify-email?token=${verificationToken}`;
     const mailOptions = {
       from: 'ssoscholarsip@gmail.com',
       to: req.body.email,
