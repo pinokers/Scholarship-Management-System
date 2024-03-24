@@ -1,0 +1,8 @@
+@media (min-width: 768px) and (max-width: 990px) {
+    .col-md-6{
+        max-width: 100%;
+    }
+}
+
+
+

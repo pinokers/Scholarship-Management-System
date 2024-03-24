@@ -1,0 +1,175 @@
+<main>
+	
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		  <div id="main-wrapper">
+
+
+        <nav class="custom-navbar navbar-expand-lg navbar-light bg-light">
+          <div class="container-fluid applicant-navbar">
+        
+              
+            <div class="nav-links-container">
+              <a class="nav-link navbar-btns" href="/applicant/announcement"><i class="bi bi-envelope-exclamation"></i> Notifications</a>
+              <a class="nav-link navbar-btns" href="/applicant/form"><i class="fas fa-file-alt"></i> Application Form</a>
+              <a class="nav-link navbar-btns" href="/applicant/applicant-pre-reg"><i class="fas fa-user-plus"></i> Pre-registration Form</a>
+            </div>
+            
+            
+              <button class="custom-navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#customNavbarSupportedContent" aria-controls="customNavbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span><i class="fas fa-bars text-white"></i></span>
+              </button>
+          </div>
+          <div class="collapse navbar-collapse collapse-button" id="customNavbarSupportedContent">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                    <a class="nav-link navlink1" href="/applicant/announcement"><i class="bi bi-envelope-exclamation"></i> Notifications</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link navlink1" href="/applicant/form"><i class="fas fa-file-alt"></i> Application Form</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link navlink1" href="/applicant/applicant-pre-reg"><i class="fas fa-user-plus"></i> Pre-registration Form</a>
+                </li>
+            </ul>
+        </div>
+      </nav>
+      
+      
+      
+           
+		
+			<div class="bg-white shadow-sm applicant-announcement-header justify-content-center">
+				
+				<h5 class="m-1 color-theme d-inline-block applicant-announcement-header-title"><i class="bi bi-megaphone">Notifications</i></h5>
+			</div>
+			<!-- applicant/announcement.ejs -->
+
+      
+
+
+<div class="container-fluid mt-2">
+    <div class="row">
+        <div class="col-md-8 applicant-announcement-div">
+            <div class="applicant-notification-header color-theme shadow-sm">
+                <p class="applicant-notification-header-text">Announcements <i class="bi bi-megaphone"></i></p>
+            </div>
+            <div class="scrollable-announcement-container">
+                <ul class="list-group">
+                    <% announcements.forEach((announcement) => { %>
+                        <li class="list-group-item applicant-announcement-container">
+                            <div class="row">
+                                <div class="col-md-2 applicant-announce-date">
+                                    <p> <%= announcement.date.toDateString() %></p>
+                                </div>
+                                <div class="col-md-8">
+                                    <h4 class="applicant-announce-title mb-3">
+                                        <span class="applicant-announce-title-text"><%= announcement.title %>
+                                    </h4>
+                                    <p class="applicant-announce-content">
+                                        <%= announcement.content %>
+                                        <span class="see-more" style="display:none;">... <a href="#" class="expand">See more</a></span>
+                                    </p>
+                                </div>
+                            </div>
+                        </li>
+                    <% }); %>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-4">
+          <div class="container application-form-status-div-container">
+              <div class="application-form-status-div color-theme shadow-sm">
+                <p class="applicant-notification-header-text">Application Form Status</p>
+            </div>
+              
+                  <% formSched.forEach((schedule) => { %>
+
+                      <div class="card mb-4 application-status-card-div">
+                        <div class="card-body">
+                          <h5 class="card-title application-form-status-title">Semester: <strong><%= schedule.semester %></strong></h5>
+                          <p class="card-text application-form-status-limit">Limit: <strong><%= schedule.limit %></strong></p>
+                          <p class="card-text application-form-status-start">Start Date: <strong><%= new Date(schedule.start_date).toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' }) %></strong></p>
+                          <p class="card-text application-form-status-end">End Date: <strong><%= new Date(schedule.end_date).toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' }) %></strong></p>
+                        </div>
+                      </div>
+                  
+                  <% }); %>
+                
+			      </div>
+
+            <div class="container application-form-status-div-container">
+              <div class="application-form-status-div color-theme shadow-sm">
+                <p class="applicant-notification-header-text">Pre-Registration Form Status</p>
+            </div>
+            
+                  <% preregSched.forEach((schedule) => { %>
+
+                      <div class="card mb-3 application-status-card-div">
+                        <div class="card-body">
+                          <p class="card-text application-form-status-start">Start Date: <strong><%= new Date(schedule.startDate).toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' }) %></strong></p>
+                          <p class="card-text application-form-status-end">End Date: <strong><%= new Date(schedule.endDate).toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' }) %></strong></p>
+                        </div>
+                      </div>
+                  
+                  <% }); %>
+              
+			      </div>
+			
+			
+        </div>
+    </div>
+</div>
+			
+
+				  <script>
+					$(document).ready(function() {
+  var max_length = 200; // maximum character length before truncation
+
+  $('.applicant-announce-content').each(function() {
+    var content = $(this).text();
+    if (content.length > max_length) {
+      var short_content = content.substr(0, max_length);
+      var long_content = content.substr(max_length);
+      
+      $(this).html(short_content +
+                   '<span class="ellipsis">...</span>' +
+                   '<span class="hidden-content" style="display:none;">' + long_content + '</span>' +
+                   '<span class="see-more"> <a href="#" class="expand">See more</a></span>');
+    }
+  });
+
+  $(document).on('click', '.expand', function(e) {
+    e.preventDefault();
+    var parent = $(this).closest('.applicant-announce-content');
+    parent.find('.hidden-content').slideToggle();
+    parent.find('.ellipsis').toggle();
+    $(this).text(function(i, text) {
+      return text === "See more" ? "See less" : "See more";
+    });
+  });
+});
+
+				  </script>
+
+				  
+				  
+				  
+				</div>
+			  </div>
+			  
+
+				  </div>
+				</div>
+			  </div>
+			  
+			  
+			  
+			  
+			  
+  
+			
+	</div>
+
+	  
+	  
+</main>

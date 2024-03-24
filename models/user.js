@@ -1,44 +1,47 @@
 const mongoose = require('mongoose');
 
+// Define the User Schema
 const userSchema = new mongoose.Schema({
-  name: {
+  first_name: String,
+  middle_name: String,
+  last_name: String,
+  suffix: String,
+  email: { type: String, unique: true },
+  password: String, // Hashed and salted password
+  course: String,
+  contact: String,
+  districtSelect: String,
+  barangaySelect: String,
+  schoolName: String,
+  schoolAddress: String,
+  schoolID: String,
+  category: String,
+  // Add these fields for email verification
+  verificationToken: {
     type: String,
-    required: true
+    default: null,
   },
-  email: {
-    type: String,
-    required: true,
-    unique: true
+  verified: {
+    type: Boolean,
+    default: false,
   },
-  password: {
-    type: String,
-    required: true
+  createdAt: {
+      type: Date,
+      default: Date.now()
   },
-  course: {
-    type: String, // Add course field
-    required: true
+  updatedAt: {
+      type: Date,
+      default: Date.now()
   },
-  contact: {
-    type: String, // Add contact field
-    required: true
+  deletedAt: {
+    type: Date,
+    default: null,
   },
-  schoolID: {
-    type: String, // Add schoolID field
-    required: true
-  },
-  schoolName: {
-    type: String, // Add schoolName field
-    required: true
-  },
-  schoolAddress: {
-    type: String, // Add schoolAddress field
-    required: true
-  },
+  resetToken: String,
+  resetTokenExpiration: Date,
   role: {
-    type: String,
-    default: 'user' // Set the default role to 'user'
-  },
-  // Add any other fields or properties you need
+      type: String,
+      default: 'user'
+  }
 });
-
 module.exports = mongoose.model('User', userSchema);

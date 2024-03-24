@@ -1,0 +1,333 @@
+<!-- admin-form-trash-qualified.ejs -->
+<main>
+    <%- include('../partials/adminsidebar') %>
+    <link rel="stylesheet" href="/public/css/admin-application-process.css">
+    <div id="main-wrapper">
+      <div class="container-fluid">
+        <div class="bg-white scholarship-application-qualified-header shadow-sm p-3 d-flex justify-content-between">
+          <div>
+              <span class="me-3" id="sidebar-toggler-btn"><i class="fas fa-bars"></i></span>
+              <h5 class="m-0 color-theme scholarship-application-qualified-header-text d-inline-block">Scholarship Application - Deleted List</h5>
+          </div>
+          
+      </div> 
+          
+         <!-- Display the list of deleted records in a responsive table -->
+         <div class="table-responsive admin-manager-table-container container-fluid">
+            <table class="table table-sm">
+                <thead>
+                    <div class="d-flex align-items-center"> <!-- Flex container -->
+                        <!-- Checkbox to select all -->
+                        <input type="checkbox" id="select-all-checkbox" onchange="selectAllQualified()" class="me-2">
+                        
+                        <!-- Button to restore selected records -->
+                        <div class="row">
+                            <div class="col-md-2">
+                              <button type="button" id="delete-selected-button" class="btn btn-outline-success btn-sm d-none" data-bs-toggle="modal" data-bs-target="#restoreConfirmationModal">
+                                <i class="bi bi-arrow-clockwise"></i> Restore
+                              </button>
+                            </div>
+                            <div class="col-md-10">
+                              <form id="searchForm" action="/admin/admin-form-trash" method="GET">
+                                <div class="input-group">
+                                  <input type="text" id="searchInput" name="query" placeholder="Search for users..." aria-label="Search"  class="form-control">
+                                  <select id="barangayFilter" name="barangay" class="form-control">
+                                    <option value="">Filter by Barangay</option>
+                                    <optgroup label="District 1">
+                                      <option value="Baclaran">Baclaran</option>
+                                      <option value="Don Galo">Don Galo</option>
+                                      <option value="La Huerta">La Huerta</option>
+                                      <option value="San Donisio">San Donisio</option>
+                                      <option value="San Isidro">San Isidro</option>
+                                      <option value="Santo Niño">Santo Niño</option>
+                                      <option value="Tambo">Tambo</option>
+                                      <option value="Vitalez">Vitalez</option>
+                                    </optgroup>
+                                    <optgroup label="District 2">
+                                      <option value="B.F Homes">B.F Homes</option>
+                                      <option value="Don Bosco">Don Bosco</option>
+                                      <option value="Marcelo Green">Marcelo Green</option>
+                                      <option value="Merville">Merville</option>
+                                      <option value="Moonwalk">Moonwalk</option>
+                                      <option value="San Antonio">San Antonio</option>
+                                      <option value="San Martin De Porres">San Martin De Porres</option>
+                                      <option value="San Valley">San Valley</option>
+                                    </optgroup>
+                                    <!-- Add other barangay options if needed -->
+                                  </select>
+                                  <div class="input-group-append">
+                                    <button class="btn btn-primary btn-sm" type="submit">
+                                      <i class="fas fa-search"></i>
+                                    </button>
+                                  </div>
+                                </div>
+                              </form>
+                            </div>
+                            
+                          </div>
+                          
+                          
+                          
+                        
+                        <!-- Modal for Restore Confirmation -->
+                        <div class="modal fade" id="restoreConfirmationModal" tabindex="-1" aria-labelledby="restoreConfirmationModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="restoreConfirmationModalLabel">Confirm Restore</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Are you sure you want to restore the selected records?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        <!-- Add parentheses after function name -->
+                                        <button type="button" class="btn btn-success" onclick="deleteSelectedQualified()">Confirm Restore</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
+                        <table class="table table-sm">
+                            <thead class="thead-dark thead-sm">
+                                <tr>
+                                    <th scope="col"></th>
+                                    <th scope="col">#</th>
+                                    <th scope="col">First Name</th>
+                                    <th scope="col">Middle Name</th>
+                                    <th scope="col">Last Name</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Date Deleted</th>
+                                    <th scope="col">Actions<i class="bi bi-trash"></i></th>
+                                </tr>
+      
+                </thead>
+                <tbody>
+                    <% if (allDeletedData && allDeletedData.length > 0) { %>
+                        <% allDeletedData.forEach((deleted, index) => { %>                    
+                        <tr class="align-middle">
+                            <!-- Ensure that the checkboxes have correct IDs -->
+                      <td><input type="checkbox" id="delete-checkbox-<%= deleted._id %>" class="delete-checkbox" onchange="updateDeleteButtonVisibility()"></td>
+                            <td><%= index + 1 %></td>
+                            <td><%= deleted.first_name %></td>
+                            <td><%= deleted.middle_name %></td>
+                            <td><%= deleted.last_name %></td>
+                            <td><%= deleted.email %></td>
+                            <td class="table-data"><strong><%= new Date(deleted.deletedAt).toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric' }) %></td>
+                                
+                                    <td class="text-end">
+                                        
+                                        <form id="delete-Disqualified-form-<%= deleted._id %>" action="/admin/delete-form-permanently" method="POST">
+                                            <input type="hidden" name="ids" value="<%= deleted._id %>">
+                                            <button type="button" id="delete-manage-button-<%= deleted._id %>" class="btn alert-danger trash-btn-delete-perm btn-small admin-pre-reg-disq-delete-btn" data-bs-toggle="modal" data-bs-target="#confirmation-modal-<%= deleted._id %>">
+                                               Delete Permanently
+                                            </button>
+                                        </form>
+                                        <div class="modal" id="confirmation-modal-<%= deleted._id %>" tabindex="-1" aria-labelledby="confirmation-modal-label" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title text-dark" id="confirmation-modal-label">Confirm Deletion</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body text-dark text-center">
+                                                        <p>Are you sure you want to delete the record of <strong><%= deleted.first_name %></strong>?</p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="cancel-delete-button">Cancel</button>
+                                                        <!-- No need for a submit button here, it will be handled by JavaScript -->
+                                                        <button type="button" class="btn btn-danger" onclick="confirmDelete('<%= deleted._id %>')">Confirm</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+
+                              
+                        </tr>
+                    <% }) %>
+                    <% } else { %>
+                        <tr>
+                          <td colspan="9" class="text-center">No results found.</td>
+                        </tr>
+                    <% allDeletedData.forEach((deleted, index) => { %>
+                        <tr class="align-middle">
+                            <!-- Ensure that the checkboxes have correct IDs -->
+                      <td><input type="checkbox" id="delete-checkbox-<%= deleted._id %>" class="delete-checkbox" onchange="updateDeleteButtonVisibility()"></td>
+                            <td><%= index + 1 %></td>
+                            <td><%= deleted.first_name %></td>
+                            <td><%= deleted.middle_name %></td>
+                            <td><%= deleted.last_name %></td>
+                            <td><%= deleted.email %></td>
+                            <td class="table-data"><strong><%= new Date(deleted.deletedAt).toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric' }) %></td>
+                                <td class="text-end">
+                                    <td class="text-end">
+                                        <form id="delete-Disqualified-form-<%= deleted._id %>" action="/admin/delete-form-permanently" method="POST">
+                                            <input type="hidden" name="ids" value="<%= deleted._id %>">
+                                            <button type="button" id="delete-manage-button-<%= deleted._id %>" class="btn alert-danger btn-small admin-pre-reg-disq-delete-btn" data-bs-toggle="modal" data-bs-target="#confirmation-modal-<%= deleted._id %>">
+                                                <i class="bi bi-trash">Delete Permanently</i>
+                                            </button>
+                                        </form>
+                                        <div class="modal" id="confirmation-modal-<%= deleted._id %>" tabindex="-1" aria-labelledby="confirmation-modal-label" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title text-dark" id="confirmation-modal-label">Confirm Deletion</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body text-dark text-center">
+                                                        <p>Are you sure you want to delete the record of <strong><%= deleted.first_name %></strong>?</p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="cancel-delete-button">Cancel</button>
+                                                        <!-- No need for a submit button here, it will be handled by JavaScript -->
+                                                        <button type="button" class="btn btn-danger" onclick="confirmDelete('<%= deleted._id %>')">Confirm</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    
+
+                                </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+</div>
+        <% } %>
+            <tr class="align-middle">
+                
+                <% if (allDeletedData.length > 0) { %>
+
+                    <td colspan="3" class="align-middle">
+                    <!-- Pagination information -->
+                    Displaying <strong><%= (current - 1) * perPage + 1 %> -
+                    <%= Math.min(current * perPage, totalCount) %> </strong>of <strong><%= totalCount %></strong> users
+                    </td>
+                    <!-- Pagination buttons -->
+                    <td colspan="6" class="align-middle">
+                    <nav aria-label="Dashboard Pagination">
+                        <ul class="pagination justify-content-end mt-1">
+                    
+                        <!-- First page button -->
+                        <% if (current == 1) { %>
+                            <li class="page-item disabled">
+                            <a href="#" class="page-link">First</a>
+                            </li>
+                        <% } else { %>
+                            <li class="page-item">
+                            <a href="/admin/admin-form-trash?page=1" class="page-link">First</a>
+                            </li>
+                        <% } %>
+                    
+                        <!-- Previous page button -->
+                        <li class="page-item <%= current == 1 ? 'disabled' : '' %>">
+                            <a href="/admin/admin-form-trash?page=<%= current - 1 %>" class="page-link" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                    
+                        <!-- Pagination numbers -->
+                        <% var start = Math.max(current - 2, 1); %>
+                        <% var end = Math.min(start + 4, pages); %>
+                        <% for(var i = start; i <= end; i++ ) { %>
+                            <li class="page-item <%= current == i ? 'active' : '' %>">
+                            <a href="/admin/admin-form-trash?page=<%= i %>" class="page-link"><%= i %></a>
+                            </li>
+                        <% } %>
+                    
+                        <!-- Next page button -->
+                        <li class="page-item <%= current == pages ? 'disabled' : '' %>">
+                            <a href="/admin/admin-form-trash?page=<%= current + 1 %>" class="page-link" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    
+                        <!-- Last page button -->
+                        <% if (current == pages) { %>
+                            <li class="page-item disabled">
+                            <a href="#" class="page-link">Last</a>
+                            </li>
+                        <% } else { %>
+                            <li class="page-item">
+                            <a href="/admin/admin-form-trash?page=<%= pages %>" class="page-link">Last</a>
+                            </li>
+                        <% } %>
+                    
+                        </ul>
+                    </nav>
+                    
+                    </td>
+               
+                <% } %>
+                
+            </tr>
+    </div>
+    <!-- Form for deleting selected records -->
+    <form id="deleteForm" action="/admin/delete-form-restoreAll" method="POST">
+        <!-- Hidden input field to store IDs of selected records -->
+        <input type="hidden" name="ids" id="idsToDelete" value="">
+        
+    </form>
+    <script>
+        // JavaScript to handle the deletion confirmation
+        function confirmDelete(disqualifiedId) {
+            // Submit the form
+            document.getElementById('delete-Disqualified-form-' + disqualifiedId).submit();
+        }
+    </script>
+    <script>
+        function selectAllQualified() {
+        const checkboxes = document.querySelectorAll('.delete-checkbox');
+        const selectAllCheckbox = document.getElementById('select-all-checkbox');
+        const deleteButton = document.getElementById('delete-selected-button');
+
+        // If the "Select All" checkbox is checked, update the state of individual checkboxes accordingly
+        checkboxes.forEach(checkbox => {
+            checkbox.checked = selectAllCheckbox.checked;
+        });
+
+        // Check if any checkbox is selected
+        const anyCheckboxSelected = [...checkboxes].some(checkbox => checkbox.checked);
+
+        // Toggle visibility of the delete button based on the checkbox state
+        deleteButton.classList.toggle('d-none', !anyCheckboxSelected);
+    }
+    function updateDeleteButtonVisibility() {
+        const checkboxes = document.querySelectorAll('.delete-checkbox');
+        const deleteButton = document.getElementById('delete-selected-button');
+
+        // Check if any checkbox is selected
+        const anyCheckboxSelected = [...checkboxes].some(checkbox => checkbox.checked);
+
+        // Toggle visibility of the delete button based on the checkbox state
+        deleteButton.classList.toggle('d-none', !anyCheckboxSelected);
+    }
+
+
+</script>
+<script>
+function deleteSelectedQualified() {
+const checkboxes = document.querySelectorAll('.delete-checkbox:checked');
+const qualifiedIds = Array.from(checkboxes).map(checkbox => checkbox.id.split('-')[2]);
+// Set the value of the hidden input field with the IDs to delete
+document.getElementById('idsToDelete').value = qualifiedIds.join(',');
+// Submit the form
+document.getElementById('deleteForm').submit();
+
+}
+</script>
+
+<style>
+    .trash-btn-delete-perm:hover{
+        background-color: red;
+    }
+</style>
+
+    
+  </main>
+  
+ 

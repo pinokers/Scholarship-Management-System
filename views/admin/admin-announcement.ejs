@@ -1,0 +1,153 @@
+<main>
+	
+	<%- include('../partials/adminsidebar') %>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="/public/css/adminannounce.css">
+		  <div id="main-wrapper">
+        <div class="container-fluid">
+      <div class="bg-white admin-create-schedule-header shadow-sm p-3">
+        <span class="me-3" id="sidebar-toggler-btn"><i class="fas fa-bars"></i></span>
+        <h5 class="m-0 admin-create-schedule-header-text color-theme d-inline-block">Announcement</h5>
+      </div>
+
+
+            <div class="container-fluid">
+                <div class="row">
+                  <div class="col-md-7 admin-create-announcement-div">
+                    <p class="admin-announcement-title-form-text-header container-fluid">Create Announcement <i class="fas fa-plus-circle"></i></p>
+                    <div class="admin-announcement-container mt-2">
+                      <div class="container-fluid">
+                        <form action="/admin/admin-announcement" method="POST" >
+                            <p class="admin-announcement-form-note">Fill up the forms to create announcement</p>
+                          <div class="row">
+                            <div class="col-md-6 announcement-form">
+                              <div class="form-group">
+                                <label for="announcementTitle">Title</label>
+                                <input type="text" class="form-control" id="announcementTitle" placeholder="Enter title" name="title">
+                              </div>
+                            </div>
+                            <div class="col-md-6 announcement-form">
+                              <div class="form-group">
+                                <label for="announcementDate">Date</label>
+                                <input type="date" class="form-control" id="announcementDate" name="date">
+                              </div>
+                            </div>
+                          </div>
+              
+                          <div class="form-group announcement-form">
+                            <label for="announcementContent">Content</label>
+                            <textarea class="form-control" id="announcementContent" rows="5" placeholder="Enter announcement content" name="content"></textarea>
+                          </div>
+              
+                          <div class="form-group  admin-announcement-btn-create-holder text-center">
+                            <button type="submit" class="btn  admin-announcement-btn-create ">Submit</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="col-md-5 admin-announcement-table-div ">
+                    <p class="admin-announcement-table-header container-fluid">
+                      Announcement Table <i class="fas fa-bullhorn"></i>
+                    </p>
+                    <div class="container-fluid mt-2 scrollable-div">
+                      <% announcements.forEach((announcement) => { %>
+                        <li class="list-group-item admin-announcement-table-container">
+                          <div class="row">
+                            <div class="col-md-3 admin-announcement-date">
+                              <p>Date: <%= announcement.date.toDateString() %></p>
+                            </div>
+                            <div class="col-md-9">
+                              <h4 class="admin-announcement-title">
+                                <%= announcement.title %>
+                              </h4>
+                              <p class="admin-announcement-content-container"><%= announcement.content %></p>
+                              <% if (announcement.date) { %>
+                                <div class="d-flex admin-announcement-table-button flex-row justify-content-end gap-2">
+                                  <div class="d-flex flex-row justify-content-end gap-2">
+                                    <a href="/admin/admin-announcement-edit/<%= announcement._id %>" type="button" class="admin-announcement-btn-update btn">
+                                      <i class="bi bi-pencil-square"></i>
+                                    </a>
+                                    
+                                    
+                                    <form id="delete-announcement-form-<%= announcement._id %>" action="/admin/announcement-delete/<%= announcement._id %>?_method=DELETE" method="POST">
+  
+                                      <button type="button" class="admin-announcement-btn-delete btn" data-bs-toggle="modal" data-bs-target="#confirmation-modal-<%= announcement._id %>">
+                                        <i class="bi bi-trash"></i>
+                                      </button>
+
+                                    </form>
+                                   
+                                    <!-- Bootstrap modal -->
+                                    <div class="modal" id="confirmation-modal-<%= announcement._id %>" tabindex="-1" aria-labelledby="confirmation-modal-label" aria-hidden="true">
+                                      <div class="modal-dialog">
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <h5 class="modal-title text-dark" id="confirmation-modal-label">Confirm Deletion</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                          </div>
+                                          <div class="modal-body text-dark">
+                                            <p>Are you sure you want to delete this announcement?</p>
+                                          </div>
+                                          <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="cancel-delete-button">Cancel</button>
+                                            <button type="button" class="btn btn-danger" onclick="deleteAnnouncement('<%= announcement._id %>')">Confirm</button>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              <% } %>
+                            </div>
+                          </div>
+                        </li>
+                      <% }); %>
+                    </ul>
+                    </div>
+                    
+                    <script>
+                      // JavaScript to handle the deletion
+                      function deleteAnnouncement(announcementId) {
+                        const deleteAnnouncementForm = document.getElementById('delete-announcement-form-' + announcementId);
+                        // You can perform additional actions or submit the form here if needed.
+                        deleteAnnouncementForm.submit();
+                      }
+                    </script>
+                    
+                  </div>    
+
+                  <script>
+                    $(document).ready(function() {
+  var max_length = 200; // maximum character length before truncation
+
+  $('.admin-announcement-content-container').each(function() {
+    var content = $(this).text();
+    if (content.length > max_length) {
+      var short_content = content.substr(0, max_length);
+      var long_content = content.substr(max_length);
+      
+      $(this).html(short_content +
+                   '<span class="ellipsis">...</span>' +
+                   '<span class="hidden-content" style="display:none;">' + long_content + '</span>' +
+                   '<span class="see-more"> <a href="#" class="expand">See more</a></span>');
+    }
+  });
+
+  $(document).on('click', '.expand', function(e) {
+    e.preventDefault();
+    var parent = $(this).closest('.admin-announcement-content-container');
+    parent.find('.hidden-content').slideToggle();
+    parent.find('.ellipsis').toggle();
+    $(this).text(function(i, text) {
+      return text === "See more" ? "See less" : "See more";
+    });
+  });
+});
+</script>
+                  </script>
+                                    
+
+	</div>
+</main>

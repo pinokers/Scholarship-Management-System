@@ -1,0 +1,116 @@
+.admin-payout-sub-header{
+    padding-top:10px;
+    padding-bottom:8px;
+    margin-bottom:0;
+    margin-top:20px;
+    border-left:green 5px solid;
+}
+
+.admin-payout-sub-header-text{
+    margin-left:10px;
+    font-size: 20px;
+    font-family: sans-serif;
+    font-weight: bold;
+}
+
+.admin-payout-applicant-pending-receiver{
+    background-color: white;
+    margin-top:20px;
+}
+
+.admin-payout-applicant-receiver{
+    background-color: white;
+    margin-top:10px;
+}
+
+.applicants-received-name{
+    color:green;
+    font-weight: bold;
+}
+
+.applicants-received{
+    color:green;
+}
+
+.applicants-code{
+    color:blue;
+    font-weight: bold;
+}
+
+.searchbar{
+    margin-top:20px;
+    margin-bottom:20px;
+    border:lightblue 2px solid;
+}
+
+.applicants-pending-name{
+    font-weight: bold;
+    color:darkred;
+
+}
+
+.applicants-pending-financial-grant{
+    color:darkred;
+}
+
+.applicants-pending-code{
+    color:darkred;
+    font-weight: bold;
+}
+
+.mark-received{
+    font-weight: bold;
+}
+
+.mark-received:hover{
+    background-color: green;
+}
+
+
+
+@media (min-width: 280px) and (max-width: 767px){
+    .admin-payout-header{
+        white-space: nowrap;
+        text-overflow:ellipsis;
+        overflow: hidden;
+    }
+
+    .admin-payout-header-text{
+        white-space: nowrap;
+        text-overflow:ellipsis;
+        overflow:hidden;
+        font-size:17px;
+    }
+
+    .admin-payout-sub-header{
+        white-space: nowrap;
+        text-overflow:ellipsis;
+        overflow:hidden;
+    }
+
+    .admin-payout-sub-header-text{
+        white-space: nowrap;
+        text-overflow:ellipsis;
+        overflow:hidden;
+        font-size: 15px;
+    }
+
+    .searchbar{
+        white-space: nowrap;
+        text-overflow:ellipsis;
+        overflow:hidden;
+        font-size: 15px;
+        max-width: 100%;
+        
+    }
+
+    .search-input{
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow:hidden;
+
+    }
+}
+
+
+

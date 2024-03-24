@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Forgot Password</title>
+  <!-- Include Bootstrap CSS from a CDN (Content Delivery Network) -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/public/css/adminforgetpassword.css">
+</head>
+<body>
+  <div class="container-sm forget-admin-password-container ">
+    <div class="text-center p-4">
+      <h1 class="mt-2">Forgot Admin Password</h1>
+      <form action="/mail/forgetadmin" method="POST" class="mt-4">
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" name="email" placeholder="Enter your Email here" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Include Bootstrap JavaScript from a CDN (Optional, for certain features) -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

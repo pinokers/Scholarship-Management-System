@@ -1,23 +1,24 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
+﻿
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signup Form</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="/applicant.css">
-    
-</head>
-<body>
+    <link rel="stylesheet" href="/public/css/admin-login.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5+z8N6U+0nUWywvY4jOQ4saDf5Gzp4yNJ87K6c2f" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
     <div class="container-fluid">
         <div class="row">
   <!--------------------------------------------------------------------------------------------BACKGROUND IMAGE---------------------------------------------------------------------------------->
-            <div class="col-md-6 bg-image" style="background-image: url('/public/image/formbg1.jpg'); background-repeat:no-repeat; background-size:cover; background-position:center;"></div>
+  <div class="col-md-6 bg-image" style="background-image: url('/public/image/formbg1.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center;"></div>
+
+
   <!--------------------------------------------------------------------------------------------SIGNUP FORM -------------------------------------------------------------------------------------->
-            <div class="col-md-6 p-4" id="applicantloginform">
+            <div class="col-md-6 p-4" id="adminloginform">
                 <form action="/auth/adminlogin" method="POST">
-                        <img src="/public/image/applicantslogo.png" alt="Logo" style="width: 100px; height:93px; display: block; margin: 0 auto;">                   
+                        <img src="/public/image/sslogofinal.png" class="adminlogo">                  
                     <h2 class="text-center mb-4">Admin Login</h2>
                     <div class="form-group">
                         <label for="email">Email</label>
@@ -27,6 +28,7 @@
                             name="email"
                             class="form-control"
                             placeholder="Enter Email"
+
 
                         />
                     </div>
@@ -47,27 +49,70 @@
                           </div>
                         </div>
                       </div>
-                      
-                    
-                        <button type="submit" class="btn btn-primary btn-block">Login</button>
-                        <button class="btn-danger btn-block"><a class="nav-link" href="/">Cancel</a></button>
+                     
+                      <div class="admin-btn-container">
+                        <button type="submit" id="submitButton" class="btn btn-primary btn-admin-login">Login</button>
+                        <button class="btn btn-primary btn-admin-cancel"><a class="nav-link" href="/">Cancel</a></button>
+                      </div>
                       </form>
                       <div class="container mt-4">
                         <div class="row">
                             <div class="col-md-0 offset-md-0 ">
-                                <p>forgot password? <a href="/forgotPassword" class="my-link">click to reset password</a></p>
+                                <p>forgot password? <a href="/mail/forgetadmin" class="my-link">click to reset password</a></p>
+                            </div>
+                        </div>
+                       
+                    </div>
+                     
+                </div>
+                </form>
+                <div class="modal fade" id="loadingModal" tabindex="-1" aria-labelledby="loadingModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-body text-center">
+                                <div class="spinner-grow text-success" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                                <div class="spinner-grow text-warning" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                                <div class="spinner-grow text-white" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                                
+                                <p class="mt-2 loading-text">Please wait</p>
                             </div>
                         </div>
                         
                     </div>
-                      
                 </div>
-                </form>
+                
+            
+  
+             
+                
+            <script>
+                document.getElementById('submitButton').addEventListener('click', function() {
+                // Show the loading modal
+                $('#loadingModal').modal('show');
+
+                // Blur the background (optional)
+                document.getElementById('loadingModal').classList.add('modal-blurr');
+
+                // Simulate loading delay and form submission
+                setTimeout(function() {
+                    // Trigger form submission
+                    document.querySelector('form').submit();
+                }, 2000); // Adjust the delay as needed
+                });
+
+            </script>
+
                  
-                  
+                 
             </div>
-            
-            
+           
+           
         </div>
          
     </div>
@@ -77,6 +122,7 @@
     const togglePassword = document.querySelector('#togglePassword');
     const passwordInput = document.querySelector('#password');
     const eyeIcon = document.querySelector('#eyeIcon');
+
 
     togglePassword.addEventListener('click', () => {
         if (passwordInput.type === 'password') {
@@ -90,20 +136,3 @@
         }
     });
 </script>
-
-<!------------------------------------------------------------------------------------------------CSS----------------------------------------------------->
-<style>
-    #applicantloginform{
-        margin-top:100px;
-    }
-
-    .logo-container {
-            text-align: center;
-            margin-bottom: 20px;
-    }
-    
-    
-</style>
-  
-</body>
-</html>

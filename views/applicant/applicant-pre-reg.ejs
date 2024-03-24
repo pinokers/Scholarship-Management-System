@@ -1,0 +1,904 @@
+<main>
+
+    <link rel="stylesheet" href="/public/css/applicant-pre-reg-form.css">
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+		<div id="main-wrapper">
+
+      <nav class="custom-navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid applicant-navbar">
+        
+          
+          <div class="nav-links-container">
+            <a class="nav-link navbar-btns" href="/applicant/announcement"><i class="bi bi-envelope-exclamation"></i> Notifications</a>
+            <a class="nav-link navbar-btns" href="/applicant/form"><i class="fas fa-file-alt"></i> Application Form</a>
+            <a class="nav-link navbar-btns" href="/applicant/applicant-pre-reg"><i class="fas fa-user-plus"></i> Pre-registration Form</a>
+            </div>
+          
+          
+          <button class="custom-navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#customNavbarSupportedContent" aria-controls="customNavbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span><i class="fas fa-bars text-white"></i></span>
+          </button>
+        </div>
+        <div class="collapse navbar-collapse collapse-button" id="customNavbarSupportedContent">
+          <ul class="navbar-nav mx-auto">
+            <li class="nav-item">
+              <a class="nav-link navlink1" href="/applicant/announcement"><i class="bi bi-envelope-exclamation"></i> Notifications</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link navlink1" href="/applicant/form"><i class="fas fa-file-alt"></i> Application Form</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link navlink1" href="/applicant/applicant-pre-reg"><i class="fas fa-user-plus"></i> Pre-registration Form</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+		
+			<div class="bg-white shadow-sm applicant-announcement-header p-3">
+				<h5 class="m-0 color-theme d-inline-block applicant-announcement-header-title">Pre Registration</h5>
+			</div>
+      <style>
+        #loadingIndicator {
+            display: none; /* Initially hidden */
+        }
+    </style>
+      
+      <% if (showForm) { %>
+        <!-- Pre-registration record exists -->
+            <div class="container mt-3">
+  
+                <% if (errors && errors.length > 0) { %> <!-- Check if errors is not null -->
+                    <!-- Display the form with validation errors -->
+                    <div class="error-messages alert alert-danger alert-dismissible fade show" role="alert">
+                      <% if (errors.length > 0) { %>
+                          <ul class="list-unstyled">
+                              <% errors.forEach(error => { %>
+                                  <li><i class="fas fa-exclamation-circle"></i> <%= error.msg %></li>
+                              <% }); %>
+                          </ul>
+                          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                      <% } %>
+                  </div> 
+                <% } %>
+            </div>
+            <div class="container-fluid pre-reg-form-container">
+                <form method="post" action="/applicant/applicant-pre-reg" enctype="multipart/form-data">
+                    <!-- Page 1 Fields -->
+                    <h1 class="pre-reg-form-title">Pre-Registration Form</h1>
+                  <div class="applicant-reg-form-scrollable">
+                  <div class="row ">
+                    
+                    <div class="form-group col-md-6 ">
+                      <label>1. Are you currently enrolled as a college student?</label><br>
+                      <div class="form-check form-check-inline">
+                          <input class="form-check-input btn btn-outline-secondary" type="radio" id="enrolledYes" name="enrolled" value="yes" <%= formData.enrolled === "yes" ? "checked" : "" %>>
+                          <label class="form-check-label" for="enrolledYes">Yes</label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                          <input class="form-check-input btn btn-outline-secondary" type="radio" id="enrolledNo" name="enrolled" value="no" <%= formData.enrolled === "no" ? "checked" : "" %>>
+                          <label class="form-check-label" for="enrolledNo">No</label>
+                      </div>
+                  </div>
+                  
+                  
+            
+                  <div class="form-group col-md-6">
+                      <label>2. Are you a resident of Paranaque?</label><br>
+                      <div class="form-check form-check-inline">
+                          <input class="form-check-input btn btn-outline-secondary" type="radio" id="paranaqueResidentYes" name="paranaque_resident" value="yes" <%= formData.paranaque_resident === "yes" ? "checked" : "" %>>
+                          <label class="form-check-label" for="paranaqueResidentYes">Yes</label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                          <input class="form-check-input btn btn-outline-secondary" type="radio" id="paranaqueResidentNo" name="paranaque_resident" value="no" <%= formData.paranaque_resident === "no" ? "checked" : "" %>>
+                          <label class="form-check-label" for="paranaqueResidentNo">No</label>
+                      </div>
+                  </div>
+                  
+                  <div class="form-group col-md-6">
+                      <label>3. Are you applying for financial assistance from other government agencies?</label><br>
+                      <div class="form-check form-check-inline">
+                          <input class="form-check-input btn btn-outline-secondary" type="radio" id="financialAssistanceYes" name="financial_assistance" value="yes" <%= formData.financial_assistance === "yes" ? "checked" : "" %>>
+                          <label class="form-check-label" for="financialAssistanceYes">Yes</label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                          <input class="form-check-input btn btn-outline-secondary" type="radio" id="financialAssistanceNo" name="financial_assistance" value="no" <%= formData.financial_assistance === "no" ? "checked" : "" %>>
+                          <label class="form-check-label" for="financialAssistanceNo">No</label>
+                      </div>
+                  </div>
+                 
+
+                  
+
+                  <div class="form-group col-md-6">
+                    <label>4. Do you have an INC (Incomplete), Unofficial, Dropped, or Failing grade?</label><br>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input btn btn-outline-secondary" type="radio" id="incompleteYes" name="incomplete_grade" value="yes" <%= formData.incomplete_grade === "yes" ? "checked" : "" %>>
+                        <label class="form-check-label" for="incompleteYes">Yes</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input btn btn-outline-secondary" type="radio" id="incompleteNo" name="incomplete_grade" value="no" <%= formData.incomplete_grade === "no" ? "checked" : "" %>>
+                        <label class="form-check-label" for="incompleteNo">No</label>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-6">
+                  <label>5. Are you a registered voter of Paranaque?</label><br>
+                  <div class="form-check form-check-inline">
+                      <input class="form-check-input btn btn-outline-secondary" type="radio" id="registeredVoterYes" name="registered_voter" value="yes" <%= formData.registered_voter === "yes" ? "checked" : "" %>>
+                      <label class="form-check-label" for="registeredVoterYes">Yes</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                      <input class="form-check-input btn btn-outline-secondary" type="radio" id="registeredVoterNo" name="registered_voter" value="no" <%= formData.registered_voter === "no" ? "checked" : "" %>>
+                      <label class="form-check-label" for="registeredVoterNo">No</label>
+                  </div>
+              </div>
+
+              <div class="form-group col-md-6">
+                <label for="familyMemberName">If no please input 1 family member registered voter</label>
+                <div id="familyMemberInputContainer" style="position: relative;">
+                    <input type="text" class="form-control" id="familyMemberName" name="family_member_name"  style="padding-left: 70px; padding-right: 20px;" placeholder="Enter family member's name" value="<%= formData.family_member_name %>">
+                    <i id="arrowIcon" class="bi bi-arrow-right-square-fill text-success" style="position: absolute; top: 50%; transform: translateY(-50%); left: 10px; display: none;">Here!</i>
+
+                </div>
+            
+
+            <script>
+              document.querySelectorAll('input[name="registered_voter"]').forEach(function(radio) {
+                  radio.addEventListener('change', function() {
+                      var familyMemberInputContainer = document.getElementById('familyMemberInputContainer');
+                      var arrowIcon = document.getElementById('arrowIcon');
+                      if (this.value === 'no') {
+                          familyMemberInputContainer.setAttribute('required', 'required');
+                          arrowIcon.style.display = 'inline'; // Show the arrow icon
+                      } else {
+                          familyMemberInputContainer.removeAttribute('required');
+                          arrowIcon.style.display = 'none'; // Hide the arrow icon
+                      }
+                  });
+              });
+          </script>
+            </div>
+                          <!-- Modal -->
+              <div class="modal fade" id="warningModal" tabindex="-1" role="dialog" aria-labelledby="warningModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="warningModalLabel"><i class="bi bi-exclamation-triangle"></i> Warning!</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      Please provide the name of a registered voter in your family.
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <script>
+                document.querySelectorAll('input[name="registered_voter"]').forEach(function(radio) {
+                  radio.addEventListener('change', function() {
+                    var familyMemberInput = document.getElementById('familyMemberName');
+                    var warningModal = new bootstrap.Modal(document.getElementById('warningModal'));
+                    if (this.value === 'no') {
+                      familyMemberInput.setAttribute('required', 'required');
+                      warningModal.show();
+                      setTimeout(function() {
+                        warningModal.hide();
+                      }, 2000); // Auto-close after 2 seconds (2000 milliseconds)
+                    } else {
+                      familyMemberInput.removeAttribute('required');
+                      warningModal.hide();
+                    }
+                  });
+                });
+              </script>
+
+                  
+                  <!-- Other fields continue here -->
+                  
+                      <div class="form-group col-md-6">
+                        <label for="units_enrolled">Number of units enrolled:</label>
+                        <input type="text" class="form-control" name="units_enrolled" id="units_enrolled" value="<%= formData.units_enrolled || '' %>" oninput="validateUnitsEnrolled(this)" placeholder="Enter number of units enrolled" onclick="toggleunitsMessage()">
+                        <small id="unitsMessage" style="display: none;">Please upload supporting documents if number of units are below (8).</small>
+                      </div>
+                      <script>
+                        function toggleunitsMessage() {
+                            var message = document.getElementById('unitsMessage');
+                            if (message.style.display === 'none') {
+                                message.style.display = 'block';
+                            } else {
+                                message.style.display = 'none';
+                            }
+                        }
+                    </script>
+
+
+                    <div class="form-group col-md-6">
+                      <label for="support_enrolled">Supporting Document (if units are below 8):</label>
+                      <input type="file" class="form-control" id="support_enrolled" name="support_enrolled" accept=".pdf">
+                      <!-- Add any additional styling or JavaScript validation if needed -->
+                  </div>
+                  
+  
+                  
+
+                  <div class="form-group col-md-6">
+                    <label for="barangay">Select Barangay:</label>
+                    <select class="form-control" id="barangay" name="barangay">
+                      <option value="" disabled selected>Select Barangay</option>
+                                        <option value="Baclaran" <%= formData.barangay === 'Baclaran' ? 'selected' : '' %>>Baclaran</option>
+                                        <option value="B.F Homes"  <%= formData.barangay === 'B.F Homes' ? 'selected' : '' %>>B.F Homes</option>
+                                        <option value="Don Bosco" <%= formData.barangay === 'Don Bosco' ? 'selected' : '' %>>Don Bosco</option>
+                                        <option value="Don Galo"  <%= formData.barangay === 'Don Galo' ? 'selected' : '' %>>Don Galo</option>
+                                        <option value="La Huerta"  <%= formData.barangay === 'La Huerta' ? 'selected' : '' %>>La Huerta</option>
+                                        <option value="Marcelo Green"  <%= formData.barangay === 'Marcelo Green' ? 'selected' : '' %>>Marcelo Green</option>
+                                        <option value="Merville"  <%= formData.barangay === 'Merville' ? 'selected' : '' %>>Merville</option>
+                                        <option value="Moonwalk"  <%= formData.barangay === 'Moonwalk' ? 'selected' : '' %>>Moonwalk</option>
+                                        <option value="San Antonio"  <%= formData.barangay === 'San Antonio' ? 'selected' : '' %>>San Antonio</option>
+                                        <option value="San Donisio"  <%= formData.barangay === 'San Donisio' ? 'selected' : '' %>>San Donisio</option>
+                                        <option value="San Isidro"  <%= formData.barangay === 'San Isidro' ? 'selected' : '' %>>San Isidro</option>
+                                        <option value="San Martin De Porres"  <%= formData.barangay === 'San Martin De Porres' ? 'selected' : '' %>>San Martin De Porres</option>
+                                        <option value="Santo Niño"  <%= formData.barangay === 'Santo Niño' ? 'selected' : '' %>>Santo Niño</option>
+                                        <option value="San Valley"  <%= formData.barangay === 'San Valley' ? 'selected' : '' %>>San Valley</option>
+                                        <option value="Tambo"  <%= formData.barangay === 'Tambo' ? 'selected' : '' %>>Tambo</option>
+                                        <option value="Vitalez"  <%= formData.barangay === 'Vitalez' ? 'selected' : '' %>>Vitalez</option>
+                    </select>
+                </div>
+                
+                
+
+
+                  
+                    <div class="form-group  col-md-6">
+                        <label for="first_name">First Name:</label>
+                        <input type="text" class="form-control capitalize-first-letter" name="first_name" id="first_name" value="<%= formData.first_name || '' %>" placeholder="Enter First Name">
+                    </div>
+                    
+                    <div class="form-group col-md-6">
+                        <label for="middle_name">Middle Name:</label>
+                        <input type="text" class="form-control capitalize-first-letter" name="middle_name" id="middle_name" value="<%= formData.middle_name || '' %>" placeholder="Enter Middle Name" onclick="toggleMessage()">
+                        <small id="middleNameMessage" style="display: none;">You can leave it blank or type N/A if you don't have a Middle Name.</small>
+                      </div>
+                      <script>
+                        function toggleMessage() {
+                            var message = document.getElementById('middleNameMessage');
+                            if (message.style.display === 'none') {
+                                message.style.display = 'block';
+                            } else {
+                                message.style.display = 'none';
+                            }
+                        }
+                    </script>
+                    
+                    <div class="form-group  col-md-6">
+                        <label for="last_name">Last Name:</label>
+                        <input type="text" class="form-control capitalize-first-letter" name="last_name" id="last_name" value="<%= formData.last_name || '' %>" placeholder="Enter Last Name">
+                    </div>
+
+                    <div class="form-group col-md-6">
+                      <label for="suffix">Suffix:</label>
+                      <select class="form-control" name="suffix" id="suffix">
+                        <option value="" disabled selected>Select Suffix</option>
+                        <option value="Not Applicable" <%= formData.suffix === 'Not Applicable' ? 'selected' : '' %>>Not Applicable</option>
+                        <option value="Jr." <%= formData.suffix === 'Jr.' ? 'selected' : '' %>>Jr.</option>
+                        <option value="Sr." <%= formData.suffix === 'Sr.' ? 'selected' : '' %>>Sr.</option>
+                        <option value="II" <%= formData.suffix === 'II' ? 'selected' : '' %>>II</option>
+                        
+                      
+                          <!-- Add more options as needed -->
+                      </select>
+                  </div>
+                
+                
+                
+ 
+                    <div class="form-group  col-md-6">
+                        <label for="address">Address:</label>
+                        <input type="text" class="form-control" name="address" id="address" value="<%= formData.address || '' %>" placeholder="Enter Home Address">
+                    </div>
+                    <div class="form-group  col-md-6">
+                      <label for="email">Email:</label>
+                      <input type="text" class="form-control" name="email" id="email" value="<%= formData.email || '' %>" placeholder="Enter Email">
+                  </div>
+                
+                  <div class="form-group col-md-6">
+                    <label for="contact_number">Contact Number:</label>
+                    <input type="text" class="form-control" name="contact_number" id="contact_number" value="<%= formData.contact_number || '' %>" placeholder="09..." maxlength="13" 
+                           oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 13);" 
+                           pattern="^09\d{9,}$" 
+                           title="Please enter a valid Philippine phone number starting with '09' (at least 11 digits).">
+                </div>
+                
+                <div class="form-group col-md-6">
+                    <label for="alternative_contact_number">Alternative Contact Number:</label>
+                    <input type="text" class="form-control" name="alternative_contact_number" id="alternative_contact_number" value="<%= formData.alternative_contact_number || '' %>" placeholder="09..." maxlength="13" 
+                           oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 13);" 
+                           pattern="^09\d{9,}$" 
+                           title="Please enter a valid Philippine phone number starting with '09' (at least 11 digits).">
+                </div>
+                
+                
+                    <div class="form-group  col-md-6">
+                        <label for="school_name">School Name:</label>
+                        <input type="text" class="form-control" name="school_name" id="school_name" value="<%= formData.school_name || '' %>" placeholder="Please enter school name">
+                    </div>
+                
+                    <div class="form-group col-md-6">
+                      <label for="course">Course:</label>
+                      <input type="text" class="form-control" name="course" id="course" value="<%= formData.course ? formData.course.toUpperCase() : '' %>" oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, '').toUpperCase();" placeholder="Enter course">
+                  </div>
+                  
+                
+                    <div class="form-group col-md-6">
+                        <label for="year_level">Year Level:</label>
+                        <select class="form-control" id="year_level" name="year_level">
+                          <option value="" disabled selected>Select Year Level</option>
+                          <option value="First Year" <%= formData.year_level === "First Year" ? "selected" : "" %>>First Year</option>
+                          <option value="Second Year" <%= formData.year_level === "Second Year" ? "selected" : "" %>>Second Year</option>
+                          <option value="Third Year" <%= formData.year_level === "Third Year" ? "selected" : "" %>>Third Year</option>
+                          <option value="Fourth Year" <%= formData.year_level === "Fourth Year" ? "selected" : "" %>>Fourth Year</option>
+                        </select>
+                      </div>
+                      
+               
+
+                    <div class="form-group  col-md-6">
+                        <label for="classification">Select Applicant Status:</label>
+                        <select class="form-control" id="classification" name="classification">
+                          <option value="" disabled selected>Select status</option>
+                          <option value="Old Applicant" <%= formData.classification === "Old Applicant" ? "selected" : "" %>>Old Applicant</option>
+                          <option value="New Applicant" <%= formData.classification === "New Applicant" ? "selected" : "" %>>New Applicant</option>
+                        </select>
+                      </div>
+
+                      <div class="form-group  col-md-6">
+                        <label for="last_application"> when is your last application? (semester and school year):</label>
+                        <input type="text" class="form-control" name="last_application" id="last_application" value="<%= formData.last_application || '' %>" placeholder="First Semester/2023">
+                    </div>
+                  </div>
+                      
+                
+                    <!-- File Uploads -->
+                    <div class="row">
+                      <div class="form-group col-md-6">
+                        <label for="certificate_of_registration" style="display: inline-block; margin-right: 10px;">
+                          Certificate of Registration:
+                      </label>
+                      <div id="uploadMessage" class="alert alert-info small" style="display: none; flex-grow: 1;">Please upload your parent's certificate of registration Here.</div>
+
+                  
+                          <input type="file" class="form-control" id="certificate_of_registration" name="certificate_of_registration" accept=".pdf">
+                          
+                          <!-- Add any additional styling or JavaScript validation if needed -->
+                      </div>
+                      <script>
+                          document.querySelectorAll('input[name="registered_voter"]').forEach(function(radio) {
+                              radio.addEventListener('change', function() {
+                                  var certificate_of_registration = document.getElementById('certificate_of_registration');
+                                  var uploadMessage = document.getElementById('uploadMessage');
+                                  if (this.value === 'no') {
+                                      certificate_of_registration.setAttribute('required', 'required');
+                                      uploadMessage.style.display = 'block'; // Show the upload message
+                                  } else {
+                                      certificate_of_registration.removeAttribute('required');
+                                      uploadMessage.style.display = 'none'; // Hide the upload message
+                                  }
+                              });
+                          });
+                      </script>
+                  
+                  
+                  
+                  
+                      <div class="form-group col-md-6">
+                          <label for="grades">Grades:</label>
+                          <input type="file" class="form-control" id="grades" name="grades" accept=".pdf">
+                          <!-- Add any additional styling or JavaScript validation if needed -->
+                      </div>
+                  
+                      <div class="form-group col-md-6">
+                          <label for="school_id">School ID:</label>
+                          <input type="file" class="form-control" id="school_id" name="school_id" accept=".pdf">
+                          <!-- Add any additional styling or JavaScript validation if needed -->
+                      </div>
+                  
+                      <div class="form-group col-md-6">
+                          <label for="voters_id">Voters ID:</label>
+                          <input type="file" class="form-control" id="voters_id" name="voters_id" accept=".pdf">
+                          <!-- Add any additional styling or JavaScript validation if needed -->
+                      </div>
+                  </div>
+                    
+
+                  
+                  <div class="row justify-content-center">
+                    <div class="form-group col-md-6">
+                        <label for="gwa">GWA:</label>
+                        <input type="text" class="form-control" name="gwa" id="gwa" value="<%= formData.gwa || '' %>" oninput="validateGWA(this)" placeholder="Enter GWA (1.0 - 5.0)">
+                    </div>
+                </div>
+              </div>
+                  
+                  
+
+                  <div class="form-group col-md-10">
+                    <div class="form-check">
+                        <input class="form-check-input btn btn-outline-secondary" type="checkbox" id="declaration" name="declaration" value="agree" <%= formData.declaration === "agree" ? "checked" : "" %>>
+                        <label class="form-check-label term-and-condition" for="declaration">
+                            I hereby declare that all information provided above is correct to the best of my knowledge and belief
+                        </label>
+                    </div>
+                </div>
+                
+                
+                  
+                <div class="row text-center">
+                  <div class="button-holder">
+                      <!-- Submit Button -->
+                      <button id="submitButton" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmationModal">
+                          Submit
+                      </button>
+                  </div>
+              </div>
+              
+              </div>
+
+  
+                </form>  
+                </div> 
+                          <!-- Confirmation Modal -->
+                          <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true" data-bs-backdrop="static">
+                            <div class="modal-dialog modal-dialog-centered">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="confirmationModalLabel">Confirm Submission</h5>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                  <p class="confirmation-text">Are you sure you want to submit?</p>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                  <button type="button" class="btn btn-primary" id="confirmSubmitButton">Yes, Submit</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <div class="modal fade" id="loadingModal" tabindex="-1" aria-labelledby="loadingModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                              <div class="modal-content modal-content-blur">
+                                <div class="modal-body text-center">
+                                  <div class="spinner-grow text-success" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                  </div>
+                                  <div class="spinner-grow text-warning" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                  </div>
+                                  <div class="spinner-grow text-white" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                  </div>
+                                  <p class="mt-2 loading-text"> Please wait</p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <script>
+                            document.getElementById('confirmSubmitButton').addEventListener('click', function() {
+                              // Hide the confirmation modal
+                              $('#confirmationModal').modal('hide');
+                          
+                              // Show the loading modal
+                              $('#loadingModal').modal('show');
+                          
+                              // Blur the background (optional)
+                              document.getElementById('loadingModal').classList.add('modal-blurr');
+                          
+                              // Simulate loading delay and form submission
+                              setTimeout(function() {
+                                // Trigger form submission
+                                document.querySelector('form').submit();
+                              }, 2000); // Adjust the delay as needed
+                            });
+                          </script>
+                          
+                
+                
+
+
+                <% } else { %>
+                  <% if (message) { %>
+                    <p class="old-form-announce-text"><%= message %></p>
+                    <% } else { %>
+                      <div class="row">
+                    
+                        <div class="col-md-12 financial grant table">
+                          <table class="table">
+                            <h1 class="mt-5 table-note1">Financial grant category by general weighted average</h1>
+                            <thead class="thead-dark">
+                              <tr>
+                      
+                                <th scope="col">GWA</th>
+                                <th scope="col">Financial Grant</th>
+                             
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>87% - <span class="data-note1">Above</span></td>
+                                <td>₱6,000</td>
+                              </tr>
+                              <tr>
+                                <td>81% - 86%</td>
+                                <td>₱4,000</td>
+                              </tr>
+    
+                              <tr>
+                                <td>80% - <span class="data-note1">Below</span></td>
+                                <td class="disqualified-table-data">Disqualified</td>
+                              </tr>
+                              <!-- Additional rows with data can be added here -->
+                            </tbody>
+                          </table>
+                          <h1 class="table-note2"><span class="table-note2-span">Note:</span> be advised that the allocation of financial grants will 
+                            adhere to a "first-come, first-served" basis.</h1>
+                        </div>
+                      <div class="pre-reg-alert container-sm">
+                        <div class="alert alert-success">
+                          <p class="mb-0 pre-notif">Your pre-registration code: <strong><%=existingForm.code %></strong></p>
+                        </div>
+                        
+                        <div class="alert alert-info mt-3">
+                          <p class="mb-0 pre-notif">Your Pre-Registration is already submitted. </p>
+                          <p class="mb-0 pre-notif">Wait for an admin to approve your registration.</p>
+                        </div>
+      
+                        <div class="alert alert-info mt-3">
+                          <p class="mb-0 pre-notif">If you are qualified, you will receive a pre-registration code and the pdf file of application form via email.</p>
+                         
+                        </div>
+      
+                        <div class="alert alert-info mt-3">
+                          <p class="mb-0 pre-notif">Use the code to access the application form</p>
+                        </div>
+                      </div>
+                        
+                    <% } %>
+
+
+                
+                <% } %>
+                
+                
+            </div>
+            <!-- Custom script -->
+            <script>
+                        // Function to create a message element with Bootstrap styling and icon
+                        function createMessage(messageText, autoClose = true, duration = 4000) {
+                      var messageDiv = document.createElement('div');
+                      messageDiv.classList.add('alert', 'alert-warning', 'alert-dismissible', 'fade', 'show');
+                      messageDiv.innerHTML = `
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                          </button>
+                          <strong class="warning-message"><i class="bi bi-exclamation-triangle"></i> Warning!</strong> ${messageText}
+                      `;
+                      document.querySelector('.applicant-reg-form-scrollable').appendChild(messageDiv);
+
+                      // Auto close the message if autoClose is true
+                      if (autoClose) {
+                          setTimeout(function() {
+                              messageDiv.remove();
+                          }, duration);
+                      }
+                  }
+
+          
+              // Financial Assistance Radio Button Change Event Listener
+              document.querySelectorAll('input[name="financial_assistance"]').forEach(function(radio) {
+                  radio.addEventListener('change', function() {
+                      var financialAssistanceValue = this.value;
+          
+                      // Function to handle form elements based on financial assistance selection
+                      function handleFormElements() {
+                          if (financialAssistanceValue === 'yes') {
+                              // Hide all form elements except the selected radio button
+                              document.querySelectorAll('.form-group.col-md-6').forEach(function(formGroup) {
+                                  if (!formGroup.querySelector('input[type="radio"]:checked')) {
+                                      formGroup.style.display = 'none';
+                                  }
+                              });
+                              // Close form for col-md-12
+                              document.querySelectorAll('.form-group.col-md-12').forEach(function(formGroup) {
+                                  formGroup.style.display = 'none';
+                              });
+                              // Hide form button
+                              document.getElementById('submitButton').style.display = 'none';
+                              // Add message
+                              var messageDiv = createMessage('Sorry, you are not qualified based on your selection.');
+                              document.querySelector('.applicant-reg-form-scrollable').appendChild(messageDiv);
+                          } else {
+                              // Show all form elements
+                              document.querySelectorAll('.form-group.col-md-6').forEach(function(formGroup) {
+                                  formGroup.style.display = 'block';
+                              });
+                              // Show form button
+                              document.getElementById('submitButton').style.display = 'block';
+                              // Remove message
+                              document.querySelectorAll('.form-group.col-md-12.qualification-message').forEach(function(messageDiv) {
+                                  messageDiv.remove();
+                              });
+                          }
+                      }
+          
+                      // Execute handleFormElements function
+                      handleFormElements();
+          
+                      // Handle residency-related form elements if financial assistance is 'no'
+                     
+                  });
+              });
+          
+              // Enrolled Radio Button Change Event Listener
+              document.querySelectorAll('input[name="enrolled"]').forEach(function(radio) {
+                  radio.addEventListener('change', function() {
+                      if (this.value === 'no') {
+                          // Hide all form elements except the selected radio button
+                          document.querySelectorAll('.form-group.col-md-6').forEach(function(formGroup) {
+                              if (!formGroup.querySelector('input[type="radio"]:checked')) {
+                                  formGroup.style.display = 'none';
+                              }
+                          });
+                          // Close form for col-md-12
+                          document.querySelectorAll('.form-group.col-md-12').forEach(function(formGroup) {
+                              formGroup.style.display = 'none';
+                          });
+                          // Hide form button
+                          document.getElementById('submitButton').style.display = 'none';
+                          // Add message
+                          var messageDiv = createMessage('Sorry, you are not qualified based on your selection.');
+                          document.querySelector('.applicant-reg-form-scrollable').appendChild(messageDiv);
+                      } else {
+                          // Show all form elements
+                          document.querySelectorAll('.form-group.col-md-6').forEach(function(formGroup) {
+                              formGroup.style.display = 'block';
+                          });
+                          // Show form button
+                          document.getElementById('submitButton').style.display = 'block';
+                          // Remove message
+                          document.querySelectorAll('.form-group.col-md-12.qualification-message').forEach(function(messageDiv) {
+                              messageDiv.remove();
+                          });
+                      }
+                  });
+              });
+          
+              // Paranaque Resident Radio Button Change Event Listener
+              document.querySelectorAll('input[name="paranaque_resident"]').forEach(function(radio) {
+                  radio.addEventListener('change', function() {
+                      if (this.value === 'no') {
+                          // Hide all form elements except the selected radio button
+                          document.querySelectorAll('.form-group.col-md-6').forEach(function(formGroup) {
+                              if (!formGroup.querySelector('input[type="radio"]:checked')) {
+                                  formGroup.style.display = 'none';
+                              }
+                          });
+                          // Close form for col-md-12
+                          document.querySelectorAll('.form-group.col-md-12').forEach(function(formGroup) {
+                              formGroup.style.display = 'none';
+                          });
+                          // Hide form button
+                          document.getElementById('submitButton').style.display = 'none';
+                          // Add message
+                          var messageDiv = createMessage('Sorry, you are not qualified based on your selection.');
+                          document.querySelector('.applicant-reg-form-scrollable').appendChild(messageDiv);
+                      } else {
+                          // Show all form elements
+                          document.querySelectorAll('.form-group.col-md-6').forEach(function(formGroup) {
+                              formGroup.style.display = 'block';
+                          });
+                          // Show form button
+                          document.getElementById('submitButton').style.display = 'block';
+                          // Remove message
+                          document.querySelectorAll('.form-group.col-md-12.qualification-message').forEach(function(messageDiv) {
+                              messageDiv.remove();
+                          });
+                      }
+                  });
+              });
+          
+              // Incomplete Grade Radio Button Change Event Listener
+              document.querySelectorAll('input[name="incomplete_grade"]').forEach(function(radio) {
+                  radio.addEventListener('change', function() {
+                      if (this.value === 'yes') {
+                          // Hide all form elements except the selected radio button
+                          document.querySelectorAll('.form-group.col-md-6').forEach(function(formGroup) {
+                              if (!formGroup.querySelector('input[type="radio"]:checked')) {
+                                  formGroup.style.display = 'none';
+                              }
+                          });
+                          // Close form for col-md-12
+                          document.querySelectorAll('.form-group.col-md-12').forEach(function(formGroup) {
+                              formGroup.style.display = 'none';
+                          });
+                          // Hide form button
+                          document.getElementById('submitButton').style.display = 'none';
+                          // Add message
+                          var messageDiv = createMessage('Sorry, you are not qualified based on your selection.');
+                          document.querySelector('.applicant-reg-form-scrollable').appendChild(messageDiv);
+                      } else {
+                          // Show all form elements
+                          document.querySelectorAll('.form-group.col-md-6').forEach(function(formGroup) {
+                              formGroup.style.display = 'block';
+                          });
+                          // Show form button
+                          document.getElementById('submitButton').style.display = 'block';
+                          // Remove message
+                          document.querySelectorAll('.form-group.col-md-12.qualification-message').forEach(function(messageDiv) {
+                              messageDiv.remove();
+                          });
+                      }
+                  });
+              });
+          </script>
+          
+            <script>
+              function validateUnitsEnrolled(input) {
+                  // Remove non-numeric characters
+                  input.value = input.value.replace(/\D/g, '');
+          
+                  // If the input value exceeds 3 digits, truncate it
+                  if (input.value.length > 2) {
+                      input.value = input.value.slice(0, 2);
+                  }
+              }
+          </script>
+          <script>
+            document.getElementById('confirmSubmitButton').addEventListener('click', function() {
+              // Show loading indicator
+              document.getElementById('loadingIndicator').style.display = 'block';
+              
+              // Blur the modal backdrop (optional)
+              document.getElementById('confirmationModal').classList.add('modal-blur');
+
+              // Simulate loading delay and form submission
+              setTimeout(function() {
+
+                // Trigger form submission
+                document.querySelector('form').submit();
+              }, 2000); // 3 seconds delay, adjust as needed
+            });
+          </script>
+
+            <script>
+              function validateGWA(input) {
+                  // Remove leading zeros
+                  input.value = input.value.replace(/^0+/,'');
+          
+                  // Remove non-numeric and non-decimal characters
+                  input.value = input.value.replace(/[^0-9.]/g, '');
+          
+                  // Ensure the input is a valid decimal number between 1.0 and 5.0
+                  const gwa = parseFloat(input.value);
+                  if (isNaN(gwa) || gwa < 1.0 || gwa > 5.0) {
+                      input.value = ''; // Clear the input field
+                      input.setCustomValidity('Please enter a valid GWA between 1.0 and 5.0');
+                  } else {
+                      input.setCustomValidity('');
+                  }
+              }
+          </script>
+            <script>
+              // Add event listeners to input fields to capitalize the first letter as the user types
+              document.querySelectorAll('.capitalize-first-letter').forEach(input => {
+                  input.addEventListener('input', function() {
+                      if (this.value.length > 0) {
+                          this.value = this.value.charAt(0).toUpperCase() + this.value.slice(1);
+                      }
+                  });
+              });
+          </script>
+          
+            
+              <script>
+                const form = document.getElementById('multipage-form');
+                const pages = document.querySelectorAll('.page');
+                const nextButtons = document.querySelectorAll('[id^="next-"]');
+                const prevButtons = document.querySelectorAll('[id^="prev-"]');
+            
+                let currentPage = 0;
+            
+                function showPage(pageNumber) {
+                  pages.forEach((page, index) => {
+                    if (index === pageNumber) {
+                      page.style.display = 'block';
+                    } else {
+                      page.style.display = 'none';
+                    }
+                  });
+                }
+            
+                function navigateNext() {
+                  if (currentPage < pages.length - 1) {
+                    currentPage++;
+                    showPage(currentPage);
+                  }
+                }
+            
+                function navigatePrevious() {
+                  if (currentPage > 0) {
+                    currentPage--;
+                    showPage(currentPage);
+                  }
+                }
+            
+                nextButtons.forEach((button, index) => {
+                  button.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    navigateNext();
+                  });
+                });
+            
+                prevButtons.forEach((button, index) => {
+                  button.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    navigatePrevious();
+                  });
+                });
+            
+                form.addEventListener('submit', function (e) {
+                  e.preventDefault();
+                  // Handle form submission here
+                  alert('Form submitted');
+                });
+            
+                showPage(currentPage);
+
+
+
+                const fileInputs = document.querySelectorAll('.file-input');
+const fileLabels = document.querySelectorAll('.file-label');
+const fileNameDisplays = document.querySelectorAll('.file-name');
+
+
+fileInputs.forEach((fileInput, index) => {
+    fileInput.addEventListener('change', function() {
+        const fileName = fileInput.value.split('\\').pop();
+        fileNameDisplays[index].textContent = `Selected File: ${fileName}`;
+
+
+        // Check if a file is selected and change the label's content to a checkmark icon
+        if (fileName) {
+            fileLabels[index].innerHTML = '<i class="fa fa-check"></i>';
+            // Change the background color to green
+            fileLabels[index].style.backgroundColor = 'green';
+        } else {
+            // If no file is selected, reset the label's background color
+            fileLabels[index].style.backgroundColor = '';
+        }
+    });
+});
+
+
+            </script>
+
+            
+           
+
+
+			
+			  
+			  
+			  
+			  
+  
+			
+	    </div>
+
+
+	  
+	  
+</main>

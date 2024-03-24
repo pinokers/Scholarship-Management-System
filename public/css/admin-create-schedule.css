@@ -1,0 +1,159 @@
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .row{
+    flex-direction: column;
+  }
+  .admin-create-schedule-form-container{
+    max-width:200%;
+  }
+  .admin-create-schedule-table-container{
+    max-width:200%;
+  }
+}
+
+
+.admin-create-schedule-table-container{
+  background-color:transparent;
+}
+.admin-create-schedule-form-header{
+  background-color: white;
+  color:rgba(60, 60, 60,0.9);
+  margin-bottom:5px;
+  text-align: center;
+ font-family: sans-serif;
+ font-size: 18px;
+  padding-top:12px;
+  padding-bottom:12px;
+  margin-top:15px;
+  font-weight: bold;
+}
+
+.admin-create-schedule-table-header{
+  background-color: white;
+  color:rgba(60, 60, 60,0.9);
+  margin-bottom:5px;
+  text-align: center;
+ font-family: sans-serif;
+ font-size: 18px;
+  padding-top:12px;
+  padding-bottom:12px;
+  margin-top:15px;
+ 
+  font-weight: bold;
+}
+
+.admin-create-schedule-table-content{
+  font-size: 15px;
+  font-family: sans-serif;
+  background-color: white;
+}
+
+.admin-create-announcement-res-table{
+  max-height: 400px; 
+  overflow-y: auto;
+}
+.admin-announcement-schedule-create-btn{
+  background-color:  #28a745;
+  color:white;
+
+}
+.admin-announcement-schedule-create-btn:hover{
+  background-color:  #007bff;
+}
+
+.admin-schedule-update-btn{
+  color:green;
+}
+.admin-schedule-update-btn:hover{
+  background-color:  green;
+}
+
+.admin-schedule-btn-delete{
+  color:red;
+  background-color: transparent;
+  border-color:transparent;
+}
+.admin-schedule-btn-delete:hover{
+  background-color: red;
+}
+
+.no-schedule-notification-container{
+  text-align: center;
+}
+
+.no-schedule-notification-text{
+ color:red;
+}
+
+.table-data{
+  font-family:sans-serif;
+  margin-top:0;
+  font-size:14px;
+  color:black;
+  font-weight: lighter;
+}
+
+@media (min-width: 280px) and (max-width: 767px){
+  .admin-create-schedule-header{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow:ellipsis;
+  }
+
+  .admin-create-schedule-header-text{
+    white-space: nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    font-size:17px;
+  }
+
+  .admin-create-schedule-form-container{
+    white-space: nowrap;
+    overflow:hidden;
+    text-overflow: ellipsis;
+  }
+  .admin-create-schedule-form-header{
+    white-space: nowrap;
+    overflow:hidden;
+    text-overflow: ellipsis;
+    font-size:14px;
+  }
+
+  .semester{
+    white-space: nowrap;
+    overflow:hidden;
+    text-overflow: ellipsis;
+  }
+
+  .limit{
+    white-space: nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+
+  .start-date{
+    white-space: nowrap;
+    overflow:hidden;
+    text-overflow: ellipsis;
+  }
+  .end-date{
+    white-space: nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+
+ .create-sched-btn-div{
+    white-space: nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+
+.admin-create-schedule-table-header{
+  white-space: nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  font-size:14px;
+}
+
+
+}

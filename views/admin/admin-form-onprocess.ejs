@@ -1,0 +1,417 @@
+<main>
+    <%- include('../partials/adminsidebar') %>
+    <div id="main-wrapper">
+      <link rel="stylesheet" href="/public/css/admin-application-process.css">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <div class="container-fluid">
+        <div class="bg-white admin-application-onprocess-header shadow-sm p-3">
+          <span class="me-3" id="sidebar-toggler-btn"><i class="fas fa-bars"></i></span>
+          <h5 class="m-0 color-theme admin-application-onprocess-header-text d-inline-block">Scholarship Application</h5>
+        </div>
+          
+        <div class="scholarship-application-onprocess-sub-header alert-warning">
+          <div class="row">
+            <div class="col-md-4">
+              <h1 class="scholarship-application-onprocess-sub-header-text">Export data to Excel</h1>
+            </div>
+            <div class="col-md-8">
+              <form id="searchForm" action="/export-excel-form" method="GET" class="text-right">
+                <div class="input-group">
+                  <select id="barangayFilter" name="barangay" class="form-control">
+                    <option value="" disabled selected>Select barangay</option>
+                    <option value="all">All barangay</option>
+                    <optgroup label="District 1">
+                      <option value="Baclaran">Baclaran</option>
+                      <option value="Don Galo">Don Galo</option>
+                      <option value="La Huerta">La Huerta</option>
+                      <option value="San Donisio">San Donisio</option>
+                      <option value="San Isidro">San Isidro</option>
+                      <option value="Santo Niño">Santo Niño</option>
+                      <option value="Tambo">Tambo</option>
+                      <option value="Vitalez">Vitalez</option>
+                    </optgroup>
+                    <optgroup label="District 2">
+                      <option value="B.F Homes">B.F Homes</option>
+                      <option value="Don Bosco">Don Bosco</option>
+                      <option value="Marcelo Green">Marcelo Green</option>
+                      <option value="Merville">Merville</option>
+                      <option value="Moonwalk">Moonwalk</option>
+                      <option value="San Antonio">San Antonio</option>
+                      <option value="San Martin De Porres">San Martin De Porres</option>
+                      <option value="San Valley">San Valley</option>
+                    </optgroup>
+                    <!-- Add other barangay options if needed -->
+                  </select>
+
+                  
+                  <select id="barangayFilter" name="status" class="form-control">
+                    <option value="" disabled selected>Select Status</option>
+                    <option value="all">All Applicant</option>
+                    <option value="onprocess">On Process</option>
+                    <option value="qualified">Qualified</option>
+                    <option value="disqualified">Disqualified</option>
+                  </select>
+                  <div class="input-group-append">
+                    <button class="btn btn-danger" type="submit">
+                      <i class="bi bi-download"></i>
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        
+
+
+        <div class="scholarship-application-onprocess-sub-header alert-info">
+          <div class="row">
+            <div class="col-md-4">
+              <h1 class="scholarship-application-onprocess-sub-header-text">On Process</h1>
+            </div>
+            <div class="col-md-8">
+              <form id="searchForm" action="/admin/admin-form-onprocess" method="GET" class="text-right">
+                <div class="input-group">
+                  <input type="text" id="searchInput" name="query" placeholder="Search for users..." aria-label="Search"  class="form-control">
+                  <select id="barangayFilter" name="barangay" class="form-control">
+                    <option value="">Filter by Barangay</option>
+                    <optgroup label="District 1">
+                      <option value="Baclaran">Baclaran</option>
+                      <option value="Don Galo">Don Galo</option>
+                      <option value="La Huerta">La Huerta</option>
+                      <option value="San Donisio">San Donisio</option>
+                      <option value="San Isidro">San Isidro</option>
+                      <option value="Santo Niño">Santo Niño</option>
+                      <option value="Tambo">Tambo</option>
+                      <option value="Vitalez">Vitalez</option>
+                    </optgroup>
+                    <optgroup label="District 2">
+                      <option value="B.F Homes">B.F Homes</option>
+                      <option value="Don Bosco">Don Bosco</option>
+                      <option value="Marcelo Green">Marcelo Green</option>
+                      <option value="Merville">Merville</option>
+                      <option value="Moonwalk">Moonwalk</option>
+                      <option value="San Antonio">San Antonio</option>
+                      <option value="San Martin De Porres">San Martin De Porres</option>
+                      <option value="San Valley">San Valley</option>
+                    </optgroup>
+                    <!-- Add other barangay options if needed -->
+                  </select>
+                  <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit">
+                      <i class="fas fa-search"></i>
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        
+
+
+        <!-- Display the list of admin users in a responsive table -->
+        <div class="table-responsive admin-manager-table-container container-fluid">
+          <table class="table table-sm">
+            <thead>
+              <tr>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Primary contact</th>
+                <th scope="col">Seconday contact</th>
+                <th scope="col">Barangay</th>
+                <th scope="col" class="text-end text-center">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if (results && results.length > 0) { %>
+                <% results.forEach(oldform => { %>
+                  <tr class="align-middle">
+                    <td><%= oldform.first_name %></td>
+                    <td><%= oldform.last_name %></td>
+                    <td><%= oldform.email %></td>
+                    <td><%= oldform.primary_cellphone %></td>
+                    <td><%= oldform.secondary_cellphone %></td>
+                    <td><%= oldform.barangay %></td>
+                    <td class="text-end">
+                      <div class="d-flex flex-row justify-content-end gap-2">
+                        <!-- View Button -->
+                        <a href="/admin/admin-form-onprocess-view/<%= oldform._id %>" type="button" class="btn alert-primary btn-sm admin-pre-reg-view-btn">
+                          <strong>View</strong>
+                        </a>
+                      
+                          <!-- Inside the loop where you display qualified entries -->
+                          <form id="select-option-form-<%= oldform._id %>" action="/admin/admin-form-onprocess-qualified/<%= oldform._id %>" method="POST">
+                              <button type="button" class="btn btn-qualified alert-success" data-toggle="modal" data-target="#myModal-<%= oldform._id %>">
+                                  <strong>Qualified</strong>
+                              </button>
+                              <!-- Add an input element to capture the selected option -->
+                              <input type="hidden" id="dropdownSelect-<%= oldform._id %>" name="dropdownSelect" value="">
+                          
+                      
+                          <!-- Modal -->
+                          <div class="modal fade" id="myModal-<%= oldform._id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                              <div class="modal-dialog" role="document">
+                                  <div class="modal-content">
+                                      <div class="modal-header">
+                                          <h4 class="modal-title">Select an Option</h4>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                              <span aria-hidden="true">&times;</span>
+                                          </button>
+                                      </div>
+                                      <div class="modal-body">
+                                          <p>Select an option from the dropdown:</p>
+                                          <!-- Dropdown Select in Modal -->
+                                          <select id="modalDropdownSelect-<%= oldform._id %>" class="form-control">
+                                              <option value="4000">4000</option>
+                                              <option value="6000">6000</option>
+                                          </select>
+                                          <div class="form-group">
+                                              <label for="messageInput-<%= oldform._id %>">Enter a message:</label>
+                                              <textarea class="form-control" id="messageInput-<%= oldform._id %>" name="message" rows="5" placeholder="Enter your message here...">Congrats, you're qualified.</textarea>
+                                          </div>
+                                      </div>
+                                      <div class="modal-footer">
+                                          <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="updateOption('<%= oldform._id %>')">
+                                              Save
+                                          </button>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                        </form>
+                      
+                      <script>
+                          function updateOption(oldformId) {
+                              var selectedOption = document.getElementById("modalDropdownSelect-" + oldformId).value;
+                              var message = document.getElementById("messageInput-" + oldformId).value;
+                      
+                              // Set the selected option value to the hidden input
+                              document.getElementById("dropdownSelect-" + oldformId).value = selectedOption;
+                              
+                              // Submit the form
+                              document.getElementById("select-option-form-" + oldformId).submit();
+                          }
+                      </script>
+                      
+  
+                        <form id="confirmationForm-<%= oldform._id %>" action="/admin/admin-form-onprocess-disqualified/<%= oldform._id %>" method="POST">
+                          <button type="button" class="btn alert-danger btn-disqualified" data-toggle="modal" data-target="#confirmationModal-<%= oldform._id %>">
+                           <strong>Disqualified</strong> 
+                          </button>
+                      
+                      
+                      <!-- Confirmation Modal -->
+                      <div class="modal fade" id="confirmationModal-<%= oldform._id %>" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel-<%= oldform._id %>" aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                  <div class="modal-header">
+                                      <h5 class="modal-title" id="confirmationModalLabel-<%= oldform._id %>">Confirmation</h5>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                      </button>
+                                  </div>
+                                  <div class="modal-body text-center">
+                                    Are you sure you want to disqualify <br><strong><%= oldform.last_name %></strong>?
+                                    <div class="form-group">
+                                      <label for="messageInput-<%= oldform._id %>">Enter a message:</label>
+                                      <textarea class="form-control" id="messageInput-<%= oldform._id %>" name="message" rows="5" placeholder="Enter your message here...">Sorry, you're not qualified. </textarea>
+                                  </div>
+                                </div>
+
+                                
+                                  <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                      
+                                          <button type="submit" class="btn btn-oldform.alert-danger"><strong>Yes</strong></button>
+                                      
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                        
+                    </form>
+                      
+                      </div>
+                      
+                  
+                  </td>
+                </tr>
+              <% }) %>
+              <% } else { %>
+                <tr>
+                  <td colspan="9" class="text-center">No results found.</td>
+                </tr>
+              <% user.forEach(oldform => { %>
+                <tr class="align-middle">
+                  <td><%= oldform.first_name %></td>
+                  <td><%= oldform.last_name %></td>
+                  <td><%= oldform.email %></td>
+                  <td><%= oldform.primary_cellphone %></td>
+                  <td><%= oldform.secondary_cellphone %></td>
+                  <td><%= oldform.barangay %></td>
+                  <td class="text-end">
+                    <div class="d-flex flex-row justify-content-end gap-2">
+                      <!-- View Button -->
+                      <a href="/admin/admin-form-onprocess-view/<%= oldform._id %>" type="button" class="btn btn-view-requirements alert-primary">
+                        <strong>View</strong>
+                      </a>
+                      <!-- Inside the loop where you display qualified entries -->
+                      <form id="select-option-form-<%= oldform._id %>" action="/admin/admin-form-onprocess-qualified/<%= oldform._id %>" method="POST">
+                        <button type="button" class="btn btn-qualified alert-success" data-toggle="modal" data-target="#myModal-<%= oldform._id %>">
+                            <strong>Qualified</strong>
+                        </button>
+                        <!-- Add an input element to capture the selected option -->
+                        <input type="hidden" id="dropdownSelect-<%= oldform._id %>" name="dropdownSelect" value="">
+                    </form>
+                    
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModal-<%= oldform._id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Select an Option</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Select an option from the dropdown:</p>
+                                    <!-- Dropdown Select in Modal -->
+                                    <select id="modalDropdownSelect-<%= oldform._id %>" class="form-control">
+                                        
+                                        <option value="4000">4000</option>
+                                        
+                                        <option value="6000">6000</option>
+                                    </select>
+                                    
+                                </div>
+                                
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="updateOption('<%= oldform._id %>')">
+                                        Save
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+            
+
+                      <form id="confirmationForm-<%= oldform._id %>">
+                        <button type="button" class="btn alert-danger btn-disqualified" data-toggle="modal" data-target="#confirmationModal-<%= oldform._id %>">
+                         <strong>Disqualified</strong> 
+                        </button>
+                    </form>
+                    
+                    <!-- Confirmation Modal -->
+                    <div class="modal fade" id="confirmationModal-<%= oldform._id %>" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel-<%= oldform._id %>" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="confirmationModalLabel-<%= oldform._id %>">Confirmation</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body text-center">
+                                  Are you sure you want to disqualify <br><strong><%= oldform.last_name %></strong>?
+                              </div>
+                              
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                    <form action="/admin/admin-form-onprocess-disqualified/<%= oldform._id %>" method="POST">
+                                        <button type="submit" class="btn btn-oldform.alert-danger"><strong>Yes</strong></button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                      
+                    
+                    
+                    </div>
+                    
+                
+                </td>
+              </tr>
+            <% }) %>
+            </tbody>
+          </table>
+      </div>
+      <% } %>
+      <tr>
+        
+        <% if (user.length > 0) { %>
+          <tr>
+            <td colspan="3" class="pagination-cell">
+              <!-- Pagination information -->
+              Displaying <strong><%= (current - 1) * perPage + 1 %> -
+              <%= Math.min(current * perPage, count) %> </strong>of <strong><%= count %></strong> users
+            </td>
+            <!-- Pagination buttons -->
+            <td colspan="6" class="pagination-cell">
+              <nav aria-label="Dashboard Pagination">
+                <ul class="pagination justify-content-end mt-1">
+              
+                  <!-- First page button -->
+                  <% if (current == 1) { %>
+                    <li class="page-item disabled">
+                      <a href="#" class="page-link">First</a>
+                    </li>
+                  <% } else { %>
+                    <li class="page-item">
+                      <a href="/admin/admin-form-onprocess?page=1" class="page-link">First</a>
+                    </li>
+                  <% } %>
+              
+                  <!-- Previous page button -->
+                  <li class="page-item <%= current == 1 ? 'disabled' : '' %>">
+                    <a href="/admin/admin-form-onprocess?page=<%= current - 1 %>" class="page-link" aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                    </a>
+                  </li>
+              
+                  <!-- Pagination numbers -->
+                  <% var start = Math.max(current - 2, 1); %>
+                  <% var end = Math.min(start + 4, pages); %>
+                  <% for(var i = start; i <= end; i++ ) { %>
+                    <li class="page-item <%= current == i ? 'active' : '' %>">
+                      <a href="/admin/admin-form-onprocess?page=<%= i %>" class="page-link"><%= i %></a>
+                    </li>
+                  <% } %>
+              
+                  <!-- Next page button -->
+                  <li class="page-item <%= current == pages ? 'disabled' : '' %>">
+                    <a href="/admin/admin-form-onprocess?page=<%= current + 1 %>" class="page-link" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                    </a>
+                  </li>
+              
+                  <!-- Last page button -->
+                  <% if (current == pages) { %>
+                    <li class="page-item disabled">
+                      <a href="#" class="page-link">Last</a>
+                    </li>
+                  <% } else { %>
+                    <li class="page-item">
+                      <a href="/admin/admin-form-onprocess?page=<%= pages %>" class="page-link">Last</a>
+                    </li>
+                  <% } %>
+              
+                </ul>
+              </nav>
+              
+            </td>
+          </tr>
+        <% } %>
+        
+      </tr>
+
+    </div>
+     <!-- JavaScript to handle the update of the selected option -->
+    
+  </main>
+  

@@ -8,7 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/public/css/applanding.css">
+    <link rel="stylesheet" href="/public/css/applicant-register.css">
 </head>
 <body>
     <div class="container-fluid">
@@ -17,29 +17,106 @@
             <div class="col-md-6 bg-image" style="background-image: url('/public/image/formbg1.jpg'); background-repeat:no-repeat; background-size:cover; background-position:center;"></div>
 
   <!--------------------------------------------------------------------------------------------SIGNUP FORM -------------------------------------------------------------------------------------->
-            <div class="col-md-6 p-4">
+            <div class="col-md-6 p-4 applicant-register-form-div">
                 <form action="/auth/register" method="POST">
                     <h2 class="text-center mb-4">Signup Form </h2>
                     <% if(typeof errors != 'undefined') { %>
-                        <% errors.forEach(function(error) { %>
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <%= error.msg %>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            </div>
-                        <% }); %>
-                    <% } %>
+                      <% errors.forEach(function(error, index) { %>
+                          <div id="errorAlert<%= index %>" class="alert alert-danger alert-dismissible fade show" role="alert">
+                              <%= error.msg %>
+                              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                          </div>
+                          <script>
+                              // Auto-close the alert after 5 seconds (5000 milliseconds)
+                              setTimeout(function() {
+                                  var alert = document.getElementById('errorAlert<%= index %>');
+                                  alert.parentNode.removeChild(alert);
+                              }, 5000);
+                          </script>
+                      <% }); %>
+                  <% } %>
+                  
                     
-                              <div class="form-group">
-                                <label for="name">Name</label>
-                                <input
-                                  type="text"
-                                  id="name"
-                                  name="name"
-                                  class="form-control"
-                                  placeholder="Enter Name"
-                                  value="<%= typeof name != 'undefined' ? name : '' %>"
-                                />
-                              </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="first_name">First Name</label>
+                          <input
+                            type="text"
+                            id="first_name"
+                            name="first_name"
+                            class="form-control"
+                            placeholder="Enter First Name"
+                            value="<%= (newUser.first_name || '').charAt(0).toUpperCase() + (newUser.first_name || '').slice(1) %>"
+                            oninput="this.value = this.value.charAt(0).toUpperCase() + this.value.slice(1)"
+                          />
+                        </div>
+                      </div>
+                      
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="middle_name">Middle Name</label>
+                          <input
+                            type="text"
+                            id="middle_name"
+                            name="middle_name"
+                            class="form-control"
+                            placeholder="Enter Middle name"
+                            value="<%= (newUser.middle_name || '').charAt(0).toUpperCase() + (newUser.middle_name || '').slice(1) %>"
+                            oninput="this.value = this.value.charAt(0).toUpperCase() + this.value.slice(1)"
+                            onclick="toggleMessage()"
+                          />
+                          <small id="middleNameMessage" style="display: none;">You can leave it blank or type N/A if you don't have a Middle Name.</small>
+                        </div>
+                      </div>
+                      <script>
+                        function toggleMessage() {
+                            var message = document.getElementById('middleNameMessage');
+                            if (message.style.display === 'none') {
+                                message.style.display = 'block';
+                            } else {
+                                message.style.display = 'none';
+                            }
+                        }
+                    </script>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="last_name">Last Name</label>
+                          <input
+                            type="text"
+                            id="last_name"
+                            name="last_name"
+                            class="form-control"
+                            placeholder="Enter Last Name"
+                            value="<%= newUser.last_name || '' %>"
+                            oninput="capitalizeFirstLetter(this)"
+                          />
+                        </div>
+                      </div>
+                      
+                      <script>
+                        function capitalizeFirstLetter(input) {
+                          input.value = input.value.charAt(0).toUpperCase() + input.value.slice(1);
+                        }
+                      </script>
+                      
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="suffix">Suffix</label>
+                          <select id="suffix" name="suffix" class="form-control">
+                            <option value="">Select Suffix</option>
+                            <option value="n/a" <%= newUser.suffix === 'n/a' ? 'selected' : '' %>>Not Applicable</option>
+                            <option value="jr" <%= newUser.suffix === 'jr' ? 'selected' : '' %>>Jr</option>
+                            <option value="sr" <%= newUser.suffix === 'sr'? 'selected' : '' %>>Sr</option>
+                            <option value="ii" <%= newUser.suffix === 'ii'? 'selected' : '' %>>II</option>
+                            <option value="iii" <%= newUser.suffix === 'iii' ? 'selected' : '' %>>III</option>
+                            <!-- Add more suffix options as needed -->
+                          </select>
+                        </div>
+                      </div>
+                    </div>
                               <div class="form-group">
                                 <label for="email">Email</label>
                                 <input
@@ -48,7 +125,7 @@
                                   name="email"
                                   class="form-control"
                                   placeholder="Enter Email"
-                                  value="<%= typeof email != 'undefined' ? email : '' %>"
+                                  value="<%= newUser.email || '' %>"
                                 />
                               </div>
                               <div class="form-group">
@@ -60,15 +137,43 @@
                                     name="password"
                                     class="form-control"
                                     placeholder="Create Password"
-                                    value="<%= typeof password != 'undefined' ? password : '' %>"
+                                    value="<%= newUser.password || '' %>"
+                                    oninput="validatePassword(this)"
+                                    onclick="togglepassMessage()"
                                   >
                                   <div class="input-group-append">
                                     <button type="button" class="btn btn-outline-secondary" id="togglePassword">
                                       <i class="fas fa-eye" id="eyeIcon"></i>
                                     </button>
                                   </div>
-                                </div>
-                              </div>
+                               <small id="passwordMessage" style="display: none;">Password must contain at least one (A-Z)uppercase letter, (a-z)one lowercase letter, (1-100)one number, and (!@#$%^&*()\-_=+{};:,<.>)one special character.</small>
+                        </div>
+                      </div>
+                      <script>
+                        function togglepassMessage() {
+                            var message = document.getElementById('passwordMessage');
+                            if (message.style.display === 'none') {
+                                message.style.display = 'block';
+                            } else {
+                                message.style.display = 'none';
+                            }
+                        }
+                    </script>
+                              
+                              <script>
+                              function validatePassword(input) {
+                                var password = input.value;
+                                var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+{};:,<.>]).{8,}$/;
+                                var isValid = passwordRegex.test(password);
+                                
+                                if (!isValid) {
+                                  input.setCustomValidity("Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.");
+                                } else {
+                                  input.setCustomValidity("");
+                                }
+                              }
+                              </script>
+                              
                               <div class="form-group">
                                 <label for="passwordConfirm">Confirm Password</label>
                                 <div class="input-group">
@@ -78,7 +183,7 @@
                                     name="password2"
                                     class="form-control"
                                     placeholder="Confirm Password"
-                                    value="<%= typeof password2 != 'undefined' ? password2 : '' %>"
+                                    value="<%= newUser.password2 || '' %>"
                                   >
                                   <div class="input-group-append">
                                     <button type="button" class="btn btn-outline-secondary" id="togglePasswordConfirm">
@@ -87,44 +192,84 @@
                                   </div>
                                 </div>
                               </div>
-                              
-                              
+                            
                               <!-- Add course field -->
-                              <div class="form-group">
-                                <label for="course">Course</label>
-                                <input
-                                  type="text"
-                                  id="course"
-                                  name="course"
-                                  class="form-control"
-                                  placeholder="Enter Course"
-                                  value="<%= typeof course != 'undefined' ? course : '' %>"
-                                />
-                              </div>
-                              <!-- Add contact field -->
-                              <div class="form-group">
-                                <label for="contact">Contact</label>
-                                <input
-                                  type="text"
-                                  id="contact"
-                                  name="contact"
-                                  class="form-control"
-                                  placeholder="Enter Contact"
-                                  value="<%= typeof contact != 'undefined' ? contact : '' %>"
-                                />
-                              </div>
+                              
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    <div class="form-group">
+                                      <label for="course">Course</label>
+                                      <input
+                                        type="text"
+                                        id="course"
+                                        name="course"
+                                        class="form-control"
+                                        placeholder="Enter Course: Ex. BSIT"
+                                        oninput="this.value = this.value.toUpperCase();"
+                                        value="<%= newUser.course || '' %>"
+                                      />
+                                    </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <div class="form-group">
+                                      <label for="contact">Phone Number</label>
+                                      <input
+                                        type="text"
+                                        id="contact"
+                                        name="contact"
+                                        class="form-control"
+                                        placeholder="Enter Contact"
+                                        value="<%= newUser.contact || '' %>"
+                                        maxlength="11"
+                                        oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11);" 
+                                      />
+                                     
+                                    </div>
+                                  </div>
+                                  
+                                </div>
+                              
+                              
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    <div class="form-group">
+                                      <label for="districtSelect">Select District</label>
+                                      <select class="form-control" name="districtSelect" id="districtSelect" onchange="updateBarangayOptions()">
+                                        <option value="0" disabled selected>Select District</option>
+                                        <option value="1" <%= newUser.districtSelect === '1' ? 'selected' : '' %>>District 1</option>
+                                        <option value="2" <%= newUser.districtSelect === '2' ? 'selected' : '' %>>District 2</option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                
+                                  <div class="col-md-6">
+                                    <div class="form-group">
+                                      <label for="barangaySelect">Select Barangay</label>
+                                      <select class="form-control" id="barangaySelect" name="barangaySelect">
+                                        <option value="0" disabled selected>Select Barangay</option>
+                                        <option value="Baclaran" class="district-1" <%= newUser.barangaySelect === 'Baclaran' ? 'selected' : '' %>>Baclaran</option>
+                                        <option value="B.F Homes" class="district-2" <%= newUser.barangaySelect === 'B.F Homes' ? 'selected' : '' %>>B.F Homes</option>
+                                        <option value="Don Bosco" class="district-2" <%= newUser.barangaySelect === 'Don Bosco' ? 'selected' : '' %>>Don Bosco</option>
+                                        <option value="Don Galo" class="district-1" <%= newUser.barangaySelect === 'Don Galo' ? 'selected' : '' %>>Don Galo</option>
+                                        <option value="La Huerta" class="district-1" <%= newUser.barangaySelect === 'La Huerta' ? 'selected' : '' %>>La Huerta</option>
+                                        <option value="Marcelo Green" class="district-2" <%= newUser.barangaySelect === 'Marcelo Green' ? 'selected' : '' %>>Marcelo Green</option>
+                                        <option value="Merville" class="district-2" <%= newUser.barangaySelect === 'Merville' ? 'selected' : '' %>>Merville</option>
+                                        <option value="Moonwalk" class="district-2" <%= newUser.barangaySelect === 'Moonwalk' ? 'selected' : '' %>>Moonwalk</option>
+                                        <option value="San Antonio" class="district-2" <%= newUser.barangaySelect === 'San Antonio' ? 'selected' : '' %>>San Antonio</option>
+                                        <option value="San Donisio" class="district-1" <%= newUser.barangaySelect === 'San Donisio' ? 'selected' : '' %>>San Donisio</option>
+                                        <option value="San Isidro" class="district-1" <%= newUser.barangaySelect === 'San Isidro' ? 'selected' : '' %>>San Isidro</option>
+                                        <option value="San Martin De Porres" class="district-2" <%= newUser.barangaySelect === 'San Martin De Porres' ? 'selected' : '' %>>San Martin De Porres</option>
+                                        <option value="Santo Niño" class="district-1" <%= newUser.barangaySelect === 'Santo Niño' ? 'selected' : '' %>>Santo Niño</option>
+                                        <option value="San Valley" class="district-2" <%= newUser.barangaySelect === 'San Valley' ? 'selected' : '' %>>San Valley</option>
+                                        <option value="Tambo" class="district-1" <%= newUser.barangaySelect === 'Tambo' ? 'selected' : '' %>>Tambo</option>
+                                        <option value="Vitalez" class="district-1" <%= newUser.barangaySelect === 'Vitalez' ? 'selected' : '' %>>Vitalez</option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                </div>
+                                
                               <!-- Add schoolID field -->
-                              <div class="form-group">
-                                <label for="schoolID">School ID</label>
-                                <input
-                                  type="text"
-                                  id="schoolID"
-                                  name="schoolID"
-                                  class="form-control"
-                                  placeholder="Enter School ID"
-                                  value="<%= typeof schoolID != 'undefined' ? schoolID : '' %>"
-                                />
-                              </div>
+                              
                               <!-- Add schoolName field -->
                               <div class="form-group">
                                 <label for="schoolName">School Name</label>
@@ -133,8 +278,8 @@
                                   id="schoolName"
                                   name="schoolName"
                                   class="form-control"
-                                  placeholder="Enter School Name"
-                                  value="<%= typeof schoolName != 'undefined' ? schoolName : '' %>"
+                                  placeholder="Enter School Name: Ex. Polytechnic University of the Philippines Parañaque"
+                                  value="<%= newUser.schoolName || '' %>"
                                 />
                               </div>
                               <!-- Add schoolAddress field -->
@@ -146,9 +291,48 @@
                                   name="schoolAddress"
                                   class="form-control"
                                   placeholder="Enter School Address"
-                                  value="<%= typeof schoolAddress != 'undefined' ? schoolAddress : '' %>"
+                                  value="<%= newUser.schoolAddress || '' %>"
                                 />
                               </div>
+                              <div class="row">
+                                <div class="col-md-6">
+                                  <div class="form-group">
+                                    <label for="schoolID">School ID Number</label>
+                                    <input
+                                      type="text"
+                                      id="schoolID"
+                                      name="schoolID"
+                                      class="form-control"
+                                      placeholder="Enter School ID"
+                                      value="<%= newUser.schoolID || '' %>"
+                                      onclick="toggleIdMessage()"
+                                    />
+                                    <small id="schoolidMessage" style="display: none;">You can use your previous schoold id, if you dont have latest id.</small>
+                        </div>
+                      </div>
+                      <script>
+                        function toggleIdMessage() {
+                            var message = document.getElementById('schoolidMessage');
+                            if (message.style.display === 'none') {
+                                message.style.display = 'block';
+                            } else {
+                                message.style.display = 'none';
+                            }
+                        }
+                    </script>
+                                <div class="col-md-6">
+                                  <div class="form-group">
+                                    <label for="category">Category:</label>
+                                    <select id="category" name="category" class="form-control" required>
+                                      <option value="0" disabled selected>Select Applicant Status</option>
+                                      <option value="new-applicant" <%= newUser.category === 'new-applicant' ? 'selected' : '' %>>New Applicant</option>
+                                      <option value="old-applicant" <%= newUser.category === 'old-applicant' ? 'selected' : '' %>>Old Applicant</option>
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+
+                              
                               <button type="submit" class="btn btn-primary btn-block">
                                 Register
                               </button>
@@ -182,6 +366,24 @@
             }
         };
     }
+
+    function updateBarangayOptions() {
+  const districtSelect = document.getElementById("districtSelect");
+  const barangaySelect = document.getElementById("barangaySelect");
+  const selectedDistrict = districtSelect.value;
+
+  // Hide all options
+  const allOptions = barangaySelect.querySelectorAll("option");
+  allOptions.forEach(option => {
+    option.style.display = "none";
+  });
+
+  // Show options based on selected district
+  const selectedDistrictOptions = barangaySelect.querySelectorAll(`.district-${selectedDistrict}`);
+  selectedDistrictOptions.forEach(option => {
+    option.style.display = "block";
+  });
+}
 </script>
 
     

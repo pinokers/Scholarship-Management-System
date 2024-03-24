@@ -1,0 +1,87 @@
+.applicant-table-list-sub-header{
+    padding-top:10px;
+    padding-bottom:8px;
+    margin-bottom:0;
+    margin-top:20px;
+    border-left:green 5px solid;
+}
+
+#delete-selected-button {
+    margin-left: 10px; /* Adjust the value to add space to the left */
+}
+.applicant-table-list-sub-header-text{
+    margin-left:10px;
+    font-size: 20px;
+    font-family: sans-serif;
+    font-weight: bold;
+
+}
+
+.admin-manager-table-container{
+    margin-top:10px;
+    background-color:ghostwhite;
+}
+
+.btn-view{
+    color:blue;
+    background-color: transparent;
+    border:none;
+}
+.btn-edit{
+    color:green;
+    border:none;
+}
+.btn-delete{
+    color:red;
+    border:none;
+}
+
+.btn-view:hover {
+    background-color: blue;
+}
+
+.btn-edit:hover {
+    background-color: green;
+}
+
+.btn-delete:hover {
+    background-color:red;
+}
+
+
+
+.pre-reg-on-process-sub-header-text{
+    margin-left:10px;
+    font-size: 20px;
+    font-family: sans-serif;
+    font-weight: bold;
+}
+
+
+
+
+@media (min-width: 280px) and (max-width: 767px){
+    .admin-user-account-header{
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow:ellipsis;
+    }
+    .admin-user-account-header-text{
+        font-size:17px;
+    }  
+
+    .applicant-table-list-sub-header{
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow:ellipsis;
+    }
+    .applicant-table-list-sub-header-text{
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow:ellipsis;
+        font-size: 15px;;
+    }
+   
+
+}
+

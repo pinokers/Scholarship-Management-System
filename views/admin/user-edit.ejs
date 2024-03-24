@@ -1,0 +1,324 @@
+<main>
+    <%- include('../partials/adminsidebar') %>
+    <link rel="stylesheet" href="/public/css/applicantprofile.css">
+    <div id="main-wrapper">
+      <div class="container-fluid">
+        <div class="bg-white shadow-sm p-3 admin-view-header">
+          <span class="me-3" id="sidebar-toggler-btn"><i class="fas fa-bars"></i></span>
+          <h5 class="m-0 color-theme admin-view-header-text d-inline-block"><i class="bi bi-pencil-square"> </i>Edit</h5>
+        </div>
+        <div class="col py-2 container-fluid">
+          <div class="row">
+            <div class="col">
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb bg-white admin-view-navbar container-fluid shadow-sm">
+                  <li class="breadcrumb-item"><a href="/admin/user">Back</a></li>
+                  
+                </ol>
+              </nav>
+            </div>
+          </div>
+        </div>
+
+        
+
+
+        
+
+        <div class="container user-edit col-md-11">
+
+          <div class="row align-items-center profile-form-header">
+            <div class="col-md-2 text-center">
+              <div class="user-icon position-relative" id="profile-picture">
+                <input type="file" id="upload" class="position-absolute top-0 start-0 w-100 h-100 opacity-0 cursor-pointer">
+                <label for="upload">
+                  <i class="bi bi-person-fill user-icon1" style="font-size: 9rem; color:white;"></i>
+                </label>
+              </div>
+              
+            </div>
+            <div class="col-md-8 user-name-con">
+              <h1 class="user-name"><%= newUser.first_name || '' %> <%= newUser.middle_name || '' %> <%= newUser.last_name || '' %>  </h1>
+              <!-- New div for Gmail information -->
+              <div class="user-info"></i> <%= newUser.email || '' %> <i class="bi bi-envelope-fill"></i></div>
+            </div>
+          </div>
+
+          <div class="col-md-12 profile-note-div">
+            <div class="applicant-profile-note">You can update the information of this user</div>
+            <div class="applicant-profile-admin-note">Upon submission, the system will automatically update your information.</div>
+          </div>
+
+
+          <div class="row">
+            <div class="col-md-12 p-4 applicant-register-form-div mx-auto container-fluid">
+              <!-- Your form content goes here -->
+              <form action="/admin/user-edit/<%= newUser._id %>?_method=PUT" method="POST">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="first_name">First Name</label>
+                      <input
+                        type="text"
+                        id="first_name"
+                        name="first_name"
+                        class="form-control"
+                        placeholder="Enter First Name"
+                        value="<%= newUser.first_name || '' %>"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="middle_name">Middle Name</label>
+                      <input
+                        type="text"
+                        id="middle_name"
+                        name="middle_name"
+                        class="form-control"
+                        placeholder="Enter Middle Name"
+                        value="<%= newUser.middle_name || '' %>"
+                      />
+                    </div>
+                  </div>
+                </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="last_name">Last Name</label>
+              <input
+                type="text"
+                id="last_name"
+                name="last_name"
+                class="form-control"
+                placeholder="Enter Last Name"
+                value="<%= newUser.last_name || '' %>"
+              />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="suffix">Suffix</label>
+              <select id="suffix" name="suffix" class="form-control">
+                <option value="">Select Suffix</option>
+                <option value="n/a" <%= newUser.suffix === 'n/a' ? 'selected' : '' %>>Not Applicable</option>
+                <option value="jr" <%= newUser.suffix === 'jr' ? 'selected' : '' %>>Jr</option>
+                <option value="sr" <%= newUser.suffix === 'sr'? 'selected' : '' %>>Sr</option>
+                <option value="ii" <%= newUser.suffix === 'ii'? 'selected' : '' %>>II</option>
+                <option value="iii" <%= newUser.suffix === 'iii' ? 'selected' : '' %>>III</option>
+                <!-- Add more suffix options as needed -->
+              </select>
+            </div>
+          </div>
+        </div>
+                  <div class="form-group">
+                    <label for="email">Email</label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      class="form-control"
+                      placeholder="Enter Email"
+                      value="<%= newUser.email || '' %>"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="input-group">
+                      <input
+                        type="password"
+                        id="password"
+                        name="newPassword"
+                        class="form-control"
+                        placeholder="Create Password"
+                        
+                      >
+                      <div class="input-group-append">
+                        <button type="button" class="btn btn-outline-secondary" id="togglePassword">
+                          <i class="fas fa-eye" id="eyeIcon"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Add course field -->
+                  
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="course">Course</label>
+                          <input
+                            type="text"
+                            id="course"
+                            name="course"
+                            class="form-control"
+                            placeholder="Enter Course: Ex. BSIT"
+                            oninput="this.value = this.value.toUpperCase();"
+                            value="<%= newUser.course || '' %>"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="contact">Phone Number</label>
+                          <input
+                            type="text"
+                            id="contact"
+                            name="contact"
+                            class="form-control"
+                            placeholder="Enter Contact"
+                            value="<%= newUser.contact || '' %>"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  
+                  
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="districtSelect">Select District</label>
+                          <select class="form-control" name="districtSelect" id="districtSelect" onchange="updateBarangayOptions()">
+                            <option value="0" disabled selected>Select District</option>
+                            <option value="1" <%= newUser.districtSelect === '1' ? 'selected' : '' %>>District 1</option>
+                            <option value="2" <%= newUser.districtSelect === '2' ? 'selected' : '' %>>District 2</option>
+                          </select>
+                        </div>
+                      </div>
+                    
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="barangaySelect">Select Barangay</label>
+                          <select class="form-control" id="barangaySelect" name="barangaySelect">
+                            <option value="0" disabled selected>Select Barangay</option>
+                            <option value="Baclaran" class="district-1" <%= newUser.barangaySelect === 'Baclaran' ? 'selected' : '' %>>Baclaran</option>
+                            <option value="B.F Homes" class="district-2" <%= newUser.barangaySelect === 'B.F Homes' ? 'selected' : '' %>>B.F Homes</option>
+                            <option value="Don Bosco" class="district-2" <%= newUser.barangaySelect === 'Don Bosco' ? 'selected' : '' %>>Don Bosco</option>
+                            <option value="Don Galo" class="district-1" <%= newUser.barangaySelect === 'Don Galo' ? 'selected' : '' %>>Don Galo</option>
+                            <option value="La Huerta" class="district-1" <%= newUser.barangaySelect === 'La Huerta' ? 'selected' : '' %>>La Huerta</option>
+                            <option value="Marcelo Green" class="district-2" <%= newUser.barangaySelect === 'Marcelo Green' ? 'selected' : '' %>>Marcelo Green</option>
+                            <option value="Merville" class="district-2" <%= newUser.barangaySelect === 'Merville' ? 'selected' : '' %>>Merville</option>
+                            <option value="Moonwalk" class="district-2" <%= newUser.barangaySelect === 'Moonwalk' ? 'selected' : '' %>>Moonwalk</option>
+                            <option value="San Antonio" class="district-2" <%= newUser.barangaySelect === 'San Antonio' ? 'selected' : '' %>>San Antonio</option>
+                            <option value="San Donisio" class="district-1" <%= newUser.barangaySelect === 'San Donisio' ? 'selected' : '' %>>San Donisio</option>
+                            <option value="San Isidro" class="district-1" <%= newUser.barangaySelect === 'San Isidro' ? 'selected' : '' %>>San Isidro</option>
+                            <option value="San Martin De Porres" class="district-2" <%= newUser.barangaySelect === 'San Martin De Porres' ? 'selected' : '' %>>San Martin De Porres</option>
+                            <option value="Santo Niño" class="district-1" <%= newUser.barangaySelect === 'Santo Niño' ? 'selected' : '' %>>Santo Niño</option>
+                            <option value="San Valley" class="district-2" <%= newUser.barangaySelect === 'San Valley' ? 'selected' : '' %>>San Valley</option>
+                            <option value="Tambo" class="district-1" <%= newUser.barangaySelect === 'Tambo' ? 'selected' : '' %>>Tambo</option>
+                            <option value="Vitalez" class="district-1" <%= newUser.barangaySelect === 'Vitalez' ? 'selected' : '' %>>Vitalez</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    
+                  <!-- Add schoolID field -->
+                  
+                  <!-- Add schoolName field -->
+                  <div class="form-group">
+                    <label for="schoolName">School Name</label>
+                    <input
+                      type="text"
+                      id="schoolName"
+                      name="schoolName"
+                      class="form-control"
+                      placeholder="Enter School Name: Ex. Polytechnic University of the Philippines Parañaque"
+                      value="<%= newUser.schoolName || '' %>"
+                    />
+                  </div>
+                  <!-- Add schoolAddress field -->
+                  <div class="form-group">
+                    <label for="schoolAddress">School Address</label>
+                    <input
+                      type="text"
+                      id="schoolAddress"
+                      name="schoolAddress"
+                      class="form-control"
+                      placeholder="Enter School Address"
+                      value="<%= newUser.schoolAddress || '' %>"
+                    />
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="schoolID">School ID Number</label>
+                        <input
+                          type="text"
+                          id="schoolID"
+                          name="schoolID"
+                          class="form-control"
+                          placeholder="Enter School ID"
+                          value="<%= newUser.schoolID || '' %>"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="category">Category:</label>
+                        <select id="category" name="category" class="form-control" required>
+                          <option value="0" disabled selected>Select Applicant Status</option>
+                          <option value="new-applicant" <%= newUser.category === 'new-applicant' ? 'selected' : '' %>>New Applicant</option>
+                          <option value="old-applicant" <%= newUser.category === 'old-applicant' ? 'selected' : '' %>>Old Applicant</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  
+                  <button type="submit" class="btn btn-primary btn-block">
+                    Save Changes
+                    </button>
+                </form>    
+    </div>
+  </div>
+</div>
+</div>
+        <script>
+            const passwordInput = document.getElementById('password');
+            const toggleButton = document.getElementById('togglePassword');
+
+            const passwordConfirmInput = document.getElementById('password2');
+            const toggleButtonConfirm = document.getElementById('togglePasswordConfirm');
+
+            toggleButton.addEventListener('click', togglePasswordVisibility(passwordInput, toggleButton));
+            toggleButtonConfirm.addEventListener('click', togglePasswordVisibility(passwordConfirmInput, toggleButtonConfirm));
+
+            function togglePasswordVisibility(inputField, toggleButton) {
+                return function () {
+                    if (inputField.type === 'password') {
+                        inputField.type = 'text';
+                        toggleButton.innerHTML = '<i class="fa fa-eye-slash"></i>';
+                    } else {
+                        inputField.type = 'password';
+                        toggleButton.innerHTML = '<i class="fa fa-eye"></i>';
+                    }
+                };
+            }
+
+            function updateBarangayOptions() {
+        const districtSelect = document.getElementById("districtSelect");
+        const barangaySelect = document.getElementById("barangaySelect");
+        const selectedDistrict = districtSelect.value;
+
+        // Hide all options
+        const allOptions = barangaySelect.querySelectorAll("option");
+        allOptions.forEach(option => {
+            option.style.display = "none";
+        });
+
+        // Show options based on selected district
+        const selectedDistrictOptions = barangaySelect.querySelectorAll(`.district-${selectedDistrict}`);
+        selectedDistrictOptions.forEach(option => {
+            option.style.display = "block";
+        });
+        }
+        </script>
+
+</div>
+
+    <style>
+      .user-edit{
+        background-color: white;
+        width:90%;
+      }
+    </style>
+</main>

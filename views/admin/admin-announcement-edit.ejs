@@ -1,0 +1,69 @@
+<main>
+    <%- include('../partials/adminsidebar') %>
+
+    <link rel="stylesheet" href="/public/css/adminannounce.css">
+    <div id="main-wrapper">
+
+        <div class="bg-white admin-announcement-header shadow-sm p-3">
+            <span class="me-3" id="sidebar-toggler-btn"><i class="fas fa-bars"></i></span>
+            <h5 class="m-0 color-theme admin-announcement-header-text d-inline-block">Announcement</h5>
+        </div>
+
+        <div class="col py-2">
+            <div class="row">
+                <div class="col">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/admin/admin-announcement">Create Announcement</a></li>
+                            <li class="breadcrumb-item active">Edit</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col text-end fw-lighter">
+                    <b>Last Updated <%= new Date(announcement.updatedAt).toLocaleString() %> </b>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid d-flex justify-content-center align-items-center">
+            <div class="col-md-7 admin-create-announcement-div">
+                <p class="admin-announcement-title-form-text-header container-fluid">Edit Announcement <i class="fas fa-plus-circle"></i></p>
+                <div class="admin-announcement-container mt-2">
+                    <div class="container-fluid">
+                        <form action="/admin/admin-announcement-edit/<%= announcement._id %>?_method=PUT" method="POST">
+                            <p class="admin-announcement-form-note">Fill up the forms to edit announcement</p>
+                            <div class="row">
+                                <div class="col-md-6 announcement-form">
+                                    <div class="form-group">
+                                        <label for="announcementTitle">Title</label>
+                                        <input type="text" class="form-control" id="announcementTitle" placeholder="Enter title" name="title" value="<%= announcement.title%>">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 announcement-form">
+                                    <div class="form-group">
+                                        <label for="announcementDate">Date</label>
+                                        <% if (announcement.date) { %>
+                                            <% const formattedDate = announcement.date.toISOString().split('T')[0]; %>
+                                            <input type="date" class="form-control" id="announcementDate" name="date" value="<%= formattedDate %>">
+                                        <% } else { %>
+                                            <input type="date" class="form-control" id="announcementDate" name="date" value="">
+                                        <% } %>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group announcement-form">
+                                <label for="announcementContent">Content</label>
+                                <textarea class="form-control" id="announcementContent" rows="5"  name="content"><%=announcement.content%></textarea>
+                            </div>
+
+                            <div class="form-group  admin-announcement-btn-create-holder text-center">
+                                <button type="submit" class="btn  admin-announcement-btn-create ">Save Changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

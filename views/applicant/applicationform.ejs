@@ -1,261 +1,339 @@
 <main>
-	
-	<%- include('../partials/applicantsidebar') %>
+    <link rel="stylesheet" href="/public/css/applicant-oldappform.css">
+    <div id="main-wrapper">
 
-		
-		  <div id="main-wrapper">
-		
-			<div class="bg-white shadow-sm p-3">
-				<span class="me-3" id="sidebar-toggler-btn"><i class="fas fa-bars"></i></span>
-				<h5 class="m-0 color-theme d-inline-block">Application</h5>
-			</div>
-            <div class="app-container container-fluid mt-sm-1">
-                <form id="multipage-form" class="container-sm">
-                    <div class="page" id="page1">
-                        <h2 Class="form-title">Personal Information</h2>
-                        <div class="form-group">
-                            <label for="field1">Name of Applicant</label>
-                            <input type="text" class="form-control" id="field1" name="field1">
-            
-                            <label for="field1">Age</label>
-                            <input type="text" class="form-control" id="field2" name="field2">
-            
-                            <label for="field1">Sex</label>
-                            <input type="text" class="form-control" id="field3" name="field3">
-            
-                            <label for="field1">Data of Birth</label>
-                            <input type="text" class="form-control" id="field4" name="field4">
-            
-                            <label for="field1">Place of Birth</label>
-                            <input type="text" class="form-control" id="field5" name="field5">
-            
-                            <label for="field1">Home Address</label>
-                            <input type="text" class="form-control" id="field6" name="field6">
-            
-                            <label for="field1">Barangay</label>
-                            <input type="text" class="form-control" id="field7" name="field7">
-            
-                            <label for="field1">Contact Number</label>
-                            <input type="text" class="form-control" id="field8" name="field8">
-            
-                            <label for="field1">Email Address</label>
-                            <input type="text" class="form-control" id="field9" name="field9">
-                        </div>
-                             <div class="button-holder">
-                                <button class="btn btn-primary next-page" data-page="2">Next </button>
-                            </div>
-                    </div>
-            
-                    <div class="page" id="page2" style="display: none;">
-                        <h2 class="form-title">Educational Background</h2>
-                        <div class="form-group">
-                            <label for="field2">Name of school presently enrolled</label>
-                            <input type="text" class="form-control" id="field10" name="field10">
-            
-                            <label for="field2">School contact number</label>
-                            <input type="text" class="form-control" id="field11" name="field11">
-            
-                            <label for="field2">Year level</label>
-                            <input type="text" class="form-control" id="field12" name="field12">
-            
-                            <label for="field2">GWA</label>
-                            <input type="text" class="form-control" id="field13" name="field13">
-                        </div>
-                        <div class="button-holder">
-                        <button class="btn btn-primary prev-page" data-page="1">Previous</button>
-                        <button class="btn btn-primary next-page" data-page="3">Next</button>
-                        </div>
-                    </div>
-            
-                    <div class="page" id="page3" style="display: none;">
-                        <h2 class="form-title">Family Background</h2>
-                        <div class="form-group">
-                            
-                            <label for="field3">Father</label>
-                            <input type="text" class="form-control" id="field14" name="field14">
-            
-                            <label for="field3">Name</label>
-                            <input type="text" class="form-control" id="field15" name="field15">
-            
-                            <label for="field3">Address</label>
-                            <input type="text" class="form-control" id="field16" name="field16">
-            
-                            <label for="field3">Contact Number</label>
-                            <input type="text" class="form-control" id="field17" name="field17">
-            
-                            <label for="field3">Occupation</label>
-                            <input type="text" class="form-control" id="field18" name="field18">
-            
-                            <label for="field3">Company</label>
-                            <input type="text" class="form-control" id="field19" name="fiel19">
-            
-                            <label for="field3">Income Per month</label>
-                            <input type="text" class="form-control" id="field20" name="field20">
-            
-                           
-                        </div>
-                        <div class="button-holder">
-                        <button class="btn btn-primary prev-page" data-page="2">Previous</button>
-                        <button class="btn btn-primary next-page" data-page="4">Next</button>
-                        </div>
-                    </div>
-            
-                    <div class="page" id="page4" style="display: none;">
-                        <h2 class="form-title">Family Background</h2>
-                        <div class="form-group">
-                            <label for="field3">Mother</label>
-                            <input type="text" class="form-control" id="field21" name="field21">
-            
-                            <label for="field3">Name</label>
-                            <input type="text" class="form-control" id="field22" name="field22">
-            
-                            <label for="field3">Address</label>
-                            <input type="text" class="form-control" id="field23" name="field23">
-            
-                            <label for="field3">Contact Number</label>
-                            <input type="text" class="form-control" id="field24" name="field24">
-            
-                            <label for="field3">Occupation</label>
-                            <input type="text" class="form-control" id="field25" name="field25">
-            
-                            <label for="field3">Company</label>
-                            <input type="text" class="form-control" id="field26" name="field26">
-            
-                            <label for="field3">Income Per month</label>
-                            <input type="text" class="form-control" id="field27" name="field27">
-            
-                            
-                     </div>
-                         <div class="button-holder">
-                        <button class="btn btn-primary prev-page" data-page="3">Previous</button>
-                        <button class="btn btn-primary next-page" data-page="5">Next</button>
-                        </div>
-                    </div>
-            
-                    <div class="page" id="page5" style="display: none;">
-                        <h2 class="form-title">Family Background</h2>
-                        <div class="form-group">
-                            <label for="field3">Number Of Siblings</label>
-                            <input type="text" class="form-control" id="field28" name="field28">
-            
-                            <label for="field3">Do you have siblings enjoying same financial asistance?</label>
-                            <input type="text" class="form-control" id="field29" name="field29">
-            
-                            <label for="field3">Name</label>
-                            <input type="text" class="form-control" id="field30" name="field30">
-            
-                            <label for="field3">Year Level</label>
-                            <input type="text" class="form-control" id="field31" name="field31">
-            
-                            <label for="field3">Course</label>
-                            <input type="text" class="form-control" id="field32" name="field32">
-                        </div>
-                        <div class="button-holder">
-                        <button class="btn btn-primary prev-page" data-page="4">Previous</button>
-                        <button class="btn btn-primary next-page" data-page="6">Next</button>
-                        </div>
-                    </div>
-            
-                    <div class="page" id="page6" style="display: none;">
-                        <h2 class="form-title">Attachment</h2>
-                        <div class="form-group">
-                            <form action="upload.php" method="post" enctype="multipart/form-data">
-                                <label for="file">Choose a file:</label>
-                                <input type="file" name="file" id="file">
-                            </form>
-            
-                            <form action="upload.php" method="post" enctype="multipart/form-data">
-                                <label for="file">Choose a file:</label>
-                                <input type="file" name="file" id="file">
-                            </form>
-            
-                            <form action="upload.php" method="post" enctype="multipart/form-data">
-                                <label for="file">Choose a file:</label>
-                                <input type="file" name="file" id="file">
-                            </form>
-            
-                            <form action="upload.php" method="post" enctype="multipart/form-data">
-                                <label for="file">Choose a file:</label>
-                                <input type="file" name="file" id="file">
-                            </form>
-                        </div>
-                        <div class="button-holder">
-                        <button class="btn btn-primary prev-page" data-page="5">Previous</button>
-                        <button type="submit" class="btn btn-success">Submit</button>
-                        </div>
-                    </div>
-                </form>
+        <nav class="custom-navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid applicant-navbar">
+          
+                <div class="nav-links-container">
+                    <a class="nav-link navbar-btns" href="/applicant/announcement"><i class="bi bi-envelope-exclamation"></i> Notifications</a>
+                    <a class="nav-link navbar-btns" href="/applicant/form"><i class="fas fa-file-alt"></i> Application Form</a>
+                    <a class="nav-link navbar-btns" href="/applicant/applicant-pre-reg"><i class="fas fa-user-plus"></i> Pre-registration Form</a>
+                  </div>
+              
+              
+                <button class="custom-navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#customNavbarSupportedContent" aria-controls="customNavbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span><i class="fas fa-bars text-white"></i></span>
+                </button>
             </div>
-            
-            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js
-            "></script>
-            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js
-            "></script>
-            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js
-            "></script>
+            <div class="collapse navbar-collapse collapse-button" id="customNavbarSupportedContent">
+              <ul class="navbar-nav mx-auto">
+                  <li class="nav-item">
+                      <a class="nav-link navlink1" href="/applicant/announcement"><i class="bi bi-envelope-exclamation"></i> Notifications</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link navlink1" href="/applicant/form"><i class="fas fa-file-alt"></i> Application Form</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link navlink1" href="/applicant/applicant-pre-reg"><i class="fas fa-user-plus"></i> Pre-registration Form</a>
+                  </li>
+              </ul>
+          </div>
+        </nav>  
+
+        <div class="bg-white shadow-sm p-3">
+            <h5 class="m-0 color-theme d-inline-block">Application (<%= currentUser.category %>) </h5>
+        </div>
+
+            <% if (errors && errors.length > 0) { %> <!-- Check if errors is not null -->
+                <!-- Display the form with validation errors -->
+                <div class="error-messages alert alert-danger alert-dismissible fade show" role="alert">
+                    <ul>
+                        <% errors.forEach(error => { %>
+                            <li><%= error.msg %></li>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        <% }); %>
+                    </ul>
+                </div>
+            <% } %>
+
+<h2 class="form-title shadow-lg">Scholarship Application</h2>
+<form id="multipage-form" class="container-sm " action="/applicant/applicationform" method="POST" enctype="multipart/form-data">
+<div class="old-app-forms">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group forms">
+                <label for="first_name">First Name:</label>
+                <input type="text"
+                       class="form-control"
+                       id="first_name"
+                       name="first_name"
+                       placeholder="First Name"
+                       value="<%= formData.first_name || '' %>"
+                       oninput="validateInput(this)"
+                >
+            </div>
             <script>
-                $(document).ready(function () {
-                    const form = $("#multipage-form");
-                    const pages = $(".page");
-            
-                    $(".next-page, .prev-page").click(function (e) {
-                        e.preventDefault();
-                        const currentPage = $(this).closest(".page");
-                        const nextPageNum = $(this).data("page");
-                        const nextPage = $("#page" + nextPageNum);
-            
-                        currentPage.hide();
-                        nextPage.show();
-                    });
-            
-                    form.submit(function (e) {
-                        e.preventDefault();
-                    
-                        alert("Form submitted successfully!");
-                    });
-                });
+                function validateInput(input) {
+                    // Prevent numbers from being entered
+                    input.value = input.value.replace(/[0-9]/g, '');
+
+                    // Capitalize the first letter
+                    input.value = input.value.charAt(0).toUpperCase() + input.value.slice(1);
+                }
             </script>
-            
-            <style>
-              .form-title{
-    font-size: 50px;
-    text-align: center;
-    font-family: sans-serif;
-    font-weight: bold;
-    background-color:#32de84;
-    color:white;
-    border-top-left-radius: 21px;
-    border-top-right-radius: 21px;
-}
+        </div>
 
-.button-holder{
-    background-color:#32de84;
-    padding-bottom:20px;
-    padding-top:10px;
-    border-bottom-left-radius: 21px;
-    border-bottom-right-radius: 21px;
-    padding-left:20px;
-}
+        <div class="col-md-6">
+            <div class="form-group  forms">
+                <label for="middle_name">Middle Name:</label>
+                <input type="text"
+                       class="form-control"
+                       id="middle_name"
+                       name="middle_name"
+                       placeholder="Middle Name"
+                       value="<%= formData.middle_name|| '' %>"
+                       oninput="validateInput(this)"
+                       onclick="toggleMessage()"
+                >
+                <small id="middleNameMessage" style="display: none;">You can leave it blank or type N/A if you don't have a Middle Name.</small>
+            </div>
+            <script>
+                function toggleMessage() {
+                    var message = document.getElementById('middleNameMessage');
+                    if (message.style.display === 'none') {
+                        message.style.display = 'block';
+                    } else {
+                        message.style.display = 'none';
+                    }
+                }
+            </script>
+        </div>
+    
+       
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group  forms">
+                <label for="last_name">Last Name:</label>
+                <input type="text"
+                       class="form-control"
+                       id="last_name"
+                       name="last_name"
+                       placeholder="Last Name"
+                       value="<%= formData.last_name|| '' %>"
+                       oninput="validateInput(this)"
+                >
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group  forms">
+                <label for="email">Email:</label>
+                <input type="text"
+                       class="form-control"
+                       id="email"
+                       name="email"
+                       placeholder="Email"
+                       value="<%= formData.email|| '' %>"
+                       oninput="validateInput(this)"
+                >
+                
+            </div>
+           
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="primary_cellphone">Personal Cellphone Number:</label>
+                <input type="number" 
+                    class="form-control" 
+                    id="primary_cellphone" 
+                    name="primary_cellphone" 
+                    placeholder="Cellphone Number Ex: 09123456789"
+                    value="<%= formData.primary_cellphone || '' %>"
+                    
+                    oninput="this.value = this.value.replace(/[^0-9]/g, '');
+                     if (this.value.length > 11) this.value = this.value.slice(0, 11);">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="secondary_cellphone">Alternative Cellphone Number:</label>
+                <input type="number" 
+                    class="form-control" 
+                    id="secondary_cellphone" 
+                    name="secondary_cellphone" 
+                    placeholder="Alternative Number"
+                    value="<%= formData.secondary_cellphone || '' %>"
+                   
+                    oninput="this.value = this.value.replace(/[^0-9]/g, '');
+                     if (this.value.length > 11) this.value = this.value.slice(0, 11);"
+                     onclick="toggleMessage()"
+                     >
+                     <small id="alternativeMessage" style="display: none;">You can leave it blank or type N/A.</small>
+            </div>
+            <script>
+                function togglealternativeMessage() {
+                    var message = document.getElementById('alternativeMessage');
+                    if (message.style.display === 'none') {
+                        message.style.display = 'block';
+                    } else {
+                        message.style.display = 'none';
+                    }
+                }
+            </script>
+        </div>
+    
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="barangay">Barangay:</label>
+                <select class="form-control" id="barangay" name="barangay">
+                    <option value="" disabled selected>Select Barangay</option>
+                <option value="Baclaran" class="district-1" <%= formData.barangay === 'Baclaran' ? 'selected' : '' %>>Baclaran</option>
+                <option value="B.F Homes" class="district-2" <%= formData.barangay === 'B.F Homes' ? 'selected' : '' %>>B.F Homes</option>
+                <option value="Don Bosco" class="district-2" <%= formData.barangay === 'Don Bosco' ? 'selected' : '' %>>Don Bosco</option>
+                <option value="Don Galo" class="district-1" <%= formData.barangay === 'Don Galo' ? 'selected' : '' %>>Don Galo</option>
+                <option value="La Huerta" class="district-1" <%= formData.barangay === 'La Huerta' ? 'selected' : '' %>>La Huerta</option>
+                <option value="Marcelo Green" class="district-2" <%= formData.barangay === 'Marcelo Green' ? 'selected' : '' %>>Marcelo Green</option>
+                <option value="Merville" class="district-2" <%= formData.barangay === 'Merville' ? 'selected' : '' %>>Merville</option>
+                <option value="Moonwalk" class="district-2" <%= formData.barangay === 'Moonwalk' ? 'selected' : '' %>>Moonwalk</option>
+                <option value="San Antonio" class="district-2" <%= formData.barangay === 'San Antonio' ? 'selected' : '' %>>San Antonio</option>
+                <option value="San Donisio" class="district-1" <%= formData.barangay === 'San Donisio' ? 'selected' : '' %>>San Donisio</option>
+                <option value="San Isidro" class="district-1" <%= formData.barangay === 'San Isidro' ? 'selected' : '' %>>San Isidro</option>
+                <option value="San Martin De Porres" class="district-2" <%= formData.barangay === 'San Martin De Porres' ? 'selected' : '' %>>San Martin De Porres</option>
+                <option value="Santo Niño" class="district-1" <%= formData.barangay === 'Santo Niño' ? 'selected' : '' %>>Santo Niño</option>
+                <option value="San Valley" class="district-2" <%= formData.barangay === 'San Valley' ? 'selected' : '' %>>San Valley</option>
+                <option value="Tambo" class="district-1" <%= formData.barangay === 'Tambo' ? 'selected' : '' %>>Tambo</option>
+                <option value="Vitalez" class="district-1" <%= formData.barangay === 'Vitalez' ? 'selected' : '' %>>Vitalez</option>
+                    <!-- Other options -->
+                </select>
+            </div>
+        </div>
+    </div>
+    
 
-.app-container{
-    padding-top:5px;
-    padding-bottom:50px;
-}
+<div class="row">
+    
+        <div class="form-group col-md-6">
+            <label for="certificate_of_registration">Certificate of Registration:</label>
+            <input type="file" name="certificate_of_registration" id="certificate_of_registration" class="form-control forms" title="Certificate of Registration" accept=".pdf">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="application_form">Application Form:</label>
+            <input type="file" name="application_form" id="application_form" class="form-control forms" title="Application Form" accept=".pdf">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="grades">Grades:</label>
+            <input type="file" name="grades" id="grades" class="form-control forms" title="Grades" accept=".pdf">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="school_id">School ID:</label>
+            <input type="file" name="school_id" id="school_id" class="form-control forms" title="School ID" accept=".pdf">
+        </div>
+    
 
-#multipage-form{
-    background-color:white;
-    padding-left:0px;
-    padding-right:0px;
-    border-radius: 25px;
-    box-shadow: 5px 5px 10px rgba(0, 0, 0.1, 0.5);
-}
+    
+        <div class="form-group col-md-6">
+            <label for="voters_id">Voter's ID:</label>
+            <input type="file" name="voters_id" id="voters_id" class="form-control forms" title="Voter's ID" accept=".pdf">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="cswd_document">CSWD Document:</label>
+            <input type="file" name="cswd_document" id="cswd_document" class="form-control forms" title="CSWD Document" accept=".pdf">
+        </div>
+        <% if (currentUser.category === 'new-applicant') { %>
 
-.form-group{
-    padding-left: 100px;
-    padding-right:100px;
-}
-            
-            </style>
+        <div class="form-group col-md-6">
+            <label for="proof_of_payment">Proof of Payment:</label>
+            <input type="file" name="proof_of_payment" id="proof_of_payment" class="form-control forms" title="Proof of Payment" accept=".pdf">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="barangay_id">Barangay ID:</label>
+            <input type="file" name="barangay_id" id="barangay_id" class="form-control forms" title="Barangay ID" accept=".pdf">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="certificate_of_good_moral">Certificate of Good Moral:</label>
+            <input type="file" name="certificate_of_good_moral" id="certificate_of_good_moral" class="form-control forms" title="Certificate of Good Moral" accept=".pdf">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="certificate_of_ladderized_course">Certificate of Ladderized Course (Optional):</label>
+            <input type="file" name="certificate_of_ladderized_course" id="certificate_of_ladderized_course" class="form-control forms" title="Certificate of Ladderized Course (Optional)" accept=".pdf">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="affidavit_of_guardianship">Affidavit of Guardianship (Optional):</label>
+            <input type="file" name="affidavit_of_guardianship" id="affidavit_of_guardianship" class="form-control forms" title="Affidavit of Guardianship (Optional)" accept=".pdf">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="affidavit_of_support">Affidavit of Support (Optional):</label>
+            <input type="file" name="affidavit_of_support" id="affidavit_of_support" class="form-control forms" title="Affidavit of Support (Optional)" accept=".pdf">
+        </div>
+        <% } %>
+        
+    
+</div>
 
-	</div>
+
+
+            <div class="text-center">
+                <button id="submitButton" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmationModal">
+                    <i class="fas fa-check"></i> Submit
+                </button>
+            </div>
+        </form>
+       
+       
+    </div>
+    
+</div>
+           
+
+             <!-- Confirmation Modal -->
+             <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true" data-bs-backdrop="static">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="confirmationModalLabel">Confirm Submission</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <p>Are you sure you want to submit?</p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                      <button type="button" class="btn btn-primary" id="confirmSubmitButton">Yes, Submit</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="modal fade" id="loadingModal" tabindex="-1" aria-labelledby="loadingModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content modal-content-blur">
+                    <div class="modal-body text-center">
+                      <div class="spinner-grow text-success" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                      </div>
+                      <div class="spinner-grow text-warning" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                      </div>
+                      <div class="spinner-grow text-white" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                      </div>
+                      <p class="mt-2 loading-text"> Please wait</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <script>
+                document.getElementById('confirmSubmitButton').addEventListener('click', function() {
+                  // Hide the confirmation modal
+                  $('#confirmationModal').modal('hide');
+              
+                  // Show the loading modal
+                  $('#loadingModal').modal('show');
+              
+                  // Blur the background (optional)
+                  document.getElementById('loadingModal').classList.add('modal-blurr');
+              
+                  // Simulate loading delay and form submission
+                  setTimeout(function() {
+                    // Trigger form submission
+                    document.querySelector('form').submit();
+                  }, 2000); // Adjust the delay as needed
+                });
+              </script>
+
+
+</div>
 </main>

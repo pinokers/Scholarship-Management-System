@@ -4,22 +4,24 @@
     
 <!-------------------------------------------------------------------BANNNER--------------------------------------------->
 <div class="banner" id="home">
-    <h1 class="bannertitle">Scholarship Financial <br>Assistant</h1>
-    <p class="bannertagline">Special Services Office Paranaque <br>
-                        is a governemnt entity that provides special needs<br>
-                        and assistance (scholarship and financial assistance)<br>
-                            to the citizens of Paranaque</p>
+    <h1 class="bannertitle">College Educational Financial Assistant Program</h1>
+    <p class="bannertagline">Collge Education Financial Assistance Program (CEFAP) is a program 
+        that provides financial assistance to the qualified college students of Parañaque City.</p>
 
                             <% if (currentUser) { %>
                                 <h4 class="mb-1"><b>Welcome!</b></h4>
-                                <p class="mb-0">Hello, <%= currentUser.name %>!</p>
-                           
+                                <p class="mb-0">Hello, <%= currentUser.first_name %>!</p>
+                                
                                 <% if (currentUser.role === 'user') { %>
                                   <!-- Show user dashboard button -->
-                                  <button class="back-button"><a class=" nav-link" href="/applicant/dashboard">Go to User Dashboard</a></button>
-                                <% } else if (currentUser.role === 'admin') { %>
+                                  <button class="back-button"><a class="nav-link" href="/applicant/announcement">Go to User Dashboard</a></button>
+                                <% } else if (currentUser.role === 'staff') { %>
                                   <!-- Show admin dashboard button -->
-                                  <button class="back-button"><a class=" nav-link" href="/admin/manager">Go to Admin Dashboard</a></button>
+                                  <button class="back-button"><a class="nav-link" href="/admin/dashboard">Go to Admin Dashboard</a></button>
+                                <% } else if (currentUser.role === 'adminmanager') { %>
+                                  <!-- Show admin manager section for adminmanager users -->
+                                  <button class="back-button"><a class="nav-link" href="/admin/dashboard">Go to Manager Dashboard</a></button>
+                                  
                                 <% } %>
                               <% } else { %>
                                 <a href="/auth/applicantlogin" class="btn btn-outline-secondary" role="button" id="applicants">Applicants</a>
@@ -30,81 +32,325 @@
  
 
     <!------------------------------------------------------------------------------ABOUT ------------------------------------------------------------------------------------------------>
-    <div class="container">
+<div class="about-container container-fluid">
+    <div class="container-sm ">
 
         <section id="about">
-            <div class="row">
-                <div class="col-md-6">
+            <div class="row about-info-image-div">
+                <div class="col-md-6 sso-info">
                     <br />
-                    <h2 class="about-sso">About SSO</h2>
-                    <p>
-                        SSO is a government entity that provides needs and assistance (scholarship and financial assistance) to the
-                        citizens of Paranaque.
+                    <h2 class="about-sso">About CEFAP</h2>
+                    <p class="cefap-info">
+                        CEFAP (College Educational Financial Assistance Program), as a part
+                        of Project ERIC (Exigent Response for Indigent Citizen), is a program 
+                        proudly offered by the Special Services Office of the City Government
+                        of Parañaque, under the leadership of Mayor Eric Olivarez. This program 
+                        aims to provide financial assistance to the qualified college students of Parañaque City.
                     </p>
-                    <h3 class="mission-title">Mission</h3>
-                    <ol>
-                        <li>
-                            Provides Financial Assistance to all deserving incoming and college students through College Scholarship
-                            Program
-                        </li>
-                        <li>Provide free TESDA skills Training</li>
-                        <li>Provides burial assistance through Libreng Libing Program</li>
-                    </ol>
+                   
+                    
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 sso-image">
                     <div class="text-center">
                         <br />
                         <img src="/public/image/landingpageimage.jpg" alt="SSO Image" class="img-fluid">
                     </div>
                 </div>
             </div>
-        </section>
-
-        <!-----------------------------------------------------------------------------CONTACT ---------------------------------------------------------------------------------------------------->
-        <br />
-        <section id="contact">
-            <br />
-            <h2>Contact Us</h2>
-            <form>
-                <div class="form-group">
-                    <label for="name">Name:</label>
-                    <input type="text" class="form-control" id="name" placeholder="Enter your name" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
-                </div>
-                <div class="form-group">
-                    <label for="subject">Subject:</label>
-                    <input type="text" class="form-control" id="subject" placeholder="Enter your subject" required>
-                </div>
-                <div class="form-group">
-                    <label for="message">Message:</label>
-                    <textarea class="form-control" id="message" rows="5" placeholder="Enter your message" required></textarea>
-                </div>
-                <br />
-                <button type="submit" class="btn btn-primary" style="margin-bottom:10px;">Submit</button>
-
-
-
-
-            </form>
-
-
-            <style>
-                #contact {
-                    
-                    padding: 10px;
-                  
-                    margin-top:20px;
-                    margin-bottom: 20px;
-                    border-radius: 25px;
-                    border: 2px solid #ccc;
-                    box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.2);
-                }
-            </style>
+            
         </section>
     </div>
+</div>
+        <!----------------------------------------------------------------------------QUALIFICATION------------------------------------------------------------------------------------------------>
+     <div class="qualification-container">  
+        <div class="container-sm"   id="qualification">
+           <div class="home-page-qualification-header">
+                <h1 class="home-page-qualification-header-title">Qualification</h1>
+           </div>
+
+           <div class="row qualification-info-contianer-top">
+
+                <div class="col-md-7 qualification-info-1 ">
+                    <h1 class="who-qualified">Who are qualified?</h1>
+                    <ol class="qualified-student-list">
+                        <li>A resident of Parañaque City</li>
+                        <li>Applicants or parents must be a registered voter in the city of Parañaque City</li>
+                        <li>Enrolled in Bachelors degree or course under ladderized program</li>
+                        <li>Enrolled with at least 9 units load.</li>
+                        <li>With at least general weight average of 81%</li>
+                        <li>Have no failing grade, INC or incomplete, and unofficially dropped.</li>
+                        <li>With good moral character</li>
+                      </ol>
+                </div>
+                
+
+                <div class="col-md-5 qualifcation-info-1-img "> 
+                        <img src="/public/image/homepagequalification2.png" class="img-fluid homepagequalification1">
+                        
+                </div>
+                
+           </div>
+
+            
+
+          <div class="row qualification-info-contianer-bottom">
+            <div class="col-md-5 qualifcation-info-2-img ">
+                <img src="/public/image/homepagequalification1.png" class=" img-fluid homepagequalification2">
+
+            </div>
+
+            <div class="col-md-7 qualification-info-2">
+                <h1 class="how-apply">How to apply?</h1>
+                <ol class="how-apply-list">
+                   <li>Sign up and login your account</li>
+                   <li>Prepare the required documents</li>
+                   <li>Await the pre-registration form opening</li>
+                   <li>Complete the pre-registration forms</li>
+                   <li>Submit the documents and keep the OTP code</li>
+                   <li>Wait for further announcement</li>
+                   <li>Enter OTP to access the application form</li>
+                   <li>Fill out the forms and upload your documents</li>
+                   <li>If eligible, you'll receive a confirmation</li>
+                   <li>Save the confirmation and Await payout announcement</li>
+             
+                </ol>
+
+            </div>
+          </div>
+
+
+
+        </div>
+    </div>
+        <!-----------------------------------------------------------------------------CONTACT ---------------------------------------------------------------------------------------------------->
+    <div class="requirements-container">
+        <div class="requirements container-sm" id="requirements">
+            <div class="home-page-requirements-header">
+                <h1 class="home-page-requirements-header-title">Requirements</h1>
+            </div>
+
+        <div class="row">
+            <div class="green-border-limit-top"></div>
+            <div class="col-md-6 requirements-info-1 left-column">
+                <h1 class="applicants-requirements-title">Requirements for new applicants</h1>     
+                <ul class="requirements-list">
+                    <li>Application Form with " 2 x 2 " ID picture</li>
+                    <li>Certificate of registration</li>
+                    <li>Summary of grades</li>
+                    <li>Copy of proof of payment</li>
+                    <li>Voters ID</li>
+                    <li>Certificate of Good Moral</li>
+                    <li>Certificate of ladderized course(if not enrolled in bachelor)</li>
+                    <li>Affidavit of Guardianship(if not living with the parents)</li>
+                    <li>Affidavit of Support (if someone other than your parents is supporting your studies)</li>
+                    <li>CSWDD Social Summary Case Report</li>
+                    
+                </ul>
+            </div>
+
+            <div class="col-md-6 requirements-info-2">
+                <h1  class="applicants-requirements-title">Requirements for old applicants</h1>
+                <ul class="requirements-list">
+                    <li>Application Form with " 2 x 2 " ID picture</li>
+                    <li>Certificate of registration</li>
+                    <li>Summary of grades</li>
+                    <li>Copy of proof of payment</li>
+                    <li>Voters ID</li>
+                    <li>Proof of Payment</li>
+                    <li>CSWDD Social Summary Case Report</li>
+                </ul>
+            </div>
+
+        <div class="green-border-limit-bottom"></div>
+
+        </div>
+
+    </div>
+
+
+
+      <div class="requirements-container">
+        <div class="requirements container-sm" id="requirements">
+            <div class="home-page-requirements-header">
+                <h1 class="home-page-requirements-header-title">CSWD Social Summary Case Report</h1>
+            </div>
+
+        <div class="row">
+            <div class="green-border-limit-top"></div>
+            <div class="col-md-6 requirements-info-1 left-column">
+                <h1 class="applicants-requirements-title">Requirements</h1>     
+                <ul class="requirements-list">
+                    <li>Copy of Approve Appointment</li>
+                    <li>Application form with " 2 x 2 " ID picture</li>
+                    <li>Summary of Grade</li>
+                    <li>Certificate of Registration</li>
+                    <li>Proof of Payment, Scholarship, or Free tuition</li>
+                    <li>School ID</li>
+                    <li>Barangay Certificate of indigency - purpose is for CSWDD</li>
+                    <li>Updated Income Tax Return</li>
+                    <li>Certificate of Employment with Compensation</li>
+                    <li>Notarized Affidavit of Low Income or Insufficient Income</li>
+                   
+                    
+                </ul>
+            </div>
+
+            <div class="col-md-6 requirements-info-2">
+                <h1  class="applicants-requirements-title">Additional Requirements</h1>
+                <ul class="requirements-list">
+                  <h1 class="noincome"> IF PARENTS HAS NO INCOME</h1>
+                    <li>Notarized Affidavit of Support - Only if someone is supporting your studies</li>
+                    <li>Certificate of Employment with Compensation of the student - If you are self-supporting or working student</li>
+                  
+                </ul>
+            </div>
+
+        <div class="green-border-limit-bottom"></div>
+
+        </div>
+
+    </div>
+
+
+  
+</div>
+</div>
+
+<style>
+    .border {
+        max-height: 500px; /* Set the maximum height for the container */
+        overflow-y: auto; /* Enable vertical scrollbar */
+    }
+    .comment-content.medium {
+    font-size: 14px; /* Adjust the font size as needed */
+}
+</style>
+
+<div class="requirements-container">
+    <div class="free-wall container-sm" id="freedomwall">
+        <div class="freedom-wall-header">
+            <h1 class="home-page-requirements-header-title">Freedom Wall</h1>
+        </div>
+
+        <div class="container mt-4">
+            <div class="row">
+                <!-- Right side: Display created content -->
+                <div class="col-md-12 ">
+                    <div class="border border-success rounded p-3">
+                        <!-- Display posts here -->
+                        <div class="comment-content medium">
+                            <% for (let i = 0; i < posts.length; i += 2) { %>
+                                <div class="row">
+                                    <% for (let j = i; j < i + 2 && j < posts.length; j++) { %>
+                                        <div class="col-md-6">
+                                            <div class="post" id="post<%= j %>" onclick="toggleButton('collapseButton<%= j %>')">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <div class="comment-text">
+                                                        <% if (posts[j].createdBy && posts[j].createdByModel === 'User') { %>
+                                                            <strong><%= posts[j].createdBy.first_name %> <%= posts[j].createdBy.last_name %>: </strong>
+                                                        <% } else if (posts[j].createdByModel === 'Admin') { %>
+                                                            <strong>Admin: </strong>
+                                                        <% } %>
+                                                        <%= posts[j].content %>
+                                                    </div>   
+                                                    <% if (currentUser && posts[j].createdBy && currentUser._id.toString() === posts[j].createdBy._id.toString() || (currentUser && currentUser.role === 'staff') || (currentUser && currentUser.role === 'adminmanager')) { %>
+                                                        <form action="/home/post-delete/<%= posts[j]._id %>?_method=DELETE" method="POST">
+                                                            <input type="hidden" name="_method" value="DELETE">
+                                                            <button class="btn btn-sm btn-outline-danger collapse-button" id="collapseButton<%= j %>" style="display: none;" type="submit">Delete</button>
+                                                        </form>
+                                                    <% } %>
+                                                </div>
+                                                <p class="mt-0">
+                                                    <em>
+                                                        <% 
+                                                            function getTimeElapsed(createdAt) {
+                                                                const createdDate = new Date(createdAt);
+                                                                const currentDate = new Date();
+                                                                const elapsedTimeInSeconds = Math.floor((currentDate - createdDate) / 1000);
+                                                                if (elapsedTimeInSeconds < 60) {
+                                                                    return `${elapsedTimeInSeconds} second${elapsedTimeInSeconds !== 1 ? 's' : ''} ago`;
+                                                                } else if (elapsedTimeInSeconds < 3600) {
+                                                                    const minutes = Math.floor(elapsedTimeInSeconds / 60);
+                                                                    return `${minutes} minute${minutes !== 1 ? 's' : ''} ago`;
+                                                                } else if (elapsedTimeInSeconds < 86400) {
+                                                                    const hours = Math.floor(elapsedTimeInSeconds / 3600);
+                                                                    return `${hours} hour${hours !== 1 ? 's' : ''} ago`;
+                                                                } else {
+                                                                    const days = Math.floor(elapsedTimeInSeconds / 86400);
+                                                                    return `${days} day${days !== 1 ? 's' : ''} ago`;
+                                                                }
+                                                            }
+                                                        %>
+                                                        <%= getTimeElapsed(posts[j].createdAt) %>
+                                                    </em>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    <% } %>
+                                </div>
+                            <% } %>
+                            
+                        </div>
+
+                        <!-- Centered form for creating content -->
+                       
+                        
+                        <script>
+                            document.getElementById('content').addEventListener('input', function() {
+                                var input = this.value;
+                                var warningMessage = document.getElementById('warningMessage');
+                                
+                                if (input.length >= 45) {
+                                    this.value = input.substring(0, 45); // Truncate input to 45 characters
+                                    warningMessage.style.display = 'block';
+                                } else {
+                                    warningMessage.style.display = 'none';
+                                }
+                            });
+                        </script>
+                        
+                        
+                        
+                    </div>
+                    <div class="freedomwall-type-area">
+                    <form action="/posts" method="post">
+                        <div class="input-group mb-1">
+                            <input type="text" class="form-control" id="content" name="content" placeholder="Enter comment" aria-label="Enter comment" aria-describedby="basic-addon2" maxlength="45">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-success" type="submit"><i class="bi bi-arrow-right"></i></button>
+                            </div>
+                        </div>
+                        <span id="warningMessage" style="color: red; display: none;">Comment limit reached (45 characters)</span>
+                    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleButton(buttonId) {
+    var button = document.getElementById(buttonId);
+    if (button.style.display === 'none') {
+        button.style.display = 'block';
+    } else {
+        button.style.display = 'none';
+    }
+}
+
+</script>
+
+
+
+
+
+
+
+
+
+
+ 
 
 
 
@@ -112,33 +358,12 @@
     
     <footer class="footer text-white text-center py-3">
         <a href="https://web.facebook.com/ssoparanaquecity" target="_blank" class="footer-content">
-        <i class="fab fa-facebook fa-2x" > Special Services Office Paranaque</i>
+        <i class="fab fa-facebook fa-2x" > Special Services Office Parañaque</i>
     </a>
     </footer>
 
 
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-<script>
-  // Handle smooth scrolling when clicking navbar links
-  document.addEventListener("DOMContentLoaded", function() {
-    var scrollTriggerList = [].slice.call(document.querySelectorAll('[data-bs-scroll]'));
-    scrollTriggerList.map(function(scrollTrigger) {
-      scrollTrigger.addEventListener('click', function(e) {
-        e.preventDefault();
-        var target = document.querySelector(scrollTrigger.getAttribute('href'));
-        var headerOffset = 100; // Adjust this value to offset the scrolling position
-        var elementPosition = target.getBoundingClientRect().top;
-        var offsetPosition = elementPosition - headerOffset;
-
-        window.scrollBy({
-          top: offsetPosition,
-          behavior: 'smooth'
-        });
-      });
-    });
-  });
-</script>
 <script src="/public/js/script.js"></script>
+
 
 

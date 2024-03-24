@@ -1,52 +1,179 @@
 <main>
-	<%- include('../partials/applicantsidebar') %>
-	
+
+	<link rel="stylesheet" href="/public/css/applicantprofile.css">
 	<div id="main-wrapper">
+
+		<nav class="custom-navbar navbar-expand-lg navbar-light bg-light">
+			<div class="container-fluid applicant-navbar">
+		  
+				
+				<div class="nav-links-container">
+					<a class="nav-link navbar-btns" href="/applicant/announcement"><i class="bi bi-envelope-exclamation"></i> Notifications</a>
+					<a class="nav-link navbar-btns" href="/applicant/form"><i class="fas fa-file-alt"></i> Application Form</a>
+					<a class="nav-link navbar-btns" href="/applicant/applicant-pre-reg"><i class="fas fa-user-plus"></i> Pre-registration Form</a>
+				  </div>
+			  
+			  
+				<button class="custom-navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#customNavbarSupportedContent" aria-controls="customNavbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				  <span><i class="fas fa-bars text-white"></i></span>
+				</button>
+			</div>
+			<div class="collapse navbar-collapse collapse-button" id="customNavbarSupportedContent">
+			  <ul class="navbar-nav mx-auto">
+				  <li class="nav-item">
+					  <a class="nav-link navlink1" href="/applicant/announcement"><i class="bi bi-envelope-exclamation"></i> Notifications</a>
+				  </li>
+				  <li class="nav-item">
+					  <a class="nav-link navlink1" href="/applicant/form"><i class="fas fa-file-alt"></i> Application Form</a>
+				  </li>
+				  <li class="nav-item">
+					  <a class="nav-link navlink1" href="/applicant/applicant-pre-reg"><i class="fas fa-user-plus"></i> Pre-registration Form</a>
+				  </li>
+			  </ul>
+		  </div>
+		</nav>
 		
-		<div class="bg-white shadow-sm p-3">
-			<span class="me-3" id="sidebar-toggler-btn"><i class="fas fa-bars"></i></span>
-			<h5 class="m-0 color-theme d-inline-block"></i>Profile</h5>
+		<div class="bg-white shadow-sm p-3 applicant-profile-header text-center">
+			<h5 class="m-0 applicant-profile-header-text color-theme d-inline-block">Profile</h5>
 		</div>
 		
-		<form action="/applicant/profile?_method=PUT" method="POST" class="w-75 border ms-3 my-3 p-4 bg-white rounded-2 shadow" style="min-width: 400px;">
+		
+		<form action="/applicant/profile?_method=PUT" method="POST" class="container-fluid  border  p-4 bg-white rounded-2 shadow applicant-update-profile-form">
+			
+			
+
+			<div class="row align-items-center profile-form-header">
+				<div class="col-md-2 text-center">
+					<div class="user-icon position-relative" id="profile-picture">
+						<input type="file" id="upload" class="position-absolute top-0 start-0 w-100 h-100 opacity-0 cursor-pointer">
+						
+							<i class="bi bi-person-fill user-icon1" style="font-size: 9rem; color:white;"></i>
+						
+					</div>
+					
+				</div>
+				<div class="col-md-8 user-name-con">
+					<h1 class="user-name"><%= currentUser.first_name %> <%= currentUser.middle_name %> <%= currentUser.last_name %></h1>
+					<!-- New div for Gmail information -->
+					<div class="user-info"></i><%= currentUser.email %>  <i class="bi bi-envelope-fill"></i></div>
+				</div>
+			</div>
+			
+			
+			<div class="col-md-12 profile-note-div">
+				<div class="applicant-profile-note">You can update your information here</div>
+				<div class="applicant-profile-admin-note">Upon submission, the system will automatically update your information.</div>
+			</div>
+
+			
+			
+
+			<div class="row">
+				<div class="col-sm-4 mb-4  form3">
+					<label for="first-name" class="form-label form3">First Name</label>
+					<input type="text" name="user[first_name]" class="form-control" id="first-name" placeholder="Enter first name.." value="<%= currentUser.first_name %>" disabled>
+				</div>
+				<div class="col-sm-4 mb-4 form3">
+					<label for="middle-name" class="form-label ">Middle Name</label>
+					<input type="text" name="user[middle_name]" class="form-control" id="middle-name" placeholder="Enter middle name.." value="<%= currentUser.middle_name %>">
+				</div>
+				<div class="col-sm-4 mb-4 form3">
+					<label for="last-name" class="form-label">Last Name</label>
+					<input type="text" name="user[last_name]" class="form-control" id="last-name" placeholder="Enter last name.." value="<%= currentUser.last_name %>" disabled>
+				</div>
+			</div>
 			
 			<div class="row">
-				<div class="col-sm-6 mb-4">
-					<label for="first-name" class="form-label">Name</label>
-					<input type="text" name="user[name]" class="form-control" id="first-name" placeholder="Enter first name.." value="<%= currentUser.name %>" required>
+				<div class="mb-4">
+					<label for="email" class="form-label">Email</label>
+					<input type="email" id="email" class="form-control" value="<%= currentUser.email %>">
 				</div>
+				<div class="mb-4">
+					<label for="password" class="form-label">Password</label>
+					<div class="input-group">
+						<input type="password" id="password" class="form-control" name="user[password]" placeholder="Enter new password.." aria-describedby="password-toggle" oninput="validatePassword(this)"
+						onclick="togglepassMessage()">
+						<button class="btn btn-outline-secondary" type="button" id="password-toggle" onclick="togglePasswordVisibility()">
+							<i class="bi bi-eye-slash"></i> <!-- Bootstrap Icons - Eye Slash icon -->
+						</button>
+					</div>
+					<small id="passwordMessage" style="display: none;">Password must contain at least one (A-Z)uppercase letter, (a-z)one lowercase letter, (1-100)one number, and (!@#$%^&*()\-_=+{};:,<.>)one special character.</small>
+				</div>
+				<script>
+					function togglepassMessage() {
+						var message = document.getElementById('passwordMessage');
+						if (message.style.display === 'none') {
+							message.style.display = 'block';
+						} else {
+							message.style.display = 'none';
+						}
+					}
+				</script>
+				<script>
+					function validatePassword(input) {
+					  var password = input.value;
+					  var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+{};:,<.>]).{8,}$/;
+					  var isValid = passwordRegex.test(password);
+					  
+					  if (!isValid) {
+						input.setCustomValidity("Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.");
+					  } else {
+						input.setCustomValidity("");
+					  }
+					}
+					</script>
 				
-			<div class="mb-4">
-				<label for="email" class="form-label">Email</label>
-				<input type="email" id="email" class="form-control" value="<%= currentUser.email %>" disabled>
-			</div>
-			<div class="mb-4">
-				<label for="address" class="form-label">Course</label>
-				<input type="text" name="user[course]" class="form-control" id="address" placeholder="Enter address.." value="<%= currentUser.course %>">
 			</div>
 			
-			<div class="mb-4">
-				<label for="phone" class="form-label">Phone</label>
-				<input type="number" name="user[contact]" class="form-control" id="phone" placeholder="Enter phone.." value="<%= currentUser.contact %>">
+			
+			<div class="row">
+				<div class="col-sm-6 mb-4 form3">
+					<label for="address" class="form-label">Course</label>
+					<input type="text" name="user[course]" class="form-control" id="address" placeholder="Enter course.." value="<%= currentUser.course %>">
+				</div>
+				<div class="col-sm-6 mb-4 form3">
+					<label for="phone" class="form-label">Phone</label>
+					<input type="number" name="user[contact]" class="form-control" id="phone" placeholder="Enter phone.." value="<%= currentUser.contact %>">
+				</div>
 			</div>
-			<div class="mb-4">
-				<label for="address" class="form-label">school ID</label>
-				<input type="text" name="user[schoolID]" class="form-control" id="address" placeholder="Enter address.." value="<%= currentUser.schoolID %>">
+			
+			<div class="row">
+				<div class="col-sm-6 mb-4 form3">
+					<label for="schoolID" class="form-label">School ID</label>
+					<input type="text" name="user[schoolID]" class="form-control" id="schoolID" placeholder="Enter School ID.." value="<%= currentUser.schoolID %>">
+				</div>
+				<div class="col-sm-6 mb-4 form3">
+					<label for="schoolName" class="form-label">School Name</label>
+					<input type="text" name="user[schoolName]" class="form-control" id="schoolName" placeholder="Enter School Name.." value="<%= currentUser.schoolName %>">
+				</div>
 			</div>
-			<div class="mb-4">
-				<label for="address" class="form-label">School Name</label>
-				<input type="text" name="user[schoolName]" class="form-control" id="address" placeholder="Enter address.." value="<%= currentUser.schoolName %>">
-			</div>
+			
 			<div class="mb-4">
 				<label for="address" class="form-label">School Address</label>
 				<input type="text" name="user[schoolAddress]" class="form-control" id="address" placeholder="Enter address.." value="<%= currentUser.schoolAddress %>">
 			</div>
+
+			<div class="applicant-profile-admin-note">Contact SSO if you want to change any of the <strong>disabled</strong> information.</div>
 			
 			
-			<button type="submit" class="btn w-75 d-block m-auto mt-4">Update</button>
+			<button type="submit" class="btn w-75 d-block m-auto mt-4 applicant-profile-button-request">Save Changes	</button>
 		</form>
 		
 		
 		
 	</div>
 </main>
+<script>
+function togglePasswordVisibility() {
+    const passwordInput = document.getElementById("password");
+    const passwordToggle = document.getElementById("password-toggle");
+    
+    if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        passwordToggle.innerHTML = '<i class="bi bi-eye"></i>'; // Bootstrap Icons - Eye icon
+    } else {
+        passwordInput.type = "password";
+        passwordToggle.innerHTML = '<i class="bi bi-eye-slash"></i>'; // Bootstrap Icons - Eye Slash icon
+    }
+}
+</script>

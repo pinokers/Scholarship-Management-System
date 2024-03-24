@@ -1,0 +1,37 @@
+body{
+    background-color: ghostwhite;
+}
+
+.bg-image {
+    min-height: 100vh;
+    background-image: url('/public/image/formbg1.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+
+.applicant-reset-password-container{
+    
+    border-radius: 25px;
+    margin-top:130px;
+    padding-top:10px;
+    padding-bottom:30px;
+    background-color: white;
+}
+
+@media (min-width: 768px) and (max-width: 990px) {
+    .applicant-reset-password-container{
+        max-width: 90%;
+    }
+
+    
+}
+
+  
+
+/* mobile to mobile */
+@media (min-width: 320px) and (max-width: 767px) {
+    .applicant-reset-password-container{
+        max-width:90%;
+    }
+}

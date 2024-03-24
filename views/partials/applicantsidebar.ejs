@@ -2,13 +2,19 @@
     <ul id="sidebar-nav">
         <li>
             <% if (currentUser) { %>
-                <p><%= currentUser.name %></p>
+                <i class="bi bi-person-fill"></i><%= currentUser.first_name %> <%= currentUser.last_name %>
             <% } else { %>
                 <p>User not logged in.</p>
             <% } %>
         </li>
-        <li><a href="/applicant/dashboard"><i class="fas fa-chart-bar"></i> Dashboard</a></li>
-        <li><a href="/applicant/applicationform"><i class="fas fa-file-alt"></i> Application Form</a></li>
-        <li><a href="/applicant/profile"><i class="fas fa-user"></i> My Profile</a></li>
+        
+            <!-- ... (other menu items) ... -->
+            <li><a href="/applicant/announcement"><i class="bi bi-envelope-exclamation"></i> Notifications</a></li>
+            
+        
+            <li><a href="/applicant/prereg"><i class="fas fa-file-alt"></i> Application Form</a></li>
+        
+         
+        <li><a href="/applicant/applicant-pre-reg"><i class="fas fa-user-plus"></i> Pre-registration Form</a></li>
     </ul>
 </div>

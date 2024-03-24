@@ -1,99 +1,239 @@
 <main>
-	
-	<%- include('../partials/adminsidebar') %>
-		
-		  <div id="main-wrapper">
-		
-			<div class="container">
-  <div class="bg-white shadow-sm p-3 d-flex justify-content-between flex-wrap nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <span class="me-3" id="sidebar-toggler-btn"><i class="fas fa-bars"></i></span>
-    <h5 class="m-0 color-theme d-inline-block">Admin Manager</h5>
-    <div class="btn-group me-2">
-      <button class="btn btn-sm btn-outline-secondary">?</button>
-    </div>
-  </div>
+  <%- include('../partials/adminsidebar') %>
+  <link rel="stylesheet" href="/public/css/admin-add-min.css">
+  <div id="main-wrapper">
+    <div class="container">
+      <div class="bg-white shadow-sm p-3 admin-add-header">
+        <span class="me-3" id="sidebar-toggler-btn"><i class="fas fa-bars"></i></span>
+        <h5 class="m-0 color-theme admin-add-header-text d-inline-block">Create new admin</h5>
+      </div>
 
-  <div class="col py-2">
-    <div class="row">
-      <div class="col">
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/admin/manager">Admin Manager</a></li>
-            <li class="breadcrumb-item active">New Admin</li>
-          </ol>
-        </nav>
+      <div class="col py-2">
+        <div class="row">
+          <div class="col">
+            <nav aria-label="breadcrumb bg-white">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/admin/manager">Admin Manager</a></li>
+                <li class="breadcrumb-item active">New Admin</li>
+              </ol>
+            </nav>
+          </div>
+        </div>
       </div>
-      <div class="col text-end fw-lighter">
-        <b>UserId</b>
-      </div>
-    </div>
-  </div>
 
-  <% if(typeof errors != 'undefined') { %>
-    <% errors.forEach(function(error) { %>
-      <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <%= error.msg %>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
-    <% }); %>
-  <% } %>
+      <% if (typeof errors != 'undefined') { %>
+        <% errors.forEach(function (error) { %>
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <%= error.msg %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        <% }); %>
+      <% } %>
 
-  <form action="/admin/add" method="POST">
-    <div class="row form-group mb-3">
-      <div class="col">
-        <label for="name">Name</label>
-        <input type="text" class="form-control" id="name" name="name" value="<%= typeof name != 'undefined' ? name : '' %>" placeholder="Name">
-      </div>
-      <div class="col">
-        <label for="email">Email</label>
-        <input type="text" class="form-control" id="email" name="email" value="<%= typeof email != 'undefined' ? email : '' %>" placeholder="Email">
-      </div>
-    </div>
+      <form action="/admin/add" class="add-admin-form-container" method="POST">
+    
+        <h1 class="form-note">Fill up the forms to add an admin</h1>
 
-    <div class="row form-group mb-3">
-      <div class="col">
-        <label for="password">Password</label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          class="form-control"
-          placeholder="Create Password"
-          value="<%= typeof password != 'undefined' ? password : '' %>"
-          required
-        />
-      </div>
-      <div class="col">
-        <label for="password2">Confirm Password</label>
-        <input
-          type="password"
-          id="password2"
-          name="password2"
-          class="form-control"
-          placeholder="Confirm Password"
-          value="<%= typeof password2 != 'undefined' ? password2 : '' %>"
-        />
-      </div>
-    </div>
+        <div class="row inner-container">
+          <div class="col-md-6">
+            <label for="first_name">First Name</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              id="first_name" 
+              name="first_name" 
+              value="<%= typeof first_name != 'undefined' ? first_name : '' %>" 
+              placeholder="First Name"
+              oninput="formatName(this)" 
+            >
+          </div>
+          
+          <script>
+          function formatName(input) {
+            // Remove any numbers from the input
+            var formattedName = input.value.replace(/[0-9]/g, '');
+          
+            // Capitalize the first letter of the input value
+            formattedName = formattedName.charAt(0).toUpperCase() + formattedName.slice(1);
+          
+            // Update the input value with the formatted name
+            input.value = formattedName;
+          }
+          </script>
+          
 
-    <div class="row form-group mb-3">
-      <div class="col">
-        <label for="contact">Contact</label>
-        <input type="text" class="form-control" id="contact" name="contact" value="<%= typeof contact != 'undefined' ? contact : '' %>" placeholder="Contact">
+          <div class="col-md-6">
+            <label for="middle_name">Middle Name</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              id="middle_name" 
+              name="middle_name" 
+              value="<%= typeof middle_name != 'undefined' ? middle_name : '' %>" 
+              placeholder="Middle Name"
+              oninput="formatName(this)" 
+            >
+          </div>
+
+          <div class="col-md-6">
+            <label for="last_name">Last Name</label>
+            <input type="text" class="form-control" id="last_name" name="last_name" value="<%= typeof last_name != 'undefined' ? last_name : '' %>" placeholder="Last Name" oninput="formatName(this)">
+          </div>
+     
+
+       
+          <div class="col-md-6">
+            <label for="email">Email</label>
+            <input type="text" class="form-control" id="email" name="email" value="<%= typeof email != 'undefined' ? email : '' %>" placeholder="Email">
+          </div>
+   
+
+       
+          <div class="col-md-6">
+            <label for="password">Password</label>
+            <div class="input-group">
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    class="form-control"
+                    placeholder="Create Password"
+                    value="<%= typeof password != 'undefined' ? password : '' %>"
+                    required
+                >
+                <div class="input-group-append">
+                    <button type="button" class="btn btn-outline-secondary" id="togglePassword">
+                        <i class="fas fa-eye" id="eyeIcon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        
+        <script>
+            const passwordInput = document.getElementById('password');
+        
+            // Password validation function
+            function validatePassword() {
+                const password = passwordInput.value;
+                const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+{};:,<.>]).{8,}$/;
+                return passwordRegex.test(password);
+            }
+        
+            // Add input event listener for password validation
+            passwordInput.addEventListener('input', function() {
+                const isValid = validatePassword();
+                if (!isValid) {
+                    passwordInput.setCustomValidity("Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.");
+                } else {
+                    passwordInput.setCustomValidity("");
+                }
+            });
+        </script>
+        
+
+        <div class="col-md-6">
+          <label for="password2">Confirm Password</label>
+          <div class="input-group">
+              <input
+                  type="password"
+                  id="password2"
+                  name="password2"
+                  class="form-control"
+                  placeholder="Confirm Password"
+                  value="<%= typeof password2 != 'undefined' ? password2 : '' %>"
+              >
+              <button type="button" class="btn btn-outline-secondary" id="togglePasswordConfirm">
+                  <i class="fas fa-eye"></i>
+              </button>
+          </div>
       </div>
-    </div>
-
-    <div class="form-group mb-4">
-      <label for="address">Address</label>
-      <textarea class="form-control" name="address" id="address" cols="30" rows="2" placeholder="Address"><%= typeof address != 'undefined' ? address : '' %></textarea>
-    </div>
-
-    <div class="form-group mb-4">
-      <button type="submit" class="btn btn-primary">Add Admin</button>
-    </div>
-  </form>
-</div>
-</div>
+      
+ 
+          <div class="col-md-6">
+            <label for="contact">Cellphone Number</label>
+            <input type="tel" class="form-control" id="contact" name="contact" value="<%= typeof contact != 'undefined' ? contact : '' %>" placeholder="Contact" pattern="[0-9]{11}" title="Please enter 11 digits number" required maxlength="11">
+            <!-- Adding pattern attribute to accept only numbers and exactly 11 digits -->
+            
+        </div>
+        
+        <script>
+            const contactInput = document.getElementById('contact');
+        
+            // Add input event listener for contact validation
+            contactInput.addEventListener('input', function() {
+                const contact = contactInput.value;
+                const contactRegex = /^[0-9]{11}$/;
+                if (!contactRegex.test(contact)) {
+                    contactInput.setCustomValidity("Please enter a valid 11 digits cellphone number.");
+                } else {
+                    contactInput.setCustomValidity("");
+                }
+            });
+        </script>
+        
+      
 
     
+        <div class="form-group col-md-6">
+          <label for="role">Role</label>
+          <select class="form-control" id="role" name="role">
+            <option value="staff">Staff</option>
+            <option value="adminmanager">Admin</option>
+            <option value="staffview">Staff observer</option>
+          </select>
+        </div>
+
+        <div class="col-md-6">
+          <label for="address">Address</label>
+          <textarea class="form-control" name="address" id="address" cols="30" rows="2" placeholder="Address"><%= typeof address != 'undefined' ? address : '' %></textarea>
+        </div>
+
+        <div class="form-group mt-2 mb-4">
+          <button type="submit" class="btn btn-primary">Add Admin</button>
+        </div>
+      </div>
+      </form>
+    </div>
+  </div>
+  <script>
+    function togglePasswordVisibility() {
+        const passwordInput = document.getElementById('password');
+        const toggleButton = document.getElementById('togglePassword');
+        const eyeIcon = document.getElementById('eyeIcon');
+
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            eyeIcon.classList.remove('fa-eye');
+            eyeIcon.classList.add('fa-eye-slash');
+            toggleButton.setAttribute('aria-label', 'Hide password');
+        } else {
+            passwordInput.type = 'password';
+            eyeIcon.classList.remove('fa-eye-slash');
+            eyeIcon.classList.add('fa-eye');
+            toggleButton.setAttribute('aria-label', 'Show password');
+        }
+    }
+
+    const toggleButton = document.getElementById('togglePassword');
+    toggleButton.addEventListener('click', togglePasswordVisibility);
+</script>
+<script>
+  const passwordConfirmInput = document.getElementById('password2');
+  const toggleButtonConfirm = document.getElementById('togglePasswordConfirm');
+
+  toggleButtonConfirm.addEventListener('click', function () {
+      if (passwordConfirmInput.type === 'password') {
+          passwordConfirmInput.type = 'text';
+          toggleButtonConfirm.innerHTML = '<i class="fas fa-eye-slash"></i>';
+      } else {
+          passwordConfirmInput.type = 'password';
+          toggleButtonConfirm.innerHTML = '<i class="fas fa-eye"></i>';
+      }
+  });
+</script>
+
+
+
+  
 </main>

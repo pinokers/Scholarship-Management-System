@@ -1,25 +1,89 @@
 <header>
 	<nav class="navbar navbar-expand-sm navbar-light p-0 h-100">
-		<div class="container-fluid p-0">
-			<a class="navbar-brand text-light" href="#"><img src="/public/image/ssologo1.png" alt="Logo" style="max-height: 45px; margin-right: 3px; margin-left:10px;" /><span class="header-title"> Special Services Office</span></a>
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-				aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-				<span><i class="fas fa-bars text-white"></i></span>
-			</button>
-			<div class="collapse navbar-collapse ps-2" id="navbarSupportedContent" style="z-index: 100;">
-				<ul class="navbar-nav ms-auto me-3">
-					<li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-					<li class="nav-item"><a class="nav-link" href="/home/about">SSO</a></li>
-					<li class="nav-item"><a class="nav-link" href="/home/contact">Contact us</a></li>
-					<% if(currentUser) { %>
+	  <div class="container-fluid p-0">
+		<a class="navbar-brand text-light" href="#">
+		  <img src="/public/image/ssologo1.png" class="logo" alt="Logo" style="max-height: 45px; margin-right: 3px; margin-left:10px;" />
+		  <span class="header-title"> Special Services Office</span>
+		</a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+		  aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		  <span><i class="fas fa-bars text-white"></i></span>
+		</button>
+		<div class="collapse navbar-collapse ps-2" id="navbarSupportedContent" style="z-index: 100;">
+			<ul class="navbar-nav ms-auto me-3">
+				<li class="nav-item"><a class="nav-link" href="/"><i class="bi bi-house-door-fill"></i>  Home</a></li>
+				<% if(currentUser) { %>
+					<li class="nav-item">
 						<% if(currentUser.role === 'user') { %>
-						  <li class="nav-item"><a class="nav-link" href="/auth/logout">Logout</a></li>
-						<% } else if(currentUser.role === 'admin') { %>
-						  <li class="nav-item"><a class="nav-link" href="/auth/adminlogout">Logout Admin</a></li>
+							<!-- User dropdown menu -->
+							<div class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle" href="#" id="applicantDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<i class="fas fa-user"></i> <%= currentUser.first_name %>
+								</a>
+								<div class="dropdown-menu" aria-labelledby="applicantDropdown">
+									<a class="dropdown-item" href="/applicant/profile"><i class="fas fa-user-cog"></i> Profile</a>
+									<a class="dropdown-item" href="/auth/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+								</div>
+							</div>
+						<% } else if(currentUser.role === 'staff') { %>
+							<!-- Admin dropdown menu -->
+							<div class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<i class="fas fa-user"></i> Staff
+								</a>
+								<div class="dropdown-menu" aria-labelledby="adminDropdown">
+									<a class="dropdown-item" href="/admin/profile"><i class="fas fa-user-cog"></i> Profile</a>
+									<a class="dropdown-item" href="/auth/adminlogout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+								</div>
+							</div>
+						<% } else if(currentUser.role === 'staffview') { %>
+							<!-- Admin dropdown menu -->
+							<div class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<i class="fas fa-user"></i> StaffViewer
+								</a>
+								<div class="dropdown-menu" aria-labelledby="adminDropdown">
+									<a class="dropdown-item" href="/admin/profile"><i class="fas fa-user-cog"></i> Profile</a>
+									<a class="dropdown-item" href="/auth/adminlogout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+								</div>
+							</div>
+						<% }else if(currentUser.role === 'adminmanager') { %>
+							<!-- Admin Manager dropdown menu -->
+							<div class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle" href="#" id="adminManagerDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<i class="fas fa-user"></i> Admin
+								</a>
+								<div class="dropdown-menu" aria-labelledby="adminManagerDropdown">
+									<a class="dropdown-item" href="/admin/profile"><i class="fas fa-user-cog"></i> Profile</a>
+									<a class="dropdown-item" href="/auth/adminlogout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+								</div>
+							</div>
 						<% } %>
-					  <% } %>															
-				</ul>
-			</div>
+					</li>
+				<% } else { %>
+					<!-- Show "About" and "Contact us" links if user is not logged in -->
+					<li class="nav-item"><a class="nav-link" href="#" onclick="scrollToSection('qualification')">Qualification</a></li>
+					<li class="nav-item"><a class="nav-link" href="#" onclick="scrollToSection('requirements')">Requirements</a></li>
+					<li class="nav-item"><a class="nav-link" href="#" onclick="scrollToSection('freedomwall')">Freedom Wall</a></li>
+
+				<% } %>
+			</ul>
+			<script>
+				function scrollToSection(sectionId) {
+					var section = document.getElementById(sectionId);
+					if (section) {
+						section.scrollIntoView({ behavior: 'smooth' });
+					}
+				}
+			</script>
+
+			
+			
+			  
+																	  
+		  </ul>
 		</div>
+	  </div>
 	</nav>
-</header>
+  </header>
+  

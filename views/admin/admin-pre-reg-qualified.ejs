@@ -1,0 +1,396 @@
+<main>
+  <link rel="stylesheet" href="/public/css/admin-pre-reg.css">
+    <%- include('../partials/adminsidebar') %>
+    <div id="main-wrapper">
+      <div class="container-fluid">
+        <div class="bg-white admin-pre-reg-onprocess-header shadow-sm p-3 d-flex justify-content-between">
+          <div>
+              <span class="me-3" id="sidebar-toggler-btn"><i class="fas fa-bars"></i></span>
+              <h5 class="m-0 color-theme admin-pre-reg-onprocess-header-text d-inline-block">Pre Registration</h5>
+          </div>
+      
+      </div>
+      
+
+<!-- Display the list of admin users without a code in a responsive table -->
+
+<div class="pre-reg-on-process-sub-header alert-info">
+  <div class="row">
+    <div class="col-md-4">
+      <h1 class="pre-reg-on-process-sub-header-text">Qualified List</h1>
+    </div>
+    <div class="col-md-8">
+      <form id="searchForm" action="/admin/admin-pre-reg-qualified" method="GET" class="text-right">
+        <div class="input-group">
+          <input type="text" id="searchInput" name="query" placeholder="Search for users..." aria-label="Search" class="form-control">
+          <select id="barangayFilter" name="year_level" class="form-control">
+            <option value="">Filter by Year level</option>
+            <option value="First Year">First Year</option>
+            <option value="Second Year">Second Year</option>
+            <option value="Third Year">Third Year</option>
+            <option value="Fourth Year">Fourth Year</option>
+          </select>
+          <div class="input-group-append">
+            <button class="btn btn-primary" type="submit">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Display the list of admin users with a code in a responsive table -->
+<div class="table-responsive pre-reg-on-process-table-container container-fluid">
+  <table class="table table-sm">
+    <thead>
+      <div class="d-flex align-items-center"> <!-- Flex container -->
+        <!-- Checkbox to select all -->
+        <input type="checkbox" id="select-all-checkbox" onchange="selectAllQualified()" class="me-2">
+        <!-- Button to delete selected records -->
+        <button type="button" id="delete-selected-button" class="btn btn-danger btn-sm d-none" onclick="deleteSelectedQualified()">
+            <i class="bi bi-trash"></i>
+        </button>
+    </div>
+      <tr>
+        <th scope="col">
+          <th scope="col" class="smaller-header">First Name</th>
+        <th scope="col" class="smaller-header">Last Name</th>
+        <th scope="col" class="smaller-header">Year level</th>
+        <th scope="col" class="smaller-header">Barangay</th>
+        <th scope="col" class="smaller-header">Email</th>
+        <th scope="col" class="smaller-header">School Name</th>
+        <th scope="col" class="smaller-header">Contact</th>
+        <th scope="col" class="smaller-header text-end text-center">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if (results && results.length > 0) { %>
+        <% results.forEach(applicant=> { %>
+        <% if (applicant.code) { %>
+          <tr class="align-middle">
+             <!-- Ensure that the checkboxes have correct IDs -->
+             <td><input type="checkbox" id="delete-checkbox-<%= applicant._id %>" class="delete-checkbox" onchange="updateDeleteButtonVisibility()"></td>
+            <td><%= applicant.first_name %></td>
+            <td><%= applicant.last_name %></td>
+            <td><%= applicant.year_level %></td>
+            <td><%= applicant.barangay %></td>
+            <td><%= applicant.email %></td>
+            <td><%= applicant.school_name  %></td>
+            <td><%= applicant.contact_number %></td>
+            <td class="text-end">
+              <div class="d-flex flex-row justify-content-end gap-2">
+                <!-- View Button -->
+                <a href="/admin/admin-pre-reg-view/<%= applicant._id %>" type="button" class="btn btn-sm alert-primary admin-pre-reg-view-btn2">
+                  <i class="bi bi-eye bi-sm"></i>
+                </a>
+                <form id="confirmationForm-<%= applicant._id %>" action="/admin/resetRandomCode/<%= applicant._id %>" method="POST">
+                  <button type="button" class="btn alert-success admin-pre-reg-move-btn" data-toggle="modal" data-target="#confirmationModal-<%= applicant._id %>">
+                    <i class="bi bi-arrow-clockwise clockwise-icon"></i>
+                  </button>
+                
+                  <!-- Confirmation Modal -->
+                  <div class="modal fade" id="confirmationModal-<%= applicant._id %>" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel-<%= applicant._id %>" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="confirmationModalLabel-<%= applicant._id %>">Confirmation</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <p class="text-center">Are you sure you want to bring back <br><strong><%= applicant.last_name %></strong> into On-process?</p>
+                
+                          <!-- Text area -->
+                          <div class="form-group mt-3">
+                            <label for="messageInput-<%= applicant._id %>" style="float:left;">Enter a message:</label>
+                            <textarea class="form-control" id="messageInput-<%= applicant._id %>" name="message" rows="5" placeholder="Enter your reason here.." style="clear:both;"></textarea>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                          <button type="submit" class="btn btn-success">Yes, send to On-Process</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                
+                <!-- Inside your EJS template -->
+                <form id="delete-prereg-applicant.form-<%= applicant._id %>" action="/admin/delete-prereg-qualified/<%= applicant._id %>?_method=DELETE" method="POST" class="position-relative">
+                  <button type="button" id="delete-manage-button-<%= applicant._id %>" class ="btn alert-danger btn-small admin-pre-reg-qual-delete-btn"  data-bs-toggle="modal" data-bs-target="#confirmation-modal-<%= applicant._id %>">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </form>
+                <div class="modal" id="confirmation-modal-<%= applicant._id %>" tabindex="-1" aria-labelledby="confirmation-modal-label" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title text-dark" id="confirmation-modal-label">Confirm Deletion</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body text-dark text-center">
+                        <p>Are you sure you want to delete the record of <strong><%= applicant.first_name %></strong>?</p>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="cancel-delete-button">Cancel</button>
+                        <button type="button" class="btn btn-danger" onclick="deletePreregQualified('<%= applicant._id %>')">Confirm</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              </div>
+            </td>
+          </tr>
+        <% } %>
+      <% }) %>
+      <% } else { %>
+        <tr>
+          <td colspan="9" class="text-center">No results found.</td>
+        </tr>
+      <% user.forEach(applicant => { %>
+        <% if (applicant.code) { %>
+          <tr class="align-middle">
+             <!-- Ensure that the checkboxes have correct IDs -->
+             <td><input type="checkbox" id="delete-checkbox-<%= applicant._id %>" class="delete-checkbox" onchange="updateDeleteButtonVisibility()"></td>
+             <td><%= applicant.first_name %></td>
+            <td><%= applicant.last_name %></td>
+            <td><%= applicant.year_level %></td>
+            <td><%= applicant.barangay %></td>
+            <td><%= applicant.email %></td>
+            <td><%= applicant.school_name  %></td>
+            <td><%= applicant.contact_number %></td>
+            <td class="text-end">
+              <div class="d-flex flex-row justify-content-end gap-2">
+                <!-- View Button -->
+                <a href="/admin/admin-pre-reg-view/<%= applicant._id %>" type="button" class="btn btn-sm alert-primary admin-pre-reg-view-btn2">
+                  <i class="bi bi-eye bi-sm"></i>
+                </a>
+                <form id="confirmationForm-<%= applicant._id %>" action="/admin/resetRandomCode/<%= applicant._id %>" method="POST">
+                  <button type="button" class="btn alert-success admin-pre-reg-move-btn" data-toggle="modal" data-target="#confirmationModal-<%= applicant._id %>">
+                    <i class="bi bi-arrow-clockwise clockwise-icon"></i>
+                  </button>
+                
+                  <!-- Confirmation Modal -->
+                  <div class="modal fade" id="confirmationModal-<%= applicant._id %>" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel-<%= applicant._id %>" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="confirmationModalLabel-<%= applicant._id %>">Confirmation</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <p class="text-center">Are you sure you want to bring back <br><strong><%= applicant.last_name %></strong> into On-process?</p>
+                
+                          <!-- Text area -->
+                          <div class="form-group mt-3">
+                            <label for="messageInput-<%= applicant._id %>" style="float:left;">Enter a message:</label>
+                            <textarea class="form-control" id="messageInput-<%= applicant._id %>" name="message" rows="5" placeholder="Enter your reason here.." style="clear:both;"></textarea>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                          <button type="submit" class="btn btn-success">Yes, send to On-Process</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                
+
+                <!-- Inside your EJS template -->
+                <form id="delete-prereg-applicant.form-<%= applicant._id %>" action="/admin/delete-prereg-qualified/<%= applicant._id %>?_method=DELETE" method="POST" class="position-relative">
+                  <button type="button" id="delete-manage-button-<%= applicant._id %>" class ="btn alert-danger btn-small admin-pre-reg-qual-delete-btn"  data-bs-toggle="modal" data-bs-target="#confirmation-modal-<%= applicant._id %>">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </form>
+                <div class="modal" id="confirmation-modal-<%= applicant._id %>" tabindex="-1" aria-labelledby="confirmation-modal-label" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title text-dark" id="confirmation-modal-label">Confirm Deletion</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body text-dark text-center">
+                        <p>Are you sure you want to delete the record of <strong><%= applicant.first_name %></strong>?</p>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="cancel-delete-button">Cancel</button>
+                        <button type="button" class="btn btn-danger" onclick="deletePreregQualified('<%= applicant._id %>')">Confirm</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              </div>
+            </td>
+          </tr>
+        <% } %>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+<% } %>
+<tr>
+  
+  <% if (user.length > 0) { %>
+    <tr>
+      <td colspan="3" class="pagination-cell">
+        <!-- Pagination information -->
+        Displaying <strong><%= (current - 1) * perPage + 1 %> -
+        <%= Math.min(current * perPage, count) %> </strong>of <strong><%= count %></strong> users
+      </td>
+      <!-- Pagination buttons -->
+      <td colspan="6" class="pagination-cell">
+        <nav aria-label="Dashboard Pagination">
+          <ul class="pagination justify-content-end mt-1">
+        
+            <!-- First page button -->
+            <% if (current == 1) { %>
+              <li class="page-item disabled">
+                <a href="#" class="page-link">First</a>
+              </li>
+            <% } else { %>
+              <li class="page-item">
+                <a href="/admin/admin-pre-reg-qualified?page=1" class="page-link">First</a>
+              </li>
+            <% } %>
+        
+            <!-- Previous page button -->
+            <li class="page-item <%= current == 1 ? 'disabled' : '' %>">
+              <a href="/admin/admin-pre-reg-qualified?page=<%= current - 1 %>" class="page-link" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+        
+            <!-- Pagination numbers -->
+            <% var start = Math.max(current - 2, 1); %>
+            <% var end = Math.min(start + 4, pages); %>
+            <% for(var i = start; i <= end; i++ ) { %>
+              <li class="page-item <%= current == i ? 'active' : '' %>">
+                <a href="/admin/admin-pre-reg-qualified?page=<%= i %>" class="page-link"><%= i %></a>
+              </li>
+            <% } %>
+        
+            <!-- Next page button -->
+            <li class="page-item <%= current == pages ? 'disabled' : '' %>">
+              <a href="/admin/admin-pre-reg-qualified?page=<%= current + 1 %>" class="page-link" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+        
+            <!-- Last page button -->
+            <% if (current == pages) { %>
+              <li class="page-item disabled">
+                <a href="#" class="page-link">Last</a>
+              </li>
+            <% } else { %>
+              <li class="page-item">
+                <a href="/admin/admin-pre-reg-qualified?page=<%= pages %>" class="page-link">Last</a>
+              </li>
+            <% } %>
+        
+          </ul>
+        </nav>
+        
+      </td>
+    </tr>
+  <% } %>
+  
+</tr>
+  <!-- Form for deleting selected records -->
+  <form id="deleteForm" action="/admin/delete-form-prereg-qualified" method="POST">
+    <!-- Hidden input field to store IDs of selected records -->
+    <input type="hidden" name="ids" id="idsToDelete" value="">
+    
+  </form>
+  
+  <script>
+    // JavaScript to handle the deletion
+    function deletePreregQualified(applicantId) {
+        const deletePreregQualifiedForm = document.getElementById('delete-prereg-applicant.form-' + applicantId);
+        // You can perform additional actions or submit the form here if needed.
+        deletePreregQualifiedForm.submit();
+    }
+</script>
+
+  <script>
+    document.getElementById('confirmationForm').addEventListener('submit', function () {
+        $('#confirmationModal').modal('hide'); // Hide the modal on form submission
+    });
+</script>
+  <script>
+        function selectAllQualified() {
+        const checkboxes = document.querySelectorAll('.delete-checkbox');
+        const selectAllCheckbox = document.getElementById('select-all-checkbox');
+        const deleteButton = document.getElementById('delete-selected-button');
+
+        // If the "Select All" checkbox is checked, update the state of individual checkboxes accordingly
+        checkboxes.forEach(checkbox => {
+            checkbox.checked = selectAllCheckbox.checked;
+        });
+
+        // Check if any checkbox is selected
+        const anyCheckboxSelected = [...checkboxes].some(checkbox => checkbox.checked);
+
+        // Toggle visibility of the delete button based on the checkbox state
+        deleteButton.classList.toggle('d-none', !anyCheckboxSelected);
+    }
+    function updateDeleteButtonVisibility() {
+        const checkboxes = document.querySelectorAll('.delete-checkbox');
+        const deleteButton = document.getElementById('delete-selected-button');
+
+        // Check if any checkbox is selected
+        const anyCheckboxSelected = [...checkboxes].some(checkbox => checkbox.checked);
+
+        // Toggle visibility of the delete button based on the checkbox state
+        deleteButton.classList.toggle('d-none', !anyCheckboxSelected);
+    }
+
+
+  </script>
+  <script>
+  function deleteSelectedQualified() {
+  const checkboxes = document.querySelectorAll('.delete-checkbox:checked');
+  const qualifiedIds = Array.from(checkboxes).map(checkbox => checkbox.id.split('-')[2]);
+  // Set the value of the hidden input field with the IDs to delete
+  document.getElementById('idsToDelete').value = qualifiedIds.join(',');
+  // Submit the form
+  document.getElementById('deleteForm').submit();
+
+  }
+  </script>
+
+          
+
+<script>
+  // Add event listeners to the buttons
+  const generateCodeButtons = document.querySelectorAll('.generateCodeButton');
+  generateCodeButtons.forEach(button => {
+      button.addEventListener('click', (event) => {
+          event.preventDefault(); // Prevent the default link behavior
+          const Id = button.getAttribute('data-id');
+          fetch(`/admin/generateRandomCode/${Id}`, { method: 'POST' })
+              .then(response => response.json())
+              .then(data => {
+                  const randomCodeDisplay = document.getElementById(`randomCodeDisplay-${Id}`);
+                  randomCodeDisplay.textContent = `Generated code: ${data.code}`;
+              })
+              .catch(error => {
+                  console.error('Error generating code:', error);
+              });
+      });
+  });
+
+</script>
+ 
+    </div>
+  </main>
+  

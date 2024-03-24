@@ -1,0 +1,211 @@
+<main>
+    <%- include('../partials/adminsidebar') %>
+    <link rel="stylesheet" href="/public/css/admin-pre-reg-view.css">
+    <div id="main-wrapper">
+      <div class="container-fluid">
+        <div class="bg-white admin-create-schedule-header shadow-sm p-3">
+            <span class="me-3" id="sidebar-toggler-btn"><i class="fas fa-bars"></i></span>
+            <h5 class="m-0 admin-create-schedule-header-text color-theme d-inline-block">Pre Registration</h5>
+          </div>
+        
+        
+        <div class="col py-2 container-fluid"> 
+            <div class="container-fluid">
+                <div class="row">
+                  <div class="col">
+                    <nav aria-label="breadcrumb">
+                      <ol class="breadcrumb admin-manager-edit-navbar container-fluid bg-light">
+                        <li class="breadcrumb-item"><a href="/admin/admin-pre-reg">Back</a></li>
+                        <li class="breadcrumb-item active">View</li>
+                      </ol>
+                    </div>
+                  </div>
+                </div>
+            
+                <form class="container-fluid rounded admin-pre-reg-view-form-container">
+
+                    <div class="row align-items-center pre-reg-view-form-header">
+                        <div class="col-md-2 text-center">
+                            <div class="user-icon position-relative" id="profile-picture">
+                                    <i class="bi bi-person-fill user-icon1" style="font-size: 9rem; color:white;"></i>
+                            </div>
+                            
+                        </div>
+                        <div class="col-md-8 user-name-con">
+                            <h1 class="user-name"><%= Pre_registration.first_name %> <%= Pre_registration.middle_name %> <%= Pre_registration.last_name %></h1>
+                            <!-- New div for Gmail information -->
+                            <div class="user-info"><%= Pre_registration.classification %></div>
+                        </div>
+                    </div>
+
+
+                <div class="row  d-flex justify-content-center">
+                    <div class="col-md-5 border-div personal-information-div">
+                        <h1 class="info-title"> Personal Information</h1>
+                        <div class="col-md-12  address">
+                            <div class="form-group">
+                                <label class="text-dark address"><strong>Address:</strong> <%= Pre_registration.address %></label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 contact">
+                            <div class="form-group">
+                                <label class="text-dark"><strong>Contact Number:</strong> <%= Pre_registration.contact_number %></label>
+                            </div>
+                        </div>
+                        <div class="col-md-12 alternative">
+                            <div class="form-group">
+                                <label class="text-dark "><strong>Alternative Number:</strong> <%= Pre_registration.alternative_contact_number %></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-5 educational-background-div border-div">
+                        <h1 class="educ-bac-title"> Educational background</h1>
+
+                        <div class="col-md-12 school-name">
+                            <div class="form-group">
+                                <label class="text-dark"><strong>School Name:</strong> <%= Pre_registration.school_name %></label>
+                            </div>
+                        </div>
+                        <div class="col-md-12 course">
+                            <div class="form-group">
+                                <label class="text-dark"><strong>Course:</strong> <%= Pre_registration.course %></label>
+                            </div>
+                        </div>
+                        <div class="col-md-12 enrolled">
+                            <div class="form-group">
+                                <label class="text-dark "><strong>Enrolled:</strong> <%= Pre_registration.enrolled %></label>
+                            </div>
+                        </div>
+                        <div class="col-md-12 units">
+                            <div class="form-group">
+                                <label class="text-dark"><strong>Units Enrolled:</strong> <%= Pre_registration.units_enrolled %></label>
+                            </div>
+                        </div>
+                        <div class="col-md-12 year">
+                            <div class="form-group">
+                                <label class="text-dark"><strong>Year Level:</strong> <%= Pre_registration.year_level %></label>
+                            </div>
+                        </div>
+                        <div class="col-md-12 GWA">
+                            <div class="form-group">
+                                <label class="text-dark"><strong>GWA:</strong> <%= Pre_registration.gwa %></label>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-10 border-div other-details">
+                        <h1 class="info-title"> Other Details</h1>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="col-md-12 inc">
+                                        <div class="form-group">
+                                            <label class="text-dark"><strong>Incomplete Grade:</strong> <%= Pre_registration.incomplete_grade %></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 resident">
+                                        <div class="form-group">
+                                            <label class="text-dark"><strong>Paranaque Resident:</strong> <%= Pre_registration.paranaque_resident %></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 voter">
+                                        <div class="form-group">
+                                            <label class="text-dark"><strong>Registered Voter:</strong> <%= Pre_registration.registered_voter %></label>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-6">
+                                    <div class="col-md-12 financial">
+                                        <div class="form-group">
+                                            <label class="text-dark"><strong>Financial Assistance:</strong> <%= Pre_registration.financial_assistance %></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group declaration">
+                                            <label class="text-dark"><strong>Declaration:</strong> <%= Pre_registration.declaration %></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 record">
+                                        <div class="form-group">
+                                            <label class="text-dark"><strong>Record of last application:</strong> <%= Pre_registration.last_application %></label>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+
+
+                  
+                    <div class="col-md-12 file-viewing-btn">
+                        <div class="col-md-12 d-flex justify-content-center">
+                            <button class="btn btn-primary view-file-btn shadow-lg">
+                                <a data-toggle="modal" class="view-file-btn" data-target="#fileModal">View Requirements</a>
+                            </button>
+                        </div>
+                            <!-- Modal -->
+                                <div class="modal fade" id="fileModal" tabindex="-1" role="dialog" aria-labelledby="fileModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                        <h5 class="modal-title" id="fileModalLabel">Requirements</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <% if (Pre_registration.certificate_of_registration) { %>
+                                                <iframe src="/files_pre_registration/<%=Pre_registration.certificate_of_registration %>" style="width: 100%; height: 100vh;"></iframe>
+                                            <% } %>
+                                            
+                                            <% if (Pre_registration.support_enrolled) { %>
+                                                <iframe src="/files_pre_registration/<%=Pre_registration.support_enrolled %>" style="width: 100%; height: 100vh;"></iframe>
+                                            <% } %>
+                                            
+                                            <% if (Pre_registration.grades) { %>
+                                                <iframe src="/files_pre_registration/<%=Pre_registration.grades %>" style="width: 100%; height: 100vh;"></iframe>
+                                            <% } %>
+                                            
+                                            <% if (Pre_registration.school_id) { %>
+                                                <iframe src="/files_pre_registration/<%=Pre_registration.school_id %>" style="width: 100%; height: 100vh;"></iframe>
+                                            <% } %>
+                                            
+                                            <% if (Pre_registration.voters_id) { %>
+                                                <iframe src="/files_pre_registration/<%=Pre_registration.voters_id %>" style="width: 100%; height: 100vh;"></iframe>
+                                            <% } %>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+            
+                  
+
+
+
+                </div>
+
+
+        
+               
+        
+                <!-- Add more pairs of labels and values in a similar fashion -->
+            </form>
+        </div>
+        
+        
+        
+        
+        
+        
+        
+      
+    </div>
+   
+    
+  </main>
+  
+  

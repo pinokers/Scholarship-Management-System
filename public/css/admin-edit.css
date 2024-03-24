@@ -1,0 +1,123 @@
+@media (min-width: 768px) and (max-width: 991px) {
+    .admin-edit-text-field{
+        max-width:200%;
+    }
+}
+
+.admin-manager-edit-header-text{
+    color:green;
+    font-family: sans-serif;
+    font-size:20px;
+}
+.admin-manager-edit-navbar{
+    margin:auto;
+    margin-top:10px;
+    background-color: white;
+    margin-bottom:10px;
+}
+
+
+
+
+ .admin-edit-form-container{
+    width: 94.5%;
+    background-color: white;
+    margin-top:20px;
+    padding-bottom:10px;
+    padding-top:20px;
+ }
+
+ .admin-edit-form-note{
+    color: #333;
+    font-weight: bold;
+    opacity: 0.7;
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 17px;
+    margin-bottom: 35px;
+ }
+
+
+
+ .profile-form-header{
+    background-color:rgb(11, 164, 11);
+    border-radius: 10px;
+    margin-left:2px;
+    margin-right:2px;
+    margin-bottom:20px;
+  }
+  
+  .user-name{
+    border-color:transparent;
+    font-size: 35px;
+    font-weight: bold;
+    letter-spacing: 0px;
+    font-family:sans-serif;
+    background-color: transparent;
+    color:white;
+  }
+  
+  .user-info{
+    color:white;
+  }
+
+
+
+ /* mobile to mobile */
+ @media (min-width: 320px) and (max-width: 767px) {
+    .admin-edit-header{
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .admin-edit-header-text{
+        font-size: 17px;
+    }
+
+    .admin-manager-edit-navbar{
+        white-space: nowrap;
+        overflow:hidden;
+        text-overflow: ellipsis;
+    }
+
+    .admin-breadcrump{
+        white-space:normal;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size:14px;
+    }
+
+    .admin-edit-form-container{
+        white-space: nowrap;
+        overflow:hidden;
+        text-overflow: ellipsis;
+    }
+
+    .admin-edit-text-field{
+        max-width: 100%;
+    }
+
+    .admin-edit-form-note{
+        white-space:nowrap;
+        overflow:hidden;
+        text-overflow: ellipsis;
+    }
+
+    .user-name{
+        text-align: center;
+        word-wrap: break-word;
+        overflow: hidden;
+        font-size: 24px;
+      }
+      .user-info{
+        text-align: center;
+      }
+      .profile-form-header{
+        padding-bottom:10px;
+      }
+
+  
+
+
+ }

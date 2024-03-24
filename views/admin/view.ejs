@@ -1,78 +1,81 @@
 <main>
   <%- include('../partials/adminsidebar') %>
-
-
+  <link rel="stylesheet" href="/public/css/admin-view.css">
   <div id="main-wrapper">
-    <div class="bg-white shadow-sm p-2 d-flex justify-content-between flex-wrap nowrap align-items-center pt-3 pb-2 mb-1 border-bottom">
-      <span class="me-3" id="sidebar-toggler-btn"><i class="fas fa-bars"></i></span>
-      <div class="d-inline-flex align-items-center">
-        <i class="bi bi-eye"></i>
-        <h1 class="h2 ml-2">View: <%= admin.name %></h1>
+    <div class="container-fluid">
+      <div class="bg-white shadow-sm p-3 admin-view-header">
+        <span class="me-3" id="sidebar-toggler-btn"><i class="fas fa-bars"></i></span>
+        <h5 class="m-0 color-theme admin-view-header-text d-inline-block"><i class="bi bi-eye text-success"></i>View: <%= admin.first_name %></h5>
       </div>
-      <div class="btn-toolbar mb-2 mb-md 0">
-        <div class="btn-group me-2">
-          <a href="/admin/add" class="btn btn-sm btn-outline-secondary">+ New admin</a>
-        </div>
-      </div>
-    </div>
 
-<div class="col py-2">
+<div class="col py-2 container-fluid" >
   <div class="row">
     <div class="col">
-      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="/admin/manager">Admin Manager</a></li>
+      <nav aria-label="breadcrumb" >
+        <ol class="breadcrumb bg-white admin-view-navbar container-fluid shadow-sm">
+          <li class="breadcrumb-item"><a href="/admin/manager">Back to Admin Manager</a></li>
           <li class="breadcrumb-item active">New Admin</li>
         </ol>
       </nav>
     </div>
-    <div class="col text-end fw-lighter">
-      <b>UserId</b>
+  </div>
+</div>
+
+
+<div class="row align-items-center profile-form-header">
+  <div class="col-md-2 text-center">
+    <div class="user-icon position-relative" id="profile-picture">
+      <input type="file" id="upload" class="position-absolute top-0 start-0 w-100 h-100 opacity-0 cursor-pointer">
+      <label for="upload">
+        <i class="bi bi-person-fill" style="font-size: 9rem; color:white;"></i>
+      </label>
     </div>
+    
+  </div>
+  <div class="col-md-8 user-name-con">
+    <h1 class="user-name"> Error to <%= admin.name %> </h1>
+    <!-- New div for Gmail information -->
+    <div class="user-info"></i><%= admin.email %><i class="bi bi-envelope-fill"></i></div>
   </div>
 </div>
     
-    <ul class="list-group">
-    
+
+
+    <ul class="list-group admin-view-form-container container-fluid">
       <li class="list-group-item"> 
         <div class="row">
-          <div class="col" style="max-width: 140px"> <b>Name:</b></div>
-          <div class="col"><%= admin.name %> </div>
+          <div class="data-label col" style="max-width: 140px"> <b>Contact:</b></div>
+          <div class="view-data col"><%= admin.contact %></div>
         </div>
       </li>
     
       <li class="list-group-item"> 
         <div class="row">
-          <div class="col" style="max-width: 140px"> <b>Contact:</b></div>
-          <div class="col"><%= admin.contact %></div>
+          <div class="data-label col" style="max-width: 140px"> <b>Email:</b></div>
+          <div class="view-data col"><%= admin.email %></div>
         </div>
       </li>
     
       <li class="list-group-item"> 
         <div class="row">
-          <div class="col" style="max-width: 140px"> <b>Email:</b></div>
-          <div class="col"><%= admin.email %></div>
+          <div class="data-label col" style="max-width: 140px"> <b>Address:</b></div>
+          <div class="view-data col"><%= admin.address %></div>
         </div>
       </li>
     
       <li class="list-group-item"> 
         <div class="row">
-          <div class="col" style="max-width: 140px"> <b>Address:</b></div>
-          <div class="col"><%= admin.address %></div>
+          <div class=" data-label col" style="max-width: 140px"> <b>Date Created:</b></div>
+          <div class="view-data col"><%= new Date(admin.createdAt).toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric',
+            minute: 'numeric' }) %></div>
         </div>
       </li>
     
       <li class="list-group-item"> 
         <div class="row">
-          <div class="col" style="max-width: 140px"> <b>Date Created:</b></div>
-          <div class="col"><%= admin.createdAt %></div>
-        </div>
-      </li>
-    
-      <li class="list-group-item"> 
-        <div class="row">
-          <div class="col" style="max-width: 140px"> <b>Date Modified:</b></div>
-          <div class="col"><%= admin.updatedAt %></div>
+          <div class="data-label col" style="max-width: 140px"> <b>Date Modified:</b></div>
+          <div class="view-data col"><%= new Date(admin.updatedAt).toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric',
+            minute: 'numeric' }) %></div>
         </div>
       </li>
     

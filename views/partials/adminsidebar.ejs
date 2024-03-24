@@ -1,19 +1,111 @@
 <div id="sidebar">
 	<ul id="sidebar-nav">
-		<li>
-			<% if (currentUser) { %>
-				<p><i class="fas fa-user"></i> <%= currentUser.name %></p>
-			<% } else { %>
-				<p><i class="fas fa-user-slash"></i> User not logged in.</p>
-			<% } %>
-		</li>
-		<li><a href="/admin/manager"><i class="fas fa-users-cog"></i> Admin Manager</a></li>
+	  <li>
+		<% if (currentUser) { %>
+		  <li class="py-2"> <i class="bi bi-person-gear"></i>  <%= currentUser.first_name %> <%= currentUser.middle_name %> <%= currentUser.last_name %></li>
+		<% } else { %>
+		  <p>User not logged in.</p>
+		<% } %>
+	  </li>
+	  
+	  
+	  <% if(currentUser) { %>
+		
+
+		<% if(currentUser.role === 'adminmanager') { %>
+		  <li class="submenu-toggle" id="admin-toggle">
+			<a href="javascript:void(0);">
+			  <span class="toggle-icon">&#9654;</span>
+			  <i class="fas fa-cog"></i>
+			  Admin Manager
+			</a>
+			<ul class="submenu">
+			  <li><a href="/admin/manager"><i class="fas fa-user-cog"></i> Manage Admin</a></li>
+			 
+			  <li><a href="/admin/admin-announcement"><i class="fas fa-bullhorn"></i> Announcement</a></li>
+			  
+			</ul>
+		  </li>
+		<% } %>
 		<li><a href="/admin/dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
-		<li><a href="/admin/adminschedule"><i class="fas fa-file-alt"></i> Application Form</a></li>
-		<li><a href="/admin/applicant"><i class="fas fa-user-friends"></i> Applicant</a></li>
-		<li><a href="/admin/pending"><i class="fas fa-hourglass-start"></i> Pending</a></li>
-		<li><a href="/admin/approved"><i class="fas fa-check-circle"></i> Approved</a></li>
-		<li><a href="/admin/reject"><i class="fas fa-times-circle"></i> Reject</a></li>
-		<li><a href="/admin/profile"><i class="fas fa-user-circle"></i> My Profile</a></li>
+		<% if(currentUser.role === 'staff' || currentUser.role === 'staffview' ) { %>
+		<li><a href="/admin/admin-announcement"><i class="fas fa-bullhorn"></i> Announcement</a></li>
+		<% } %>
+		<hr class="sidebar-divider small-divider" style="background-color: #000000;">
+		
+		<li><a href="/admin/adminschedule"><i class="far fa-calendar-alt"></i> Application Schedule</a></li>
+		
+		<li><a href="/admin/admin-pre-reg-schedule"><i class="far fa-calendar-alt"></i> Pre-registration <br>Schedule</a></li>
+		<% if(currentUser.role === 'staff' || currentUser.role === 'staffview') { %>
+		  
+		  <li><a href="/admin/user"><i class="fas fa-user"></i> User Account</a></li>
+		  
+		  <li class="submenu-toggle" id="registration-toggle">
+			<hr class="sidebar-divider small-divider" style="background-color: #000000;">
+			<a href="javascript:void(0);">
+			  <span class="toggle-icon">&#9654;</span>
+			  <i class="fas fa-user-plus"></i>
+			  Pre-Registration
+			</a>
+			<ul class="submenu">
+			  <li><a href="/admin/admin-pre-reg"><i class="fas fa-clock"></i> On Process</a></li>
+			  <li><a href="/admin/admin-pre-reg-qualified"><i class="fas fa-check-circle"></i> Qualified</a></li>
+			  <li><a href="/admin/admin-pre-reg-disqualified"><i class="fas fa-times-circle"></i> Disqualified</a></li>
+			</ul>
+		  </li>
+  
+		  <li class="submenu-toggle" id="application-toggle">
+			
+			<a href="javascript:void(0);">
+			  <span class="toggle-icon">&#9654;</span>
+			  <i class="fas fa-clipboard"></i>
+			  Application
+			</a>
+			<ul class="submenu">
+			  <li><a href="/admin/admin-form-onprocess"><i class="fas fa-clock"></i> On Process</a></li>
+			  <li><a href="/admin/admin-form-onprocess-qualified"><i class="fas fa-check-circle"></i> Qualified</a></li>
+			  <li><a href="/admin/admin-form-onprocess-disqualified"><i class="fas fa-times-circle"></i> Disqualified</a></li>
+			</ul>
+		  </li>
+		  
+		  <li><a href="/admin/admin-form-payout"><i class="far fa-calendar-alt"></i> Payout</a></li>
+  
+		<% } %>
+		<div class="sidebar-footer">
+			<hr class="sidebar-divider small-divider" style="background-color: #000000;"> <!-- Set the color of the hr -->
+			<li><a href="/admin/admin-form-trash"><i class="bi bi-trash"></i> Trash</a></li>
+		  </div>
+	  <% } %>
 	</ul>
-</div>
+  </div>
+  
+  
+  
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+	const registrationToggleButton = document.getElementById("admin-toggle");
+  
+	registrationToggleButton.addEventListener("click", function () {
+	  this.classList.toggle("active");
+	});
+  });
+
+  document.addEventListener("DOMContentLoaded", function () {
+	const registrationToggleButton = document.getElementById("registration-toggle");
+  
+	registrationToggleButton.addEventListener("click", function () {
+	  this.classList.toggle("active");
+	});
+  });
+  
+
+  document.addEventListener("DOMContentLoaded", function () {
+	const applicantToggleButton = document.getElementById("application-toggle");
+  
+	applicantToggleButton.addEventListener("click", function () {
+	  this.classList.toggle("active");
+	});
+  });
+
+  
+  </script>

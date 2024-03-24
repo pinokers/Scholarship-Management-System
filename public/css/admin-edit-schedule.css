@@ -1,0 +1,14 @@
+.application-schedule-edit-container{
+    background-color: white;
+    width:70%;
+}
+.edit-schedule-application-header {
+    width: 72%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+  color:rgba(60, 60, 60,0.9);
+    font-size:20px;
+    font-weight: bold;
+    margin-bottom:10px;
+}

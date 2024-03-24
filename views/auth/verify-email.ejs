@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Email Verification</title>
+</head>
+
+<body>
+  <div>
+    <h1>Email Verification</h1>
+    <% if (verified) { %>
+      <p>Your email has been successfully verified!</p>
+      <p>Thank you for registering with us.</p>
+      <p>
+        <a href="/auth/applicantlogin">Proceed to Login</a>
+      </p>
+      <!-- You can add additional content or redirect to a login page here -->
+    <% } else { %>
+      <p>Invalid verification token or email is already verified.</p>
+      <p>
+        <a href="/auth/applicantlogin">Proceed to Login</a>
+      </p>
+    <% } %>
+  </div>
+</body>
+
+</html>

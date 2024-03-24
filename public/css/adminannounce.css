@@ -1,0 +1,242 @@
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .row{
+      flex-direction: column;
+    }
+    .admin-create-announcement-div{
+      max-width:200%;
+    }
+    .admin-announcement-table-div{
+      max-width:200%;
+    }
+
+    .announcement-form{
+      max-width: 100%;
+    }
+
+    .admin-announcement-date{
+      max-width: 100%;
+    }
+  }
+
+
+
+  /* mobile to mobile */
+  @media (min-width: 320px) and (max-width: 767px) {
+    .admin-create-schedule-header{
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow:hidden;
+    }
+
+    .admin-announcement-title-form-text-header{
+      white-space:nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-size:2%; 
+    }
+
+    .admin-announcement-form-note {
+      overflow: hidden;
+      text-overflow: ellipsis;
+  }
+  }
+
+
+.admin-announcement-title-form-text-header{
+  background:white;
+    width:96%;
+    margin-bottom:5px;
+    text-align: center;
+   font-family: sans-serif;
+   font-size: 18px;
+    padding-top:12px;
+    padding-bottom:12px;
+    margin-top:15px;
+    color:rgba(60, 60, 60,0.9);
+    font-weight: bold;
+
+}
+.admin-announcement-container{
+  background-color:white;
+  margin-left:15px;
+  margin-right:15px;
+  padding-bottom:10px;
+  padding-top:30px;
+}
+
+.admin-announcement-form-note{
+    color: #333;
+    font-weight: bold;
+    opacity: 0.7;
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 17px;
+    margin-bottom: 35px;
+    width:100%;
+    margin:auto;
+}
+
+.admin-announcement-table-header{
+  background:white;
+    width:96%;
+    margin-bottom:5px;
+    text-align: center;
+   font-family: sans-serif;
+   font-size: 18px;
+    padding-top:12px;
+    padding-bottom:12px;
+    margin-top:15px;
+    color:rgba(60, 60, 60,0.9);
+    font-weight: bold;
+}
+
+.scrollable-div {
+    max-height: 430px; /* Set the desired maximum height */
+    overflow-y: scroll; /* Make it scrollable when content overflows the height */
+  }
+.admin-announcement-table-container{
+    color:black;
+    margin-bottom:5px;
+}
+
+
+
+.admin-announcement-title{
+  font-family: Arial, Helvetica, sans-serif;
+  word-spacing: 2px;
+  font-weight: bold;
+  font-size: 17px;
+  color:rgba(0, 128, 0, .7);
+  margin-bottom:0;
+}
+
+.admin-announcement-date{
+  border-right:rgba(60, 60, 60,0.3) 2px solid;
+  margin-top:10px;
+  font-size: 14px;
+  color:rgba(60, 60, 60,0.7);
+  font-weight: bold;
+}
+
+.admin-announcement-content-container{
+  font-family: Arial, Helvetica, sans-serif;
+  margin-top:0;
+  font-size:14px;
+  color:rgba(60, 60, 60,0.7);
+  word-wrap: break-word;
+}
+.admin-announcement-btn-create{
+  background-color: #28a745;
+  color:white;
+}
+.admin-announcement-btn-create:hover{
+background-color: #007bff;
+}
+
+.admin-announcement-btn-delete{
+
+ color:red;
+ 
+}
+.admin-announcement-btn-delete:hover{
+  background-color: red;
+}
+
+.admin-announcement-btn-update{
+    background-color:whitesmoke;
+    color:green;
+    border-color:white;
+}
+.admin-announcement-btn-update:hover{
+  background-color: green;
+}
+
+.table-data{
+  font-family: Arial, Helvetica, sans-serif;
+  margin-top:0;
+  font-size:14px;
+  color:rgba(60, 60, 60,0.7);
+}
+
+@media (min-width: 280px) and (max-width: 767px){
+  .admin-announcement-header{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .admin-announcement-header-text{
+    font-size: 17px;
+  }
+
+  .admin-create-announcement-div{
+    white-space: nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+
+  .admin-announcement-title-form-text-header{
+    font-size:15px;
+    white-space: nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+
+  .admin-announcement-form-note{
+    white-space: normal;
+    overflow:hidden;
+    text-overflow: ellipsis;
+    font-size:15px;
+  }
+
+  .admin-announcement-btn-create{
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .admin-announcement-btn-create-holder{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .admin-announcement-table-div{
+    white-space: nowrap;
+    overflow:hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .admin-announcement-table-header{
+    white-space: nowrap;
+    overflow:hidden;
+    text-overflow: ellipsis;
+    font-size:17px;
+  }
+
+  .admin-announcement-date{
+    font-size:12px;
+    white-space: nowrap;
+    overflow:hidden;
+    text-overflow: ellipsis;
+  }
+
+  .admin-announcement-title{
+    white-space: normal;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+
+  .admin-announcement-content-container{
+    white-space: normal;
+    overflow:hidden;
+    text-overflow: ellipsis;
+  }
+
+  .admin-announcement-table-button{
+    white-space: nowrap;
+    overflow:hidden;
+    text-overflow: ellipsis;
+  }
+}

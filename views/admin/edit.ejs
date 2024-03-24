@@ -1,36 +1,29 @@
 <main>
 	
 	<%- include('../partials/adminsidebar') %>
-		
-		  <div id="main-wrapper">
-		
-			<div class="container">
-  <div class="bg-white shadow-sm p-2 d-flex justify-content-between flex-wrap nowrap align-items-center mb-0 border-bottom">
-    <span class="me-3" id="sidebar-toggler-btn"><i class="fas fa-bars"></i></span>
-    <div class="d-inline-flex align-items-center">
-        <i class="bi bi-pencil"></i>
-        <h1 class="h2 ml-2">Edit: <%= admin.name %></h1>
-      </div>
-    <div class="btn-group me-2">
-      <button class="btn btn-sm btn-outline-secondary">?</button>
-    </div>
-  </div>
+  <link rel="stylesheet" href="/public/css/admin-edit.css">
+		  <div id="main-wrapper">   
+        <div class="bg-white shadow-sm p-3 admin-edit-header">
+          <span class="me-3" id="sidebar-toggler-btn"><i class="fas fa-bars"></i></span>
+          <h5 class="m-0 color-theme admin-edit-header-text d-inline-block"><i class="bi bi-pencil text-success"></i>Edit: <%= admin.first_name %></h5>
+        </div>
+        
 
-  <div class="col py-2">
-    <div class="row">
-      <div class="col">
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/admin/manager">Admin Manager</a></li>
-            <li class="breadcrumb-item active">Edit</li>
-          </ol>
-        </nav>
-      </div>
-      <div class="col text-end fw-lighter">
-        <b>Last Updated <%= new Date(admin.updatedAt).toUTCString() %> </b>
-      </div>
-    </div>
+  <div class="container-fluid">
+        <div aria-label="breadcrumb">
+          <ol class="breadcrumb admin-manager-edit-navbar container-fluid shadow-sm">
+            <div class="col-md-6 admin-breadcrump">
+            <li class="breadcrumb-item"><a href="/admin/manager">Admin Manager</a>  <span class="breadcrumb-item active"> /Edit</span></li>
+          
+            </div>
+            <div class="col-md-6 admin-breadcrump">
+            <p>Last Updated <%= new Date(admin.updatedAt).toUTCString() %>    Edited By: <%= currentUser.first_name %> </p> 
+            </div>
+          </ol>   
+        </div>   
   </div>
+  
+  
 
   <% if(typeof errors != 'undefined') { %>
     <% errors.forEach(function(error) { %>
@@ -41,44 +34,162 @@
     <% }); %>
   <% } %>
 
-  <form action="/admin/edit/<%= admin._id %>?_method=PUT" method="POST">
-    <div class="row form-group mb-3">
-      <div class="col">
-        <label for="name">Name</label>
-        <input type="text" class="form-control" id="name" name="name" value="<%= admin.name %>" placeholder="Name">
+  <form action="/admin/edit/<%= admin._id %>?_method=PUT" method="POST" class="container-fluid admin-edit-form-container shadow-lg">
+    <div class="container">
+
+      <div class="row align-items-center profile-form-header">
+        <div class="col-md-2 text-center">
+          <div class="user-icon position-relative" id="profile-picture">
+            <input type="file" id="upload" class="position-absolute top-0 start-0 w-100 h-100 opacity-0 cursor-pointer">
+            <label for="upload">
+              <i class="bi bi-person-fill" style="font-size: 9rem; color:white;"></i>
+            </label>
+          </div>
+          
+        </div>
+        <div class="col-md-8 user-name-con">
+          <h1 class="user-name"><%= admin.first_name %> <%= admin.middle_name %> <%= admin.last_name %></h1>
+          <!-- New div for Gmail information -->
+          <div class="user-info"></i><%= admin.email %><i class="bi bi-envelope-fill"></i></div>
+        </div>
       </div>
-      <div class="col">
-        <label for="email">Email</label>
-        <input type="text" class="form-control" id="email" name="email" value="<%= admin.email %>" placeholder="Email">
+
+      <p class="admin-edit-form-note">Edit information</p>
+      <div class="row">
+        <div class="col-md-6 admin-edit-text-field">
+          <div class="form-group">
+            <label class="label-name" for="firstName">First Name</label>
+            <input type="text" class="form-control" id="firstName" name="first_name" value="<%= admin.first_name %>" placeholder="First Name" disabled>
+          </div>
+        </div>
+        <div class="col-md-6 admin-edit-text-field">
+          <div class="form-group">
+            <label class="label-name" for="middleName">Middle Name</label>
+            <input type="text" class="form-control" id="middleName" name="middle_name" value="<%= admin.middle_name %>" placeholder="Middle Name">
+          </div>
+        </div>
+        <div class="col-md-6 admin-edit-text-field">
+          <div class="form-group">
+            <label class="label-name" for="lastName">Last Name</label>
+            <input type="text" class="form-control" id="lastName" name="last_name" value="<%= admin.last_name %>" placeholder="Last Name">
+          </div>
+        </div>
+      
+        <div class="col-md-6 admin-edit-text-field">
+          <div class="form-group">
+            <label class="label-name" for="email">Email</label>
+            <input type="text" class="form-control" id="email" name="email" value="<%= admin.email %>" placeholder="Email">
+          </div>
+        </div>
+    
+
+        <div class="col-md-6 admin-edit-text-field">
+          <label class="label-name" for="contact">Phone Number</label>
+          <input type="tel" class="form-control" id="contact" name="contact" value="<%= admin.contact %>" placeholder="Phone Number" pattern="[0-9]{11}" title="Please enter 11 digits number" maxlength="11">
+          <!-- Adding pattern attribute to accept only numbers and exactly 11 digits -->
+          <small id="contactHelp" class="form-text text-muted">Please enter your phone number with 11 digits.</small>
       </div>
-    </div>
-  
-    <div class="row form-group mb-3">
-      <div class="col">
-        <label for="contact">Contact</label>
-        <input type="text" class="form-control" id="contact" name="contact" value="<%= admin.contact %>" placeholder="Contact">
+      
+      <script>
+          const contactInput = document.getElementById('contact');
+      
+          // Add input event listener for contact validation
+          contactInput.addEventListener('input', function() {
+              const contact = contactInput.value;
+              const contactRegex = /^[0-9]{11}$/;
+              if (!contactRegex.test(contact)) {
+                  contactInput.setCustomValidity("Please enter a valid 11 digits phone number.");
+              } else {
+                  contactInput.setCustomValidity("");
+              }
+          });
+      </script>
+      
+
+        <div class="col-md-6 admin-edit-text-field">
+          <label class="label-name" for="password">Password</label>
+          <div class="input-group">
+              <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  class="form-control"
+                  placeholder="Enter Password"
+              >
+              <div class="input-group-append">
+                  <button type="button" class="btn btn-outline-secondary" id="togglePassword">
+                      <i class="fas fa-eye" id="eyeIcon"></i>
+                  </button>
+              </div>
+          </div>
+         
       </div>
-    </div>
+      
+      <script>
+          const passwdInput = document.getElementById('password');
+      
+          // Password validation function
+          function validatePassword() {
+              const password = passwdInput.value;
+              const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+{};:,<.>]).{8,}$/;
+              return passwordRegex.test(password);
+          }
+      
+          // Add input event listener for password validation
+          passwdInput.addEventListener('input', function() {
+              const isValid = validatePassword();
+              if (!isValid) {
+                  passwdInput.setCustomValidity("Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.");
+              } else {
+                  passwdInput.setCustomValidity("");
+              }
+          });
+      </script>
+      
+
+
+    
+
+        <div class="col-md-6 admin-edit-text-field">
+          <label  class="label-name" for="role">Change role</label>
+          <select class="form-control" id="role" name="role">
+            <option value="staff" <%= admin.role === 'staff' ? 'selected' : '' %>>Staff</option>
+            <option value="staffview" <%= admin.role === 'staffview' ? 'selected' : '' %>>Staff Observer</option>
+            <option value="adminmanager" <%= admin.role === 'adminmanager' ? 'selected' : '' %>>Admin Manager</option>     
+          </select>
+        </div>
+
+        <div class="col-md-6 admin-edit-text-field">
+          <label class="label-name" for="address">Address</label>
+          <textarea class="form-control" name="address" id="address" cols="30" rows="2" placeholder="Address"><%= admin.address %></textarea>
+        </div>
+
+        <div class="col-md-6">
+          <button type="submit" class="btn btn-primary">Save Changes</button>
+          </div>
+          </div>
   
-    <div class="row form-group mb-3">
-      <div class="col">
-        <label for="password">Password</label>
-        <input type="password" class="form-control" id="password" name="password" placeholder="New Password">
-      </div>
-    </div>
-  
-    <div class="form-group mb-4">
-      <label for="address">Address</label>
-      <textarea class="form-control" name="address" id="address" cols="30" rows="2" placeholder="Address"> <%= admin.address %></textarea>
-    </div>
-  
-    <div class="form-group mb-4">
-      <button type="submit" class="btn btn-primary">Update Admin</button>
   </form>
   
 
 </div>
 </div>
 
-    
+<script>
+  const togglePassword = document.querySelector('#togglePassword');
+  const passwordInput = document.querySelector('#password');
+  const eyeIcon = document.querySelector('#eyeIcon');
+
+  togglePassword.addEventListener('click', () => {
+      if (passwordInput.type === 'password') {
+          passwordInput.type = 'text';
+          eyeIcon.classList.remove('fa-eye');
+          eyeIcon.classList.add('fa-eye-slash');
+      } else {
+          passwordInput.type = 'password';
+          eyeIcon.classList.remove('fa-eye-slash');
+          eyeIcon.classList.add('fa-eye');
+      }
+  });
+</script>
 </main>

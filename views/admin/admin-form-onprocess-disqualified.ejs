@@ -1,0 +1,385 @@
+<main>
+    <%- include('../partials/adminsidebar') %>
+    <link rel="stylesheet" href="/public/css/admin-application-process.css">
+    <div id="main-wrapper">
+      <div class="container-fluid">
+        <div class="bg-white scholarship-application-disqualified-header shadow-sm p-3 d-flex justify-content-between">
+          <div>
+              <span class="me-3" id="sidebar-toggler-btn"><i class="fas fa-bars"></i></span>
+              <h5 class="m-0 color-theme scholarship-application-disqualified-header-text d-inline-block">Scholarship Application</h5>
+          </div>
+
+      </div>
+      
+          
+      <div class="scholarship-application-disqualified-sub-header alert-info">
+        <div class="row">
+          <div class="col-md-4">
+            <h1 class="scholarship-application-disqualified-sub-header-text">Disqualified</h1>
+          </div>
+          <div class="col-md-8">
+            <form id="searchForm" action="/admin/admin-form-onprocess-disqualified" method="GET" class="text-right">
+              <div class="input-group">
+                <input type="text" id="searchInput" name="query" placeholder="Search for users..." aria-label="Search"  class="form-control">
+                <select id="barangayFilter" name="barangay" class="form-control">
+                  <option value="">Filter by Barangay</option>
+                  <optgroup label="District 1">
+                    <option value="Baclaran">Baclaran</option>
+                    <option value="Don Galo">Don Galo</option>
+                    <option value="La Huerta">La Huerta</option>
+                    <option value="San Donisio">San Donisio</option>
+                    <option value="San Isidro">San Isidro</option>
+                    <option value="Santo Niño">Santo Niño</option>
+                    <option value="Tambo">Tambo</option>
+                    <option value="Vitalez">Vitalez</option>
+                  </optgroup>
+                  <optgroup label="District 2">
+                    <option value="B.F Homes">B.F Homes</option>
+                    <option value="Don Bosco">Don Bosco</option>
+                    <option value="Marcelo Green">Marcelo Green</option>
+                    <option value="Merville">Merville</option>
+                    <option value="Moonwalk">Moonwalk</option>
+                    <option value="San Antonio">San Antonio</option>
+                    <option value="San Martin De Porres">San Martin De Porres</option>
+                    <option value="San Valley">San Valley</option>
+                  </optgroup>
+                  <!-- Add other barangay options if needed -->
+                </select>
+                <div class="input-group-append">
+                  <button class="btn btn-primary" type="submit">
+                    <i class="fas fa-search"></i>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      
+        </div>
+        <!-- Display the list of admin users in a responsive table -->
+        <div class="table-responsive admin-manager-table-container container-fluid">
+          <table class="table table-sm">
+            <thead>
+              <div class="d-flex align-items-center"> <!-- Flex container -->
+                <!-- Checkbox to select all -->
+                <input type="checkbox" id="select-all-checkbox" onchange="selectAllQualified()" class="me-2">
+                <!-- Button to delete selected records -->
+                <button type="button" id="delete-selected-button" class="btn btn-danger btn-sm d-none" onclick="deleteSelectedQualified()">
+                    <i class="bi bi-trash"></i>
+                </button>
+            </div>
+              <tr>
+                <th scope="col">
+                  <th scope="col">First Name</th>
+                  <th scope="col">Last Name</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Primary contact</th>
+                  <th scope="col">Seconday contact</th>
+                  <th scope="col">Barangay</th>
+                <th scope="col" class="text-end text-center">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if (results && results.length > 0) { %>
+                <% results.forEach(disqualified => { %>
+                    <tr class="align-middle">
+                       <!-- Ensure that the checkboxes have correct IDs -->
+                       <td><input type="checkbox" id="delete-checkbox-<%= disqualified._id %>" class="delete-checkbox" onchange="updateDeleteButtonVisibility()"></td>
+                       <td><%=disqualified.first_name %></td>
+                       <td><%=disqualified.last_name %></td>
+                       <td><%=disqualified.email %></td>
+                       <td><%=disqualified.primary_cellphone %></td>
+                       <td><%=disqualified.secondary_cellphone %></td>
+                       <td><%=disqualified.barangay %></td>
+                    <td class="text-end">
+                      <div class="d-flex flex-row justify-content-end gap-2">
+
+                        <div class="d-flex flex-row justify-content-end gap-2">
+                          <a href="/admin/admin-form-disqualified-view/<%= disqualified._id %>" type="button" class="btn alert-primary btn-view-disqualified">
+                            <i class="bi bi-eye bi-sm"></i>
+                          </a>
+                        <form id="confirmationForm-<%= disqualified._id %>" action="/admin/transfer-disqualified-to-oldform/<%= disqualified._id %>" method="POST">
+                          <button type="button" class="btn alert-success btn-move-disqualified" data-toggle="modal" data-target="#confirmationModal-<%= disqualified._id %>">
+                              <i class="bi bi-arrow-clockwise"></i>
+                          </button>
+
+                      <!-- Confirmation Modal -->
+                      <div class="modal fade" id="confirmationModal-<%= disqualified._id %>" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel-<%= disqualified._id %>" aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                  <div class="modal-header">
+                                      <h5 class="modal-title" id="confirmationModalLabel-<%= disqualified._id %>">Confirmation</h5>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                      </button>
+                                  </div>
+                                  <div class="modal-body text-center">
+                                    Are you sure you want to bring back <br><strong><%= disqualified.last_name %></strong> into On-process?
+                                     <!-- Text area -->
+                                  <div class="form-group mt-3">
+                                    <label for="messageInput-<%= disqualified._id %>" style="float:left;">Enter a message:</label>
+                                    <textarea class="form-control" id="messageInput-<%= disqualified._id %>" name="message" rows="5" placeholder="Enter your reason here.." style="clear:both;"></textarea>
+                                  </div>
+                                </div>
+                                
+                                  <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button> 
+                                      <button type="submit" class="btn btn-qualified alert-success"><strong>Yes, send to On-Process</strong></button>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                    </form>
+
+                        <form id="delete-Disqualified-form-<%= disqualified._id %>" action="/admin/delete-disqualified/<%= disqualified._id %>?_method=DELETE" method="POST" class="position-relative">
+                          <button type="button" id="delete-manage-button-<%= disqualified._id %>" class ="btn alert-danger btn-delete-disqualified btn-small"  data-bs-toggle="modal" data-bs-target="#confirmation-modal-<%= disqualified._id %>">
+                            <i class="bi bi-trash"></i>
+                          </button>
+                        </form>
+                        <div class="modal" id="confirmation-modal-<%= disqualified._id %>" tabindex="-1" aria-labelledby="confirmation-modal-label" aria-hidden="true">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title text-dark" id="confirmation-modal-label">Confirm Deletion</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body text-dark text-center">
+                                <p>Are you sure you want to delete the record of <strong><%= disqualified.first_name %></strong>?</p>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="cancel-delete-button">Cancel</button>
+                                <button type="button" class="btn btn-danger" onclick="deleteDisQualified('<%= disqualified._id %>')">Confirm</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  
+                  </td>
+                </tr>
+              <% }) %>
+              <% } else { %>
+                <tr>
+                  <td colspan="9" class="text-center">No results found.</td>
+                </tr>
+              <% user.forEach(disqualified => { %>
+                <tr class="align-middle">
+                   <!-- Ensure that the checkboxes have correct IDs -->
+                   <td><input type="checkbox" id="delete-checkbox-<%= disqualified._id %>" class="delete-checkbox" onchange="updateDeleteButtonVisibility()"></td>
+                    <td><%= disqualified.first_name %></td>
+                    <td><%= disqualified.middle_name %></td>
+                    <td><%= disqualified.last_name %></td>
+                    <td><%= disqualified.age %></td>
+                    <td><%= disqualified.gender %></td>
+                    <td><%= disqualified.primary_cellphone %></td>
+                    <td><%= disqualified.barangay %></td>
+                <td class="text-end">
+                  <div class="d-flex flex-row justify-content-end gap-2">
+
+                    <div class="d-flex flex-row justify-content-end gap-2">
+                      <a href="/admin/admin-form-disqualified-view/<%= disqualified._id %>" type="button" class="btn alert-primary btn-view-disqualified">
+                        <i class="bi bi-eye bi-sm"></i>
+                      </a>
+                    <form id="confirmationForm-<%= disqualified._id %>" action="/admin/transfer-disqualified-to-oldform/<%= disqualified._id %>" method="POST">
+                      <button type="button" class="btn alert-success btn-move-disqualified" data-toggle="modal" data-target="#confirmationModal-<%= disqualified._id %>">
+                          <i class="bi bi-arrow-clockwise"></i>
+                      </button>
+
+                  <!-- Confirmation Modal -->
+                  <div class="modal fade" id="confirmationModal-<%= disqualified._id %>" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel-<%= disqualified._id %>" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                              <div class="modal-header">
+                                  <h5 class="modal-title" id="confirmationModalLabel-<%= disqualified._id %>">Confirmation</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                  </button>
+                              </div>
+                              <div class="modal-body text-center">
+                                Are you sure you want to bring back <br><strong><%= disqualified.last_name %></strong> into On-process?
+                                 <!-- Text area -->
+                              <div class="form-group mt-3">
+                                <label for="messageInput-<%= disqualified._id %>" style="float:left;">Enter a message:</label>
+                                <textarea class="form-control" id="messageInput-<%= disqualified._id %>" name="message" rows="5" placeholder="Enter your reason here.." style="clear:both;"></textarea>
+                              </div>
+                            </div>
+                            
+                              <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button> 
+                                  <button type="submit" class="btn btn-qualified alert-success"><strong>Yes, send to On-Process</strong></button>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                </form>
+
+                    <form id="delete-Disqualified-form-<%= disqualified._id %>" action="/admin/delete-disqualified/<%= disqualified._id %>?_method=DELETE" method="POST" class="position-relative">
+                      <button type="button" id="delete-manage-button-<%= disqualified._id %>" class ="btn alert-danger btn-delete-disqualified btn-small"  data-bs-toggle="modal" data-bs-target="#confirmation-modal-<%= disqualified._id %>">
+                        <i class="bi bi-trash"></i>
+                      </button>
+                    </form>
+                    <div class="modal" id="confirmation-modal-<%= disqualified._id %>" tabindex="-1" aria-labelledby="confirmation-modal-label" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title text-dark" id="confirmation-modal-label">Confirm Deletion</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body text-dark text-center">
+                            <p>Are you sure you want to delete the record of <strong><%= disqualified.first_name %></strong>?</p>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="cancel-delete-button">Cancel</button>
+                            <button type="button" class="btn btn-danger" onclick="deleteDisQualified('<%= disqualified._id %>')">Confirm</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              
+              </td>
+            </tr>
+          <% }) %>
+            </tbody>
+          </table>
+
+      </div>
+      <% } %>
+      <tr>
+        
+        <% if (user.length > 0) { %>
+          <tr>
+            <td colspan="3" class="pagination-cell">
+              <!-- Pagination information -->
+              Displaying <strong><%= (current - 1) * perPage + 1 %> -
+              <%= Math.min(current * perPage, count) %> </strong>of <strong><%= count %></strong> users
+            </td>
+            <!-- Pagination buttons -->
+            <td colspan="6" class="pagination-cell">
+              <nav aria-label="Dashboard Pagination">
+                <ul class="pagination justify-content-end mt-1">
+              
+                  <!-- First page button -->
+                  <% if (current == 1) { %>
+                    <li class="page-item disabled">
+                      <a href="#" class="page-link">First</a>
+                    </li>
+                  <% } else { %>
+                    <li class="page-item">
+                      <a href="/admin/admin-form-onprocess-disqualified?page=1" class="page-link">First</a>
+                    </li>
+                  <% } %>
+              
+                  <!-- Previous page button -->
+                  <li class="page-item <%= current == 1 ? 'disabled' : '' %>">
+                    <a href="/admin/admin-form-onprocess-disqualified?page=<%= current - 1 %>" class="page-link" aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                    </a>
+                  </li>
+              
+                  <!-- Pagination numbers -->
+                  <% var start = Math.max(current - 2, 1); %>
+                  <% var end = Math.min(start + 4, pages); %>
+                  <% for(var i = start; i <= end; i++ ) { %>
+                    <li class="page-item <%= current == i ? 'active' : '' %>">
+                      <a href="/admin/admin-form-onprocess-disqualified?page=<%= i %>" class="page-link"><%= i %></a>
+                    </li>
+                  <% } %>
+              
+                  <!-- Next page button -->
+                  <li class="page-item <%= current == pages ? 'disabled' : '' %>">
+                    <a href="/admin/admin-form-onprocess-disqualified?page=<%= current + 1 %>" class="page-link" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                    </a>
+                  </li>
+              
+                  <!-- Last page button -->
+                  <% if (current == pages) { %>
+                    <li class="page-item disabled">
+                      <a href="#" class="page-link">Last</a>
+                    </li>
+                  <% } else { %>
+                    <li class="page-item">
+                      <a href="/admin/admin-form-onprocess-disqualified?page=<%= pages %>" class="page-link">Last</a>
+                    </li>
+                  <% } %>
+              
+                </ul>
+              </nav>
+              
+            </td>
+          </tr>
+        <% } %>
+        
+      </tr>
+    </div>
+     <!-- Form for deleting selected records -->
+     <form id="deleteForm" action="/admin/delete-form-disqualified" method="POST">
+      <!-- Hidden input field to store IDs of selected records -->
+      <input type="hidden" name="ids" id="idsToDelete" value="">
+      
+  </form>
+        <script>
+          document.getElementById('confirmationForm').addEventListener('submit', function () {
+              $('#confirmationModal').modal('hide'); // Hide the modal on form submission
+          });
+      </script>
+
+        <script>
+          // JavaScript to handle the deletion
+          function deleteDisQualified(disqualifiedId) {
+              const deleteDisQualifiedForm = document.getElementById('delete-Disqualified-form-' + disqualifiedId);
+              // You can perform additional actions or submit the form here if needed.
+              deleteDisQualifiedForm.submit();
+          }
+      </script>
+        <script>
+          function selectAllQualified() {
+          const checkboxes = document.querySelectorAll('.delete-checkbox');
+          const selectAllCheckbox = document.getElementById('select-all-checkbox');
+          const deleteButton = document.getElementById('delete-selected-button');
+
+          // If the "Select All" checkbox is checked, update the state of individual checkboxes accordingly
+          checkboxes.forEach(checkbox => {
+              checkbox.checked = selectAllCheckbox.checked;
+          });
+
+          // Check if any checkbox is selected
+          const anyCheckboxSelected = [...checkboxes].some(checkbox => checkbox.checked);
+
+          // Toggle visibility of the delete button based on the checkbox state
+          deleteButton.classList.toggle('d-none', !anyCheckboxSelected);
+      }
+      function updateDeleteButtonVisibility() {
+          const checkboxes = document.querySelectorAll('.delete-checkbox');
+          const deleteButton = document.getElementById('delete-selected-button');
+
+          // Check if any checkbox is selected
+          const anyCheckboxSelected = [...checkboxes].some(checkbox => checkbox.checked);
+
+          // Toggle visibility of the delete button based on the checkbox state
+          deleteButton.classList.toggle('d-none', !anyCheckboxSelected);
+      }
+
+
+      </script>
+      <script>
+      function deleteSelectedQualified() {
+      const checkboxes = document.querySelectorAll('.delete-checkbox:checked');
+      const qualifiedIds = Array.from(checkboxes).map(checkbox => checkbox.id.split('-')[2]);
+      // Set the value of the hidden input field with the IDs to delete
+      document.getElementById('idsToDelete').value = qualifiedIds.join(',');
+      // Submit the form
+      document.getElementById('deleteForm').submit();
+
+      }
+      </script>
+
+    
+  </main>
+  

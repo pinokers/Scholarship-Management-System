@@ -1,21 +1,276 @@
 <main>
-	
-	<%- include('../partials/adminsidebar') %>
+  <%- include('../partials/adminsidebar') %>
 
-		
-		  <div id="main-wrapper">
-		
-			<div class="bg-white shadow-sm p-3">
-				<span class="me-3" id="sidebar-toggler-btn"><i class="fas fa-bars"></i></span>
-				<h5 class="m-0 color-theme d-inline-block">Dashboard</h5>
-			</div>
-			
-			<% if (currentUser) { %>
-				<p>Welcome, <%= currentUser.name %>!</p>
-			  <% } else { %>
-				<p>User not logged in.</p>
-			  <% } %>
-		
-	</div>
-	</div>
+  <div id="main-wrapper">
+    <div class="container-fluid">
+    <!-- Add these script tags to include html2canvas and jspdf -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+
+    <div class="bg-white shadow-sm dashboard-header p-3 d-flex justify-content-between align-items-center" id="pdf">
+      <div class="col">
+        <span class="me-3" id="sidebar-toggler-btn"><i class="fas fa-bars"></i></span>
+        <h5 class="m-0 color-theme d-inline-block dashboard-header-title">Dashboard</h5>
+      </div>
+      <div class="col text-end">
+        <form id="generate-pdf-form" action="/generate-pdf" method="POST">
+          <button type="submit" class="btn btn-success">Generate PDF</button>
+      </form>
+      
+      </div>
+    </div>
+
+  
+
+    <div class="row">
+      <div class="col-md-9 mx-auto applicants-per-barangay">
+        <div class="card mb-3 mt-3">
+          <div class="card-header text-center">Applicants Per Barangay</div>
+          <div class="card-body app-card-body ">
+            <canvas id="allBarangayChart" width="200" height="60" class="table-swipeable"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+   
+
+
+
+    <div class="row">
+      <div class="col-md-3 user-account-status">
+        <div class="card user-account-status-card mb-3 mt-3">
+          <div class="card-header text-center">User Account Status</div>
+          <div class="card-body">
+            <canvas id="myChart" width="400" height="400"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 application-form-status">
+        <div class="card application-form-status-card mb-3 mt-3">
+          <div class="card-header text-center">Application form status</div>
+          <div class="card-body">
+            <canvas id="pieChart" class="app-form-canva"></canvas>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-md-3 pre-registration-form-status">
+        <div class="card mb-3 mt-3">
+          <div class="card-header text-center">Pre registration Status</div>
+          <div class="card-body">
+            <canvas id="doughnutChart" class="doughnutChart"></canvas>
+          </div>
+        </div>
+      </div>
+      
+
+      <div class="col-md-3 payout-status">
+        <div class="card mb-3 mt-3">
+          <div class="card-header text-center">Payout Status</div>
+          <div class="card-body">
+            <canvas id="qualifiedChart" width="400" height="400"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        // JavaScript code for rendering charts goes here
+        // Render Bar Chart for Applicants Per Barangay
+        var allBarangayData = <%- JSON.stringify(allBarangayData) %>;
+        console.log(allBarangayData);
+
+        // Extract data from allBarangayData
+        var dataEntries = Object.entries(allBarangayData);
+        var barangayData = dataEntries.map(function ([barangay, entry], index) {
+          var count = (entry.qualifiedCount || 0) + (entry.oldFormCount || 0) + (entry.disqualifiedCount || 0);
+          return {
+            label: `${barangay} (${count})`,
+            count: count,
+            colorIndex: index % 4 // Change 4 to the number of colors you want to use
+          };
+        });
+
+        // Bar chart for All Barangays
+        var allBarangayChartCtx = document.getElementById('allBarangayChart').getContext('2d');
+        var allBarangayChart = new Chart(allBarangayChartCtx, {
+          type: 'bar',
+          data: {
+            labels: barangayData.map(entry => entry.label),
+            datasets: [{
+              label: 'Barangay count',
+              data: barangayData.map(entry => entry.count),
+              backgroundColor: barangayData.map(entry => getColor(entry.colorIndex)),
+              borderColor: 'rgba(75, 192, 192, 1)',
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
+
+        function getColor(index) {
+          // Define your colors here
+          var colors = [
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 205, 86, 0.2)',
+            'rgba(54, 162, 235, 0.2)'
+            // Add more colors if needed
+          ];
+
+          return colors[index];
+        }
+        // Extract data from allBarangayData
+        // Define Chart.js configuration and options
+    
+        // Render Bar Chart for User Account Status
+        var labels = <%- JSON.stringify(labels) %>;
+        var values = <%- JSON.stringify(values) %>;
+
+        // Add count below each label with a line break
+        var labelsWithCount = labels.map(function (label, index) {
+          return label + '(' + values[index] + ')';
+        });
+
+        // Define an array of colors
+        var barColors = [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          // Add more colors as needed
+        ];
+
+        // Bar chart for User Account Status
+        var userAccountChartCtx = document.getElementById('myChart').getContext('2d');
+        var userAccountChart = new Chart(userAccountChartCtx, {
+          type: 'bar',
+          data: {
+            labels: labelsWithCount,
+            datasets: [{
+              label: 'Applicant Status',
+              data: values,
+              backgroundColor: barColors,
+              borderColor: barColors.map(color => color.replace('0.2', '1')),
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
+        // Extract data from labels and values
+        // Define Chart.js configuration and options
+    
+        // Render Pie Chart for Application Form Status
+        var onProcessCount = <%= totalCount %>;
+        var qualifiedCount = <%= qualified %>;
+        var disqualifiedCount = <%= disqualified %>;
+
+        var pieData = {
+          labels: ['On-process (' + onProcessCount + ')', 'Qualified (' + qualifiedCount + ')', 'Disqualified (' + disqualifiedCount + ')'],
+          datasets: [{
+            data: [onProcessCount, qualifiedCount, disqualifiedCount],
+            backgroundColor: ['#FF5733', '#3399FF', '#FFFF33']
+          }]
+        };
+
+        var pieChartCtx = document.getElementById('pieChart').getContext('2d');
+        var pieChart = new Chart(pieChartCtx, {
+          type: 'pie',
+          data: pieData,
+          options: {
+            maintainAspectRatio: false,
+            responsive: true
+          }
+        
+        });
+        // Extract data from the server-side
+        // Define Chart.js configuration and options
+    
+        // Render Doughnut Chart for Pre-registration Form Status
+        var preRegistrationWithCodeCount = <%= preRegistrationWithCodeCount || 0 %>;
+      var preRegistrationWithoutCodeCount = <%= preRegistrationWithoutCodeCount || 0 %>;
+      var preregdisqualified = <%= preregdisqualified || 0 %>;
+
+      var doughnutData = {
+        labels: ['On-process (' + preRegistrationWithoutCodeCount + ')', 'Qualified (' + preRegistrationWithCodeCount + ')', 'Disqualified (' + preregdisqualified + ')'],
+        datasets: [{
+          data: [
+            preRegistrationWithoutCodeCount,
+            preRegistrationWithCodeCount,
+            preregdisqualified,
+          ],
+          backgroundColor: ['#3399FF', '#FF5733', '#FFFF33'],
+        }]
+      };
+
+      var doughnutChartCtx = document.getElementById('doughnutChart').getContext('2d');
+      var doughnutChart = new Chart(doughnutChartCtx, {
+        type: 'doughnut',
+        data: doughnutData,
+      });
+        // Extract data from the server-side
+        // Define Chart.js configuration and options
+    
+        // Render Bar Chart for Payout Status
+        var payoutStatusLabels = <%- JSON.stringify(payoutStatusLabels) %>;
+        var payoutStatusValues = <%- JSON.stringify(payoutStatusValues) %>;
+
+        // Define an array of colors
+        var barColors = [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          // Add more colors as needed
+        ];
+
+        // Bar chart for Payout Status
+        var payoutStatusChartCtx = document.getElementById('qualifiedChart').getContext('2d');
+        var payoutStatusChart = new Chart(payoutStatusChartCtx, {
+          type: 'bar',
+          data: {
+            labels: payoutStatusLabels.map(function (label, index) {
+              return label + ' (' + payoutStatusValues[index] + ')';
+            }),
+            datasets: [{
+              label: 'Payout Status',
+              data: payoutStatusValues,
+              backgroundColor: barColors,
+              borderColor: barColors.map(color => color.replace('0.2', '1')),
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
+        // Extract data from the server-side
+        // Define Chart.js configuration and options
+      });
+    </script>
+    
+
+    </div>
+   
+  </div>
+ 
 </main>

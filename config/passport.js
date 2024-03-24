@@ -6,7 +6,7 @@ const Admin = require("../models/admin.js");
 module.exports = function(passport) {
   passport.use('local-user', new LocalStrategy({ usernameField: 'email' }, (email, password, done) => {
     // Find the user by email
-    User.findOne({ email: email })
+    User.findOne({ deletedAt: { $eq: null }, email: email })
       .then(user => {
         if (!user) {
           // User not found
@@ -34,7 +34,7 @@ module.exports = function(passport) {
 
   passport.use('local-admin', new LocalStrategy({ usernameField: 'email' }, (email, password, done) => {
     // Find the admin user by email
-    Admin.findOne({ email: email })
+    Admin.findOne({ deletedAt: { $eq: null }, email: email })
       .then(admin => {
         if (!admin) {
           // Admin not found

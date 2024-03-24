@@ -1,0 +1,200 @@
+/*------------------ SCHOLARSHIP APPLICATION ON PROCESS ------------------*/
+
+.scholarship-application-onprocess-sub-header{
+    padding-top:10px;
+    padding-bottom:8px;
+    margin-bottom:0;
+    margin-top:20px;
+    border-left:green 5px solid;
+}
+
+.scholarship-application-onprocess-sub-header-text{
+    margin-left:10px;
+    font-size: 20px;
+    font-family: sans-serif;
+    font-weight: bold;
+}
+
+.btn-view-requirements{
+    padding-left:20px;
+    padding-right:20px;
+}
+
+.btn-qualified{
+    padding-left:35px;
+    padding-right:35px;
+}
+
+.btn-view-requirements:hover{
+    background-color: blue;
+}
+
+.btn-qualified:hover{
+    background-color: green;
+    color:white;
+    font-weight: bold;
+}
+
+.btn-disqualified:hover{
+    background-color: red;
+    color:white;
+    font-weight: bold;
+
+}
+
+@media (min-width: 280px) and (max-width: 767px){
+    .admin-application-onprocess-header{
+        white-space: nowrap;
+        text-overflow:ellipsis;
+        overflow: hidden;
+        
+    }
+
+    .admin-application-onprocess-header-text{
+        white-space: nowrap;
+        text-overflow:ellipsis;
+        overflow:hidden;
+        font-size:17px;
+    }
+
+    .scholarship-application-onprocess-sub-header{
+        white-space: nowrap;
+        text-overflow:ellipsis;
+        overflow:hidden;
+    }
+
+    .scholarship-application-onprocess-sub-header-text{
+        white-space: nowrap;
+        text-overflow:ellipsis;
+        overflow:hidden;
+        font-size: 15px;
+    }
+
+
+/*------------------------------------- SCHOLARSHIP APPLICATION-QUALIFIED------------*/
+
+    
+}
+
+.scholarship-application-qualified-sub-header{
+    padding-top:10px;
+    padding-bottom:8px;
+    margin-bottom:0;
+    margin-top:20px;
+    border-left:green 5px solid;
+}
+
+.scholarship-application-qualified-sub-header-text{
+    margin-left:10px;
+    font-size: 20px;
+    font-family: sans-serif;
+    font-weight: bold;
+}
+
+.financial-grant{
+    color:darkgreen;
+}
+
+
+
+.btn-view-qualified-form:hover{
+    background-color: blue;
+}
+
+.btn-move-qualified:hover{
+    background-color: green;
+}
+
+.btn-delete-qualified:hover{
+    background-color: red;
+}
+
+
+@media (min-width: 280px) and (max-width: 767px){
+    .scholarship-application-qualified-header{
+        white-space: nowrap;
+        text-overflow:ellipsis;
+        overflow: hidden;
+      
+    }
+
+    .scholarship-application-qualified-header-text{
+        white-space: nowrap;
+        text-overflow:ellipsis;
+        overflow:hidden;
+        font-size:17px;
+    }
+
+    .scholarship-application-qualified-sub-header{
+        white-space: nowrap;
+        text-overflow:ellipsis;
+        overflow:hidden;
+    }
+
+    .scholarship-application-qualified-sub-header-text{
+        white-space: nowrap;
+        text-overflow:ellipsis;
+        overflow:hidden;
+        font-size: 15px;
+    }
+
+
+}
+
+
+
+/*------------------------------ SCHOLARSHIP APPLICATION DISQUALIFIED ----------------------*/
+
+.scholarship-application-disqualified-sub-header{
+    padding-top:10px;
+    padding-bottom:8px;
+    margin-bottom:0;
+    margin-top:20px;
+    border-left:green 5px solid;
+}
+
+.scholarship-application-disqualified-sub-header-text{
+    margin-left:10px;
+    font-size: 20px;
+    font-family: sans-serif;
+    font-weight: bold;
+}
+
+.btn-view-disqualified:hover{
+    background-color: blue;
+}
+.btn-move-disqualified:hover{
+    background-color: green;
+}
+.btn-delete-disqualified:hover{
+    background-color: red;
+}
+@media (min-width: 280px) and (max-width: 767px){
+    .scholarship-application-disqualified-header{
+        white-space: nowrap;
+        text-overflow:ellipsis;
+        overflow: hidden;
+     
+    }
+
+    .scholarship-application-disqualified-header-text{
+        white-space: nowrap;
+        text-overflow:ellipsis;
+        overflow:hidden;
+        font-size:17px;
+    }
+
+    .scholarship-application-disqualified-sub-header{
+        white-space: nowrap;
+        text-overflow:ellipsis;
+        overflow:hidden;
+    }
+
+    .scholarship-application-disqualified-sub-header-text{
+        white-space: nowrap;
+        text-overflow:ellipsis;
+        overflow:hidden;
+        font-size: 15px;
+    }
+    
+}

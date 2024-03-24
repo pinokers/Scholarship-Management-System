@@ -1,0 +1,205 @@
+<main>
+  <%- include('../partials/adminsidebar') %>
+  <link rel="stylesheet" href="/public/css/admin-payout.css">
+  <div id="main-wrapper">
+    <div class="container-fluid">
+      <div class="bg-white admin-payout-header shadow-sm p-3">
+        <span class="me-3" id="sidebar-toggler-btn"><i class="fas fa-bars"></i></span>
+        <h5 class="m-0 color-theme admin-payout-header-text d-inline-block">Scholarship Payout</h5>
+        
+      </div>
+      
+      <div class="table-responsive admin-payout-applicant-receiver container-fluid">
+        
+       
+        <div class="admin-payout-sub-header alert-info">
+          <div class="row">
+            <div class="col-md-4">
+              <h1 class="admin-payout-sub-header-text">Payout Received</h1>
+            </div>
+            <div class="col-md-8">
+              <form id="searchForm" action="/admin/admin-form-payout" method="GET" class="text-right">
+                <div class="input-group">
+                  <input type="text" id="searchInput" name="query" placeholder="Search for users..." aria-label="Search" class="form-control">
+                  <select id="payoutStatusFilter" name="payoutStatus" class="form-control">
+                    <option value="">Filter by Payout Status</option>
+                    <option value="received">Received</option>
+                    <option value="notReceived">Not Received</option>
+                  </select>
+                  
+                  <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit">
+                      <i class="fas fa-search"></i>
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        
+
+
+
+
+        <!-- Display "Received" Table -->
+        <% if (receivedData && receivedData.length > 0) { %>
+          
+          <table class="table  table-sm">
+            <thead>
+              <tr>
+                <th scope="col">First Name</th>
+                <th scope="col">Middle Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Age</th>
+                <th scope="col">Gender</th>
+                <th scope="col">Contact</th>
+                <th scope="col">Barangay</th>
+                <th scope="col">Financial Grant</th>
+                <th scope="col">Code</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% receivedData.forEach(qual => { %>
+                <tr class="align-middle">
+                  <td class="applicants-received-name"><%= qual.first_name %></td>
+                  <td class="applicants-received-name"><%= qual.middle_name %></td>
+                  <td class="applicants-received-name"><%= qual.last_name %></td>
+                  <td><%= qual.age %></td>
+                  <td><%= qual.gender %></td>
+                  <td><%= qual.primary_cellphone %></td>
+                  <td><%= qual.barangay %></td>
+                  <td class="applicants-received"><strong> ₱<%= qual.selectedOption %></strong></td>
+                  <td class="applicants-code"><%= qual.code %></td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+          <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-end"> <!-- Change justify-content-end to justify-content-center -->
+                <li class="page-item disabled">
+                    <span class="page-link">Displaying <strong><%= (currentReceived - 1) * perPageReceived + 1 %></strong> - <strong><%= Math.min(currentReceived * perPageReceived, receivedCount) %></strong> of <strong><%= receivedCount %></strong> applicant</span>
+                </li>
+                <li class="page-item <%= currentReceived == 1 ? 'disabled' : '' %>">
+                    <a class="page-link" href="/admin/admin-form-payout?pageReceived=<%= currentReceived - 1 %>" tabindex="-1">Previous</a>
+                </li>
+                <% for (let i = 1; i <= receivedPages; i++) { %>
+                <li class="page-item <%= currentReceived == i ? 'active' : '' %>">
+                    <a class="page-link" href="/admin/admin-form-payout?pageReceived=<%= i %>"><%= i %></a>
+                </li>
+                <% } %>
+                <!-- Last page button -->
+                <% if (currentReceived == receivedPages) { %>
+                <li class="page-item disabled">
+                    <a href="#" class="page-link">Next</a>
+                </li>
+                <% } else { %>
+                <li class="page-item">
+                    <a href="/admin/admin-form-payout?pageReceived=<%= receivedPages %>" class="page-link">Next</a>
+                </li>
+                <% } %>
+            </ul>
+        </nav>
+        
+          
+
+        <% } else { %>
+          <div class="alert alert-info mt-3" role="alert">
+            No received data found.
+          </div>
+        <% } %>
+      </div>
+
+
+      
+
+      <!-- Additional "Not Received" section -->
+      <div class="table-responsive admin-payout-applicant-pending-receiver container-fluid">
+        <div class="admin-payout-sub-header alert-warning">
+          
+            <div class="col-md-4">
+              <h1 class="admin-payout-sub-header-text">Pending Receiver</h1>
+            </div>
+            
+          
+        </div>
+        
+
+
+
+
+
+
+        <!-- Display "Not Received" Table -->
+        <% if (notReceivedData && notReceivedData.length > 0) { %>
+          <table class="table  table-sm">
+            <thead>
+              <tr>
+                <th scope="col">First Name</th>
+                <th scope="col">Middle Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Age</th>
+                <th scope="col">Gender</th>
+                <th scope="col">Contact</th>
+                <th scope="col">Barangay</th>
+                <th scope="col">Financial Grant</th>
+                <th scope="col">Code</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% notReceivedData.forEach(qual => { %>
+                <tr class="align-middle">
+                  <td class="applicants-pending-name"><%= qual.first_name %></td>
+                  <td class="applicants-pending-name"><%= qual.middle_name %></td>
+                  <td class="applicants-pending-name"><%= qual.last_name %></td>
+                  <td><%= qual.age %></td>
+                  <td><%= qual.gender %></td>
+                  <td><%= qual.primary_cellphone %></td>
+                  <td><%= qual.barangay %></td>
+                  <td class="applicants-pending-financial-grant"><strong> ₱<%= qual.selectedOption %></strong></td>
+                  <td class="applicants-pending-code"><%= qual.code %></td>
+                  <td>
+                    <form method="POST" action="/admin/update-payout/<%= qual._id %>">
+                      <button type="submit" class="btn alert-success mark-received">Received</button>
+                    </form>
+                  </td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+          <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-end"> <!-- Change justify-content-end to justify-content-center -->
+                <li class="page-item disabled">
+                    <span class="page-link">Displaying <strong><%= (currentnotReceived - 1) * perPageNotReceived + 1 %></strong> - <strong><%= Math.min(currentnotReceived * perPageNotReceived, notReceivedCount) %></strong> of <strong><%= notReceivedCount %></strong> applicant</span>
+                </li>
+                <li class="page-item <%= currentnotReceived == 1 ? 'disabled' : '' %>">
+                    <a class="page-link" href="/admin/admin-form-payout?pageReceived=<%= currentnotReceived - 1 %>" tabindex="-1">Previous</a>
+                </li>
+                <% for (let i = 1; i <=  notreceivedPages; i++) { %>
+                <li class="page-item <%= currentnotReceived == i ? 'active' : '' %>">
+                    <a class="page-link" href="/admin/admin-form-payout?pageReceived=<%= i %>"><%= i %></a>
+                </li>
+                <% } %>
+                <!-- Last page button -->
+                <% if (currentnotReceived ==  notreceivedPages) { %>
+                <li class="page-item disabled">
+                    <a href="#" class="page-link">Next</a>
+                </li>
+                <% } else { %>
+                <li class="page-item">
+                    <a href="/admin/admin-form-payout?pageReceived=<%=  notreceivedPages %>" class="page-link">Next</a>
+                </li>
+                <% } %>
+            </ul>
+        </nav>
+          
+        <% } else { %>
+          <div class="alert alert-info mt-3" role="alert">
+            No pending data found.
+          </div>  
+        <% } %>
+      </div>
+    </div>
+  </div>
+</main>

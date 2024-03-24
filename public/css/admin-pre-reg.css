@@ -1,0 +1,153 @@
+
+.smaller-header {
+    font-size: 13px; /* Adjust the font size as needed */
+}
+.pre-reg-on-process-sub-header{
+    padding-top:10px;
+    padding-bottom:8px;
+    margin-bottom:0;
+    margin-top:20px;
+    border-left:green 5px solid;
+}
+
+.pre-reg-on-process-sub-header-text{
+    margin-left:10px;
+    font-size: 20px;
+    font-family: sans-serif;
+    font-weight: bold;
+}
+
+.pre-reg-on-process-table-container{
+    margin-top:0;
+    background-color: ghostwhite;
+}
+
+
+/* BUTTON FOR PRE REG ON PROCESS*/
+.admin-pre-reg-view-btn{
+    padding-left:25px;
+    padding-right:25px;
+}
+
+.admin-pre-reg-qualified-btn{
+    padding-left:15px;
+    padding-right:15px;
+}
+
+.admin-pre-reg-disqualified-btn{
+    font-weight: bold;
+}
+
+.admin-pre-reg-view-btn:hover{
+    background-color:blue;
+    color:white;
+    font-weight: bold;
+}
+.admin-pre-reg-qualified-btn:hover{
+    background-color: green;
+    color:white;
+    font-weight: bold;
+}
+
+.admin-pre-reg-disqualified-btn:hover{
+    background-color:red;
+    color:white;
+    font-weight: bold;
+}
+
+
+/* BUTTON FOR  PRE REG QUALIFIED*/
+
+.admin-pre-reg-view-btn2{
+    padding-top:7px;
+    padding-left:15px;
+    padding-right:15px;
+    border-radius: 3px;
+}
+
+.admin-pre-reg-move-btn{
+    padding-left:14px;
+    padding-right:14px;
+}
+
+.admin-pre-reg-view-btn2:hover{
+    background-color:darkblue;
+    color:white;
+    font-weight: bold;
+}
+.admin-pre-reg-move-btn:hover{
+    background-color: green;
+    color:white;
+    font-weight: bold;
+}
+
+.admin-pre-reg-qual-delete-btn:hover{
+    background-color: red;
+
+}
+
+
+
+
+/* BUTTON FOR PRE REG DISQUALIFIED*/
+.admin-pre-reg-view-btn3{
+    padding-top:7px;
+    padding-left:15px;
+    padding-right:15px;
+    border-radius: 3px;
+}
+
+.admin-pre-reg-move-btn2{
+    padding-left:14px;
+    padding-right:14px;
+}
+
+
+
+.admin-pre-reg-view-btn3:hover{
+    background-color:darkblue;
+    color:white;
+    font-weight: bold;
+}
+.admin-pre-reg-move-btn2:hover{
+    background-color: green;
+    color:white;
+    font-weight: bold;
+}
+
+.admin-pre-reg-disq-delete-btn:hover{
+    background-color: red;
+}
+
+
+
+
+
+
+
+@media (min-width: 280px) and (max-width: 767px){
+    .admin-pre-reg-onprocess-header{
+        white-space: nowrap;
+        overflow:hidden;
+        text-overflow: ellipsis;
+    }
+
+    .admin-pre-reg-onprocess-header-text{
+        font-size:17px;
+    }
+
+    .pre-reg-on-process-sub-header{
+        white-space: nowrap;
+        overflow:hidden;
+        text-overflow: ellipsis;
+    }
+
+    .pre-reg-on-process-sub-header-text{
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow:ellipsis;
+        font-size: 15px;;
+    }
+
+    
+}

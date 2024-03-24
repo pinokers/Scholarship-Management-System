@@ -1,0 +1,95 @@
+<main>
+    <%- include('../partials/adminsidebar') %>
+    <link rel="stylesheet" href="/public/css/applicantprofile.css">
+    <div id="main-wrapper">
+      <div class="container-fluid">
+        <div class="bg-white shadow-sm p-3 admin-view-header">
+          <span class="me-3" id="sidebar-toggler-btn"><i class="fas fa-bars"></i></span>
+          <h5 class="m-0 color-theme admin-view-header-text d-inline-block"><i class="bi bi-eye text-success"> </i>View</h5>
+        </div>
+  
+  <div class="col py-2 container-fluid" >
+    <div class="row">
+      <div class="col">
+        <nav aria-label="breadcrumb" >
+          <ol class="breadcrumb bg-white admin-view-navbar container-fluid shadow-sm">
+            <li class="breadcrumb-item"><a href="/admin/user">Back</a></li>
+            
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <div class="row align-items-center profile-form-header">
+    <div class="col-md-2 text-center">
+      <div class="user-icon position-relative" id="profile-picture">
+        <input type="file" id="upload" class="position-absolute top-0 start-0 w-100 h-100 opacity-0 cursor-pointer">
+        <label for="upload">
+          <i class="bi bi-person-fill user-icon1" style="font-size: 9rem; color:white;"></i>
+        </label>
+      </div>
+      
+    </div>
+    <div class="col-md-8 user-name-con">
+      <h1 class="user-name"> <%= user.first_name %>  <%= user.middle_name %> <%= user.last_name %></h1>
+      <!-- New div for Gmail information -->
+      <div class="user-info"></i> <%= user.email %><i class="bi bi-envelope-fill"></i></div>
+    </div>
+  </div>
+
+
+
+      
+  <ul class="list-group admin-view-form-container container-fluid">
+    <li class="list-group-item"> 
+      <div class="row">
+        <div class="col-md-4"><b>First Name:</b> <%= user.first_name %></div>
+        <div class="col-md-4"><b>Middle Name:</b> <%= user.middle_name %></div>
+        <div class="col-md-4"><b>Last Name:</b> <%= user.last_name %></div>
+      </div>
+    </li>
+    <li class="list-group-item"> 
+      <div class="row">
+        <div class="col-md-6"><b>Email:</b> <%= user.email %></div> 
+        <div class="col-md-6"><b>Contact:</b> <%= user.contact %></div>    
+      </div>
+    </li>
+    <li class="list-group-item"> 
+      <div class="row">
+        
+        <div class="col-md-6"><b>Course:</b> <%= user.course %></div>
+        <div class="col-md-6"><b>Barangay:</b> <%= user.barangaySelect %></div>
+      </div>
+    </li>
+    <li class="list-group-item"> 
+      <div class="row">
+        
+        <div class="col-md-6"><b>School Name:</b> <%= user.schoolName %></div>
+      </div>
+    </li>
+    <li class="list-group-item"> 
+      <div class="row">
+        <div class="col-md-6"><b>School Address:</b> <%= user.schoolAddress %></div>
+        <div class="col-md-6"><b>School ID Number:</b> <%= user.schoolID %></div>
+      </div>
+    </li>
+    <li class="list-group-item"> 
+      <div class="row">
+        <div class="col-md-6"><b>Applicant Status:</b> <%= user.category === 'old-applicant' ? 'Old Applicant' : 'New Applicant' %></div>
+        
+      </div>
+    </li>
+    <li class="list-group-item"> 
+      <div class="row">
+        <div class="col-md-6"><b>Date Created:</b> <%= new Date(user.createdAt).toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric',
+            minute: 'numeric' }) %></div>
+        <div class="col-md-6"><b>Date Modified:</b><%= new Date(user.updatedAt).toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric',
+            minute: 'numeric' }) %></div>
+      </div>
+    </li>
+  </ul>
+  
+  
+  
+      </main>

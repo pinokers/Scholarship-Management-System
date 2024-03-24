@@ -1,0 +1,159 @@
+
+
+.value{
+    text-align: center;
+}
+
+.full-screen-modal .modal-dialog {
+    max-width: 100%;
+    margin: 0;
+  }
+
+  .full-screen-modal .modal-content {
+    height: 100vh;
+  }
+
+  .full-screen-modal .modal-body {
+    overflow-y: auto;
+    max-height: calc(100vh - 120px); /* Adjust as needed */
+  }
+
+ 
+
+.view-file-btn{
+  color:white;
+  text-decoration: none;
+}
+
+.view-file-btn:hover{
+  color:white;
+  text-decoration: none;
+}
+
+
+
+.profile-form-header{
+  background-color:rgb(11, 164, 11);
+  border-radius: 10px;
+  margin-left:2px;
+  margin-right:2px;
+  margin-bottom:20px;
+}
+
+.user-name{
+  border-color:transparent;
+  font-size: 35px;
+  font-weight: bold;
+  letter-spacing: 0px;
+  font-family:sans-serif;
+  background-color: transparent;
+  color:white;
+}
+
+.user-info{
+  color:white;
+}
+
+.application-form-container{
+  background-color: white;
+  padding-top:20px;
+  padding-bottom:20px;
+}
+
+.personal-information1{
+  font-size: 24px;
+  font-weight: bold;
+  font-family: sans-serif;
+  margin-top:15px;
+  margin-bottom:10px;
+}
+
+.inform-title{
+  font-size:18px;
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.view-file-btn{
+  padding-top:10px;
+  padding-bottom:10px;
+  margin-top:50px;
+}
+
+.navbar1{
+  background-color: white;
+}
+
+
+
+@media (min-width: 280px) and (max-width: 767px){
+  .application-form-container{
+    width:90%;
+  }
+
+  .user-name{
+    text-align: center;
+    word-wrap: break-word;
+    overflow: hidden;
+    font-size: 24px;
+  }
+  .user-info{
+    text-align: center;
+  }
+  .profile-form-header{
+    white-space: nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;     
+  }
+  .application-header-txt{
+    white-space: nowrap;
+        overflow:hidden;
+        text-overflow:ellipsis;
+  }
+  .personal-information1{
+    white-space: nowrap;
+        overflow:hidden;
+        text-overflow:ellipsis;
+        text-align: center;
+  }
+  .inform-title{
+    white-space: nowrap;
+        overflow:hidden;
+        text-overflow:ellipsis;
+        text-align: center;
+  }
+
+  .subinfo{
+    white-space: nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    text-align: center;
+  }
+  .data{
+    text-align: center;
+  }
+
+  .profile-form-header{
+    padding-bottom:10px;
+  }
+
+  .admin-create-schedule-header{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow:hidden;
+  }
+
+}
+
+@media (min-width: 768px) and (max-width: 990px){
+  .profile-form-header{
+    text-align: center;
+    padding-bottom:10px;
+  }
+}
+
+
+
+
+
+

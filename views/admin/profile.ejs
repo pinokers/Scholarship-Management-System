@@ -1,51 +1,115 @@
 <main>
 	<%- include('../partials/adminsidebar') %>
-	
+	<link rel="stylesheet" href="/public/css/adminprofile.css">
 	<div id="main-wrapper">
 		
-		<div class="bg-white shadow-sm p-3">
+		<div class="bg-white admin-profile-header shadow-sm p-3">
 			<span class="me-3" id="sidebar-toggler-btn"><i class="fas fa-bars"></i></span>
-			<h5 class="m-0 color-theme d-inline-block"></i>Profile</h5>
+			<h5 class="m-0 color-theme admin-profile-header-text d-inline-block">Admin Profile</h5>
 		</div>
 		
-		<form action="/admin/profile?_method=PUT" method="POST" class="w-75 border ms-3 my-3 p-3 bg-white rounded-2 shadow" style="min-width: 400px;">
+		<form action="/admin/profile?_method=PUT" method="POST" class="container-fluid  border  p-4 bg-white rounded-2 shadow admin-profile-update-form">
+			
+
+
+
+			<div class="row align-items-center profile-form-header">
+				<div class="col-md-2 text-center">
+					<div class="user-icon position-relative" id="profile-picture">
+						<input type="file" id="upload" class="position-absolute top-0 start-0 w-100 h-100 opacity-0 cursor-pointer">
+						<label for="upload">
+							<i class="bi bi-person-fill" style="font-size: 9rem; color:white;"></i>
+						</label>
+					</div>
+					
+				</div>
+				<div class="col-md-8 user-name-con">
+					<h1 class="admin-name"><%= currentUser.first_name %> <%= currentUser.middle_name %> <%= currentUser.last_name %></h1>
+					<!-- New div for Gmail information -->
+					<div class="admin-info"></i><%= currentUser.email %> <i class="bi bi-envelope-fill"></i></div>
+				</div>
+			</div>
+
+			<div class="admin-profile-note">You can update your information here</div>
+			<div class="admin-profile-form-note">Upon submission, the system will automatically update your information.</div>
+
+
+
 			<div class="row">
-				<div class="col-sm-6 mb-4">
-					<label for="first-name" class="form-label">Name</label>
-					<input type="text" name="admin[name]" class="form-control" id="first-name" placeholder="Enter first name.." value="<%= currentUser.name %>" required>
+				<div class="row form4">
+					<div class="col-sm-6 mb-4 profile">
+						<label for="first-name" class="form-label ">Firs Name</label>
+						<input type="text" name="admin[name]" class="form-control profile" id="first-name" placeholder="Enter first name.." value="<%= currentUser.first_name %>" required disabled>
+					</div>
+					<div class="col-sm-6 mb-4">
+						<label for="first-name" class="form-label">Middle Name</label>
+						<input type="text" name="admin[name]" class="form-control profile" id="first-name" placeholder="Enter first name.." value="<%= currentUser.middle_name %>" required>
+					</div>
+					<div class="col-sm-6 mb-4">
+						<label for="first-name" class="form-label">Last Name</label>
+						<input type="text" name="admin[name]" class="form-control profile" id="first-name" placeholder="Enter first name.." value="<%= currentUser.last_name %>">
+					</div>
+					<div class="col-sm-6 mb-4">
+						<label for="email" class="form-label">Email</label>
+						<input type="email" id="email" class="form-control profile" value="<%= currentUser.email %>" disabled>
+					</div>
 				</div>
-				<div class="mb-4">
-					<label for="email" class="form-label">Email</label>
-					<input type="email" id="email" class="form-control" value="<%= currentUser.email %>" disabled>
+				<div class="row form4">
+					<div class="col-sm-6 mb-4">
+						<label for="phone" class="form-label">Phone</label>
+						<input type="number" name="admin[contact]" class="form-control profile" id="phone" placeholder="Enter phone.." value="<%= currentUser.contact %>">
+					</div>
+					<div class="col-sm-6 mb-4">
+						<label for="address" class="form-label">Address</label>
+						<input type="text" name="admin[address]" class="form-control profile" id="address" placeholder="Enter address.." value="<%= currentUser.address %>">
+					</div>
 				</div>
-				<div class="mb-4">
-					<label for="phone" class="form-label">Phone</label>
-					<input type="number" name="admin[contact]" class="form-control" id="phone" placeholder="Enter phone.." value="<%= currentUser.contact %>">
-				</div>
-				<div class="mb-4">
-					<label for="address" class="form-label">Address</label>
-					<input type="text" name="admin[address]" class="form-control" id="address" placeholder="Enter address.." value="<%= currentUser.address %>">
-				</div>
+				
 				<!-- Add Password Input Field -->
-				<div class="mb-4">
+				<div class="mb-4 form4">
 					<label for="password" class="form-label">Password</label>
 					<div class="input-group">
-					  <input
-						type="password"
-						name="admin[password]"
-						class="form-control"
-						id="password"
-						placeholder="Enter new password.."
-					  >
-					  <div class="input-group-append">
-						<button type="button" class="btn btn-outline-secondary" id="togglePassword">
-						  <i class="fas fa-eye" id="eyeIcon"></i>
-						</button>
-					  </div>
+						<input
+							type="password"
+							name="admin[password]"
+							class="form-control"
+							id="password"
+							placeholder="Enter new password.."
+						>
+						<div class="input-group-append">
+							<button type="button" class="btn btn-outline-secondary" id="togglePassword">
+								<i class="fas fa-eye" id="eyeIcon"></i>
+							</button>
+						</div>
 					</div>
-				  </div>
+					<small id="passwordHelp" class="form-text text-muted">
+						Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.
+					</small>
+				</div>
+				
+				<script>
+					const passwdInput = document.getElementById('password');
+				
+					// Password validation function
+					function validatePassword() {
+						const password = passwdInput.value;
+						const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+{};:,<.>]).{8,}$/;
+						return passwordRegex.test(password);
+					}
+				
+					// Add input event listener for password validation
+					passwdInput.addEventListener('input', function() {
+						const isValid = validatePassword();
+						if (!isValid) {
+							passwdInput.setCustomValidity("Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.");
+						} else {
+							passwdInput.setCustomValidity("");
+						}
+					});
+				</script>
+				
 				  
-				<button type="submit" class="btn w-75 d-block m-auto mt-4">Update</button>
+				<button type="submit" class="btn w-75 d-block m-auto mt-4 admin-profile-button-update">Save Changes</button>
 			</div>
 		</form>	
 	</div>

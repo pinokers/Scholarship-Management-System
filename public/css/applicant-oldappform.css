@@ -1,0 +1,120 @@
+.modal-blur {
+    filter: blur(8px); /* Adjust blur strength as needed */
+    
+}
+.modal-blurr {
+    backdrop-filter: blur(8px);
+    
+}
+
+.modal-content-blur{
+    background-color: transparent;
+    border: none;
+}
+
+.loading-text{
+    color:white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+
+.old-form-announce-text{
+  color:red;
+  font-weight: bold;
+  text-align: center;
+  font-size:20px;
+  font-family: sans-serif;
+  margin-bottom: 0px;
+}
+
+.form-title{
+    font-size: 25px;
+    text-align: center;
+    font-weight: bold;
+    background-color:#08A045;
+    margin-bottom:10px;
+    padding-top:20px;
+    padding-bottom:20px;
+    color:white;
+
+}
+
+
+.button-holder{
+    background-color: whitesmoke;
+    padding-bottom:15px;
+    padding-top:15px;
+    padding-left:20px;
+}
+
+
+
+
+.app-container{
+    padding-top:5px;
+    padding-bottom:5px;
+    width:80;
+}
+
+
+#multipage-form{
+    background-color:white;
+    padding-left:0px;
+    padding-right:0px;
+}
+
+.applicant-navbar{
+	background: rgba(0,0,0,0.5) url("/public/image/cityhallbanner.png");
+    background-blend-mode: darken;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding-top:20px;
+    padding-bottom:20px;
+}
+
+.nav-links-container {
+  display: flex;
+  justify-content: center;
+}
+
+.navbar-btns {
+  margin: 0 10px; /* Adjust as needed */
+}
+
+.navbar-btns:hover{
+    color:gray;
+  }
+
+@media only screen and (max-width: 769px) {
+  .nav-links-container {
+    display: none;
+  }
+}
+
+@media only screen and (min-width: 770px) {
+  .navlink1 {
+    display: none;
+  }
+  .custom-navbar-toggler{
+    display:none;
+  }
+  
+}
+
+@media only screen and (min-width:768px) and (max-width: 1023px){
+    .forms{
+        width:210%;
+    }
+}
+
+
+
+.old-app-forms{
+    margin-left:20px;
+    margin-right:20px;
+    padding-top:40px;
+    padding-bottom:40px;
+}
