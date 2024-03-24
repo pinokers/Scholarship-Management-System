@@ -1,0 +1,191 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup Form</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/public/css/applanding.css">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+  <!--------------------------------------------------------------------------------------------BACKGROUND IMAGE---------------------------------------------------------------------------------->
+            <div class="col-md-6 bg-image" style="background-image: url('/public/image/formbg1.jpg'); background-repeat:no-repeat; background-size:cover; background-position:center;"></div>
+
+  <!--------------------------------------------------------------------------------------------SIGNUP FORM -------------------------------------------------------------------------------------->
+            <div class="col-md-6 p-4">
+                <form action="/auth/register" method="POST">
+                    <h2 class="text-center mb-4">Signup Form </h2>
+                    <% if(typeof errors != 'undefined') { %>
+                        <% errors.forEach(function(error) { %>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <%= error.msg %>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        <% }); %>
+                    <% } %>
+                    
+                              <div class="form-group">
+                                <label for="name">Name</label>
+                                <input
+                                  type="text"
+                                  id="name"
+                                  name="name"
+                                  class="form-control"
+                                  placeholder="Enter Name"
+                                  value="<%= typeof name != 'undefined' ? name : '' %>"
+                                />
+                              </div>
+                              <div class="form-group">
+                                <label for="email">Email</label>
+                                <input
+                                  type="email"
+                                  id="email"
+                                  name="email"
+                                  class="form-control"
+                                  placeholder="Enter Email"
+                                  value="<%= typeof email != 'undefined' ? email : '' %>"
+                                />
+                              </div>
+                              <div class="form-group">
+                                <label for="password">Password</label>
+                                <div class="input-group">
+                                  <input
+                                    type="password"
+                                    id="password"
+                                    name="password"
+                                    class="form-control"
+                                    placeholder="Create Password"
+                                    value="<%= typeof password != 'undefined' ? password : '' %>"
+                                  >
+                                  <div class="input-group-append">
+                                    <button type="button" class="btn btn-outline-secondary" id="togglePassword">
+                                      <i class="fas fa-eye" id="eyeIcon"></i>
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="form-group">
+                                <label for="passwordConfirm">Confirm Password</label>
+                                <div class="input-group">
+                                  <input
+                                    type="password"
+                                    id="password2"
+                                    name="password2"
+                                    class="form-control"
+                                    placeholder="Confirm Password"
+                                    value="<%= typeof password2 != 'undefined' ? password2 : '' %>"
+                                  >
+                                  <div class="input-group-append">
+                                    <button type="button" class="btn btn-outline-secondary" id="togglePasswordConfirm">
+                                      <i class="fas fa-eye"></i>
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                              
+                              
+                              <!-- Add course field -->
+                              <div class="form-group">
+                                <label for="course">Course</label>
+                                <input
+                                  type="text"
+                                  id="course"
+                                  name="course"
+                                  class="form-control"
+                                  placeholder="Enter Course"
+                                  value="<%= typeof course != 'undefined' ? course : '' %>"
+                                />
+                              </div>
+                              <!-- Add contact field -->
+                              <div class="form-group">
+                                <label for="contact">Contact</label>
+                                <input
+                                  type="text"
+                                  id="contact"
+                                  name="contact"
+                                  class="form-control"
+                                  placeholder="Enter Contact"
+                                  value="<%= typeof contact != 'undefined' ? contact : '' %>"
+                                />
+                              </div>
+                              <!-- Add schoolID field -->
+                              <div class="form-group">
+                                <label for="schoolID">School ID</label>
+                                <input
+                                  type="text"
+                                  id="schoolID"
+                                  name="schoolID"
+                                  class="form-control"
+                                  placeholder="Enter School ID"
+                                  value="<%= typeof schoolID != 'undefined' ? schoolID : '' %>"
+                                />
+                              </div>
+                              <!-- Add schoolName field -->
+                              <div class="form-group">
+                                <label for="schoolName">School Name</label>
+                                <input
+                                  type="text"
+                                  id="schoolName"
+                                  name="schoolName"
+                                  class="form-control"
+                                  placeholder="Enter School Name"
+                                  value="<%= typeof schoolName != 'undefined' ? schoolName : '' %>"
+                                />
+                              </div>
+                              <!-- Add schoolAddress field -->
+                              <div class="form-group">
+                                <label for="schoolAddress">School Address</label>
+                                <input
+                                  type="text"
+                                  id="schoolAddress"
+                                  name="schoolAddress"
+                                  class="form-control"
+                                  placeholder="Enter School Address"
+                                  value="<%= typeof schoolAddress != 'undefined' ? schoolAddress : '' %>"
+                                />
+                              </div>
+                              <button type="submit" class="btn btn-primary btn-block">
+                                Register
+                              </button>
+                            </form>
+                            <p class="lead mt-4">Have An Account? <a href="/auth/applicantlogin">Login</a></p>
+                          </div>
+                        </div>
+                      </div>                      
+          
+     
+       
+<!-----------------------------------------------------------------------------------------------SCRIPT FOR BUTTON CANCEL----------------------------------------------------------------------------------------->
+       <script>
+    const passwordInput = document.getElementById('password');
+    const toggleButton = document.getElementById('togglePassword');
+
+    const passwordConfirmInput = document.getElementById('password2');
+    const toggleButtonConfirm = document.getElementById('togglePasswordConfirm');
+
+    toggleButton.addEventListener('click', togglePasswordVisibility(passwordInput, toggleButton));
+    toggleButtonConfirm.addEventListener('click', togglePasswordVisibility(passwordConfirmInput, toggleButtonConfirm));
+
+    function togglePasswordVisibility(inputField, toggleButton) {
+        return function () {
+            if (inputField.type === 'password') {
+                inputField.type = 'text';
+                toggleButton.innerHTML = '<i class="fa fa-eye-slash"></i>';
+            } else {
+                inputField.type = 'password';
+                toggleButton.innerHTML = '<i class="fa fa-eye"></i>';
+            }
+        };
+    }
+</script>
+
+    
+
+  
+</body>
+</html>

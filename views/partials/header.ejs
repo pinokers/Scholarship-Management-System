@@ -1,0 +1,25 @@
+<header>
+	<nav class="navbar navbar-expand-sm navbar-light p-0 h-100">
+		<div class="container-fluid p-0">
+			<a class="navbar-brand text-light" href="#"><img src="/public/image/ssologo1.png" alt="Logo" style="max-height: 45px; margin-right: 3px; margin-left:10px;" /><span class="header-title"> Special Services Office</span></a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span><i class="fas fa-bars text-white"></i></span>
+			</button>
+			<div class="collapse navbar-collapse ps-2" id="navbarSupportedContent" style="z-index: 100;">
+				<ul class="navbar-nav ms-auto me-3">
+					<li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+					<li class="nav-item"><a class="nav-link" href="/home/about">SSO</a></li>
+					<li class="nav-item"><a class="nav-link" href="/home/contact">Contact us</a></li>
+					<% if(currentUser) { %>
+						<% if(currentUser.role === 'user') { %>
+						  <li class="nav-item"><a class="nav-link" href="/auth/logout">Logout</a></li>
+						<% } else if(currentUser.role === 'admin') { %>
+						  <li class="nav-item"><a class="nav-link" href="/auth/adminlogout">Logout Admin</a></li>
+						<% } %>
+					  <% } %>															
+				</ul>
+			</div>
+		</div>
+	</nav>
+</header>

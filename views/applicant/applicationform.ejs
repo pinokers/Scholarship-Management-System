@@ -1,0 +1,261 @@
+<main>
+	
+	<%- include('../partials/applicantsidebar') %>
+
+		
+		  <div id="main-wrapper">
+		
+			<div class="bg-white shadow-sm p-3">
+				<span class="me-3" id="sidebar-toggler-btn"><i class="fas fa-bars"></i></span>
+				<h5 class="m-0 color-theme d-inline-block">Application</h5>
+			</div>
+            <div class="app-container container-fluid mt-sm-1">
+                <form id="multipage-form" class="container-sm">
+                    <div class="page" id="page1">
+                        <h2 Class="form-title">Personal Information</h2>
+                        <div class="form-group">
+                            <label for="field1">Name of Applicant</label>
+                            <input type="text" class="form-control" id="field1" name="field1">
+            
+                            <label for="field1">Age</label>
+                            <input type="text" class="form-control" id="field2" name="field2">
+            
+                            <label for="field1">Sex</label>
+                            <input type="text" class="form-control" id="field3" name="field3">
+            
+                            <label for="field1">Data of Birth</label>
+                            <input type="text" class="form-control" id="field4" name="field4">
+            
+                            <label for="field1">Place of Birth</label>
+                            <input type="text" class="form-control" id="field5" name="field5">
+            
+                            <label for="field1">Home Address</label>
+                            <input type="text" class="form-control" id="field6" name="field6">
+            
+                            <label for="field1">Barangay</label>
+                            <input type="text" class="form-control" id="field7" name="field7">
+            
+                            <label for="field1">Contact Number</label>
+                            <input type="text" class="form-control" id="field8" name="field8">
+            
+                            <label for="field1">Email Address</label>
+                            <input type="text" class="form-control" id="field9" name="field9">
+                        </div>
+                             <div class="button-holder">
+                                <button class="btn btn-primary next-page" data-page="2">Next </button>
+                            </div>
+                    </div>
+            
+                    <div class="page" id="page2" style="display: none;">
+                        <h2 class="form-title">Educational Background</h2>
+                        <div class="form-group">
+                            <label for="field2">Name of school presently enrolled</label>
+                            <input type="text" class="form-control" id="field10" name="field10">
+            
+                            <label for="field2">School contact number</label>
+                            <input type="text" class="form-control" id="field11" name="field11">
+            
+                            <label for="field2">Year level</label>
+                            <input type="text" class="form-control" id="field12" name="field12">
+            
+                            <label for="field2">GWA</label>
+                            <input type="text" class="form-control" id="field13" name="field13">
+                        </div>
+                        <div class="button-holder">
+                        <button class="btn btn-primary prev-page" data-page="1">Previous</button>
+                        <button class="btn btn-primary next-page" data-page="3">Next</button>
+                        </div>
+                    </div>
+            
+                    <div class="page" id="page3" style="display: none;">
+                        <h2 class="form-title">Family Background</h2>
+                        <div class="form-group">
+                            
+                            <label for="field3">Father</label>
+                            <input type="text" class="form-control" id="field14" name="field14">
+            
+                            <label for="field3">Name</label>
+                            <input type="text" class="form-control" id="field15" name="field15">
+            
+                            <label for="field3">Address</label>
+                            <input type="text" class="form-control" id="field16" name="field16">
+            
+                            <label for="field3">Contact Number</label>
+                            <input type="text" class="form-control" id="field17" name="field17">
+            
+                            <label for="field3">Occupation</label>
+                            <input type="text" class="form-control" id="field18" name="field18">
+            
+                            <label for="field3">Company</label>
+                            <input type="text" class="form-control" id="field19" name="fiel19">
+            
+                            <label for="field3">Income Per month</label>
+                            <input type="text" class="form-control" id="field20" name="field20">
+            
+                           
+                        </div>
+                        <div class="button-holder">
+                        <button class="btn btn-primary prev-page" data-page="2">Previous</button>
+                        <button class="btn btn-primary next-page" data-page="4">Next</button>
+                        </div>
+                    </div>
+            
+                    <div class="page" id="page4" style="display: none;">
+                        <h2 class="form-title">Family Background</h2>
+                        <div class="form-group">
+                            <label for="field3">Mother</label>
+                            <input type="text" class="form-control" id="field21" name="field21">
+            
+                            <label for="field3">Name</label>
+                            <input type="text" class="form-control" id="field22" name="field22">
+            
+                            <label for="field3">Address</label>
+                            <input type="text" class="form-control" id="field23" name="field23">
+            
+                            <label for="field3">Contact Number</label>
+                            <input type="text" class="form-control" id="field24" name="field24">
+            
+                            <label for="field3">Occupation</label>
+                            <input type="text" class="form-control" id="field25" name="field25">
+            
+                            <label for="field3">Company</label>
+                            <input type="text" class="form-control" id="field26" name="field26">
+            
+                            <label for="field3">Income Per month</label>
+                            <input type="text" class="form-control" id="field27" name="field27">
+            
+                            
+                     </div>
+                         <div class="button-holder">
+                        <button class="btn btn-primary prev-page" data-page="3">Previous</button>
+                        <button class="btn btn-primary next-page" data-page="5">Next</button>
+                        </div>
+                    </div>
+            
+                    <div class="page" id="page5" style="display: none;">
+                        <h2 class="form-title">Family Background</h2>
+                        <div class="form-group">
+                            <label for="field3">Number Of Siblings</label>
+                            <input type="text" class="form-control" id="field28" name="field28">
+            
+                            <label for="field3">Do you have siblings enjoying same financial asistance?</label>
+                            <input type="text" class="form-control" id="field29" name="field29">
+            
+                            <label for="field3">Name</label>
+                            <input type="text" class="form-control" id="field30" name="field30">
+            
+                            <label for="field3">Year Level</label>
+                            <input type="text" class="form-control" id="field31" name="field31">
+            
+                            <label for="field3">Course</label>
+                            <input type="text" class="form-control" id="field32" name="field32">
+                        </div>
+                        <div class="button-holder">
+                        <button class="btn btn-primary prev-page" data-page="4">Previous</button>
+                        <button class="btn btn-primary next-page" data-page="6">Next</button>
+                        </div>
+                    </div>
+            
+                    <div class="page" id="page6" style="display: none;">
+                        <h2 class="form-title">Attachment</h2>
+                        <div class="form-group">
+                            <form action="upload.php" method="post" enctype="multipart/form-data">
+                                <label for="file">Choose a file:</label>
+                                <input type="file" name="file" id="file">
+                            </form>
+            
+                            <form action="upload.php" method="post" enctype="multipart/form-data">
+                                <label for="file">Choose a file:</label>
+                                <input type="file" name="file" id="file">
+                            </form>
+            
+                            <form action="upload.php" method="post" enctype="multipart/form-data">
+                                <label for="file">Choose a file:</label>
+                                <input type="file" name="file" id="file">
+                            </form>
+            
+                            <form action="upload.php" method="post" enctype="multipart/form-data">
+                                <label for="file">Choose a file:</label>
+                                <input type="file" name="file" id="file">
+                            </form>
+                        </div>
+                        <div class="button-holder">
+                        <button class="btn btn-primary prev-page" data-page="5">Previous</button>
+                        <button type="submit" class="btn btn-success">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            
+            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js
+            "></script>
+            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js
+            "></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js
+            "></script>
+            <script>
+                $(document).ready(function () {
+                    const form = $("#multipage-form");
+                    const pages = $(".page");
+            
+                    $(".next-page, .prev-page").click(function (e) {
+                        e.preventDefault();
+                        const currentPage = $(this).closest(".page");
+                        const nextPageNum = $(this).data("page");
+                        const nextPage = $("#page" + nextPageNum);
+            
+                        currentPage.hide();
+                        nextPage.show();
+                    });
+            
+                    form.submit(function (e) {
+                        e.preventDefault();
+                    
+                        alert("Form submitted successfully!");
+                    });
+                });
+            </script>
+            
+            <style>
+              .form-title{
+    font-size: 50px;
+    text-align: center;
+    font-family: sans-serif;
+    font-weight: bold;
+    background-color:#32de84;
+    color:white;
+    border-top-left-radius: 21px;
+    border-top-right-radius: 21px;
+}
+
+.button-holder{
+    background-color:#32de84;
+    padding-bottom:20px;
+    padding-top:10px;
+    border-bottom-left-radius: 21px;
+    border-bottom-right-radius: 21px;
+    padding-left:20px;
+}
+
+.app-container{
+    padding-top:5px;
+    padding-bottom:50px;
+}
+
+#multipage-form{
+    background-color:white;
+    padding-left:0px;
+    padding-right:0px;
+    border-radius: 25px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0.1, 0.5);
+}
+
+.form-group{
+    padding-left: 100px;
+    padding-right:100px;
+}
+            
+            </style>
+
+	</div>
+</main>

@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup Form</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="/applicant.css">
+    
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+  <!--------------------------------------------------------------------------------------------BACKGROUND IMAGE---------------------------------------------------------------------------------->
+            <div class="col-md-6 bg-image" style="background-image: url('/public/image/formbg1.jpg'); background-repeat:no-repeat; background-size:cover; background-position:center;"></div>
+  <!--------------------------------------------------------------------------------------------SIGNUP FORM -------------------------------------------------------------------------------------->
+            <div class="col-md-6 p-4" id="applicantloginform">
+                <form action="/auth/applicantlogin" method="POST">
+                        <img src="/public/image/applicantslogo.png" alt="Logo" style="width: 100px; height: 90px; display: block; margin: 0 auto;">                   
+                    <h2 class="text-center mb-4">Applicants Login</h2>
+              
+                        <div class="form-group">
+                          <label for="email">Email</label>
+                          <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            class="form-control"
+                            placeholder="Enter Email"
+                            value="<%= typeof email != 'undefined' ? email : '' %>"
+                          />
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <div class="input-group">
+                              <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                class="form-control"
+                                placeholder="Enter Password"
+                              >
+                              <div class="input-group-append">
+                                <button type="button" class="btn btn-outline-secondary" id="togglePassword">
+                                  <i class="fas fa-eye" id="eyeIcon"></i>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                          
+                        <button type="submit" class="btn btn-primary btn-block">Login</button>
+                        <button class="btn-danger btn-block"><a class=" nav-link" href="/">Cancel</a></button>
+                      </form>
+                      <div class="row mt-3">
+                        <div class="col">
+                            <p class="text-left">No Account? <a href="/auth/register" class="btn btn-primary">Register</a></p>
+                        </div>
+                        <div class="col">
+                            <p>Forgot password? <a href="/forgotPassword" class="my-link">Click to reset password</a></p>
+                        </div>
+                    </div>
+                    
+                </div>
+                </form>
+                 
+                  
+            </div>
+            
+            
+        </div>
+         
+    </div>
+       
+<!-----------------------------------------------------------------------------------------------SCRIPT FOR BUTTON CANCEL----------------------------------------------------------------------------------------->
+<script>
+    const togglePassword = document.querySelector('#togglePassword');
+    const passwordInput = document.querySelector('#password');
+    const eyeIcon = document.querySelector('#eyeIcon');
+
+    togglePassword.addEventListener('click', () => {
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            eyeIcon.classList.remove('fa-eye');
+            eyeIcon.classList.add('fa-eye-slash');
+        } else {
+            passwordInput.type = 'password';
+            eyeIcon.classList.remove('fa-eye-slash');
+            eyeIcon.classList.add('fa-eye');
+        }
+    });
+</script>
+
+<!------------------------------------------------------------------------------------------------CSS----------------------------------------------------->
+<style>
+    #applicantloginform{
+        margin-top:97px;
+    }
+
+    .logo-container {
+            text-align: center;
+            margin-bottom: 20px;
+    }
+    
+</style>
+  
+</body>
+</html>

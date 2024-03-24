@@ -1,0 +1,21 @@
+<main>
+	
+	<%- include('../partials/adminsidebar') %>
+
+		
+		  <div id="main-wrapper">
+		
+			<div class="bg-white shadow-sm p-3">
+				<span class="me-3" id="sidebar-toggler-btn"><i class="fas fa-bars"></i></span>
+				<h5 class="m-0 color-theme d-inline-block">Dashboard</h5>
+			</div>
+			
+			<% if (currentUser) { %>
+				<p>Welcome, <%= currentUser.name %>!</p>
+			  <% } else { %>
+				<p>User not logged in.</p>
+			  <% } %>
+		
+	</div>
+	</div>
+</main>

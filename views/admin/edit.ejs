@@ -1,0 +1,84 @@
+<main>
+	
+	<%- include('../partials/adminsidebar') %>
+		
+		  <div id="main-wrapper">
+		
+			<div class="container">
+  <div class="bg-white shadow-sm p-2 d-flex justify-content-between flex-wrap nowrap align-items-center mb-0 border-bottom">
+    <span class="me-3" id="sidebar-toggler-btn"><i class="fas fa-bars"></i></span>
+    <div class="d-inline-flex align-items-center">
+        <i class="bi bi-pencil"></i>
+        <h1 class="h2 ml-2">Edit: <%= admin.name %></h1>
+      </div>
+    <div class="btn-group me-2">
+      <button class="btn btn-sm btn-outline-secondary">?</button>
+    </div>
+  </div>
+
+  <div class="col py-2">
+    <div class="row">
+      <div class="col">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/admin/manager">Admin Manager</a></li>
+            <li class="breadcrumb-item active">Edit</li>
+          </ol>
+        </nav>
+      </div>
+      <div class="col text-end fw-lighter">
+        <b>Last Updated <%= new Date(admin.updatedAt).toUTCString() %> </b>
+      </div>
+    </div>
+  </div>
+
+  <% if(typeof errors != 'undefined') { %>
+    <% errors.forEach(function(error) { %>
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <%= error.msg %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <% }); %>
+  <% } %>
+
+  <form action="/admin/edit/<%= admin._id %>?_method=PUT" method="POST">
+    <div class="row form-group mb-3">
+      <div class="col">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" id="name" name="name" value="<%= admin.name %>" placeholder="Name">
+      </div>
+      <div class="col">
+        <label for="email">Email</label>
+        <input type="text" class="form-control" id="email" name="email" value="<%= admin.email %>" placeholder="Email">
+      </div>
+    </div>
+  
+    <div class="row form-group mb-3">
+      <div class="col">
+        <label for="contact">Contact</label>
+        <input type="text" class="form-control" id="contact" name="contact" value="<%= admin.contact %>" placeholder="Contact">
+      </div>
+    </div>
+  
+    <div class="row form-group mb-3">
+      <div class="col">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="password" name="password" placeholder="New Password">
+      </div>
+    </div>
+  
+    <div class="form-group mb-4">
+      <label for="address">Address</label>
+      <textarea class="form-control" name="address" id="address" cols="30" rows="2" placeholder="Address"> <%= admin.address %></textarea>
+    </div>
+  
+    <div class="form-group mb-4">
+      <button type="submit" class="btn btn-primary">Update Admin</button>
+  </form>
+  
+
+</div>
+</div>
+
+    
+</main>

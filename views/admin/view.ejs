@@ -1,0 +1,81 @@
+<main>
+  <%- include('../partials/adminsidebar') %>
+
+
+  <div id="main-wrapper">
+    <div class="bg-white shadow-sm p-2 d-flex justify-content-between flex-wrap nowrap align-items-center pt-3 pb-2 mb-1 border-bottom">
+      <span class="me-3" id="sidebar-toggler-btn"><i class="fas fa-bars"></i></span>
+      <div class="d-inline-flex align-items-center">
+        <i class="bi bi-eye"></i>
+        <h1 class="h2 ml-2">View: <%= admin.name %></h1>
+      </div>
+      <div class="btn-toolbar mb-2 mb-md 0">
+        <div class="btn-group me-2">
+          <a href="/admin/add" class="btn btn-sm btn-outline-secondary">+ New admin</a>
+        </div>
+      </div>
+    </div>
+
+<div class="col py-2">
+  <div class="row">
+    <div class="col">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/admin/manager">Admin Manager</a></li>
+          <li class="breadcrumb-item active">New Admin</li>
+        </ol>
+      </nav>
+    </div>
+    <div class="col text-end fw-lighter">
+      <b>UserId</b>
+    </div>
+  </div>
+</div>
+    
+    <ul class="list-group">
+    
+      <li class="list-group-item"> 
+        <div class="row">
+          <div class="col" style="max-width: 140px"> <b>Name:</b></div>
+          <div class="col"><%= admin.name %> </div>
+        </div>
+      </li>
+    
+      <li class="list-group-item"> 
+        <div class="row">
+          <div class="col" style="max-width: 140px"> <b>Contact:</b></div>
+          <div class="col"><%= admin.contact %></div>
+        </div>
+      </li>
+    
+      <li class="list-group-item"> 
+        <div class="row">
+          <div class="col" style="max-width: 140px"> <b>Email:</b></div>
+          <div class="col"><%= admin.email %></div>
+        </div>
+      </li>
+    
+      <li class="list-group-item"> 
+        <div class="row">
+          <div class="col" style="max-width: 140px"> <b>Address:</b></div>
+          <div class="col"><%= admin.address %></div>
+        </div>
+      </li>
+    
+      <li class="list-group-item"> 
+        <div class="row">
+          <div class="col" style="max-width: 140px"> <b>Date Created:</b></div>
+          <div class="col"><%= admin.createdAt %></div>
+        </div>
+      </li>
+    
+      <li class="list-group-item"> 
+        <div class="row">
+          <div class="col" style="max-width: 140px"> <b>Date Modified:</b></div>
+          <div class="col"><%= admin.updatedAt %></div>
+        </div>
+      </li>
+    
+    </ul>
+
+    </main>

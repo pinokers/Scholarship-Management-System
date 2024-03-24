@@ -1,0 +1,25 @@
+
+.flash-message {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.error {
+    background-color: #f44336;
+    color: white;
+}
+
+.flash-icon {
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+.flash-text {
+    flex-grow: 1;
+}
+
+/* Media query for smaller screens */

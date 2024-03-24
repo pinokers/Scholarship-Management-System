@@ -1,0 +1,115 @@
+﻿.banner {
+    background: rgba(0,0,0,0.7) url("/public/image/landingpagebg.jpg");
+    background-blend-mode: darken;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 100px 0;
+    padding-bottom:113px;
+    text-align: center;
+}
+
+
+.bannertitle{
+font-size:50px;
+font-family: sans-serif;
+font-weight: bold;
+padding-bottom:20px;
+
+}
+
+.bannertagline{
+    font-size:18px;
+    padding-bottom:20px;
+}
+
+#applicants{
+    font-family:sans-serif;
+    background-color:transparent;
+    border-color:white;
+    color:white;
+    border-radius:25px;
+    font-size:20px;
+    padding-left:40px;
+    padding-right:40px;
+}
+#applicants:hover{
+    background-color: rgba(128,128,128,0.4);
+}
+
+#ssoadmin{
+    font-family:sans-serif;
+    background-color:transparent;
+    border-color:white;
+    color:white;
+    border-radius:25px;
+    font-size:20px;
+    padding-left:40px;
+    padding-right:40px;
+}
+#ssoadmin:hover{
+    background-color: rgba(128,128,128,0.4);
+}
+
+.back-button{
+    
+    border-radius: 25px;
+    background-color: transparent;
+    border-color:black;
+    color:white;
+}
+.back-button:hover{
+background-color: rgba(128,128,128,0.3);
+}
+
+.about{
+    font-size:17px;
+    font-family: sans-serif;
+}
+.about-sso{
+    font-family: sans-serif;
+}
+.mission-title{
+    font-family: sans-serif;
+}
+
+
+
+.footer {
+    background-color: #08a005;
+    padding: 20px 0;
+    text-align: left;
+    padding-left:20px;
+    color:white;
+    font-size:15px;
+    text-decoration:none;
+}
+
+.footer-content{
+    color:white;
+    font-size: 10px;
+    font-family: sans-serif;
+}
+.flash-message {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.error {
+    background-color: #f44336;
+    color: white;
+}
+
+.flash-icon {
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+.flash-text {
+    flex-grow: 1;
+}
